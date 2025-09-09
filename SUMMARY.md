@@ -6,6 +6,7 @@
       * [HTML (Hyper Text Markup Language)](web-application-penetration-testing/web-development-essentials/frontend/html-hyper-text-markup-language.md)
       * [HTML Hacker’s Quick-Reference Cheat-Sheet](web-application-penetration-testing/web-development-essentials/frontend/html-hackers-quick-reference-cheat-sheet.md)
       * [JavaScript (JS)](web-application-penetration-testing/web-development-essentials/frontend/javascript-js.md)
+      * [JavaScript Hacker's Quick-Reference Cheat-Sheet](web-application-penetration-testing/web-development-essentials/frontend/javascript-hackers-quick-reference-cheat-sheet.md)
   * [Web Essentials](web-application-penetration-testing/web-essentials.md)
   * [Tools](web-application-penetration-testing/tools/README.md)
     * [Web Proxies](web-application-penetration-testing/tools/web-proxies.md)
