@@ -37,7 +37,7 @@ _From a hacker’s perspective, JS is a map to the server’s attack surface—e
 * Functions that trigger sensitive actions (e.g., deleteUser(), grantAccess()).
 * Dynamic DOM manipulation (e.g., document.write(), innerHTML).
 
-**5. Comments in Code**
+#### **5. Comments in Code**
 
 * Devs leave sensitive info in HTML comments.
   * {% code overflow="wrap" %}
