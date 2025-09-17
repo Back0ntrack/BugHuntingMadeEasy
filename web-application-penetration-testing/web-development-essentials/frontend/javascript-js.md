@@ -491,7 +491,7 @@ user.name = "Bob"; // ✅ allowed
 
 ### Data Types in JS
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
 JS is **loosely typed** → variable type can change on the fly.
 
@@ -585,6 +585,10 @@ function fun() {
     console.log("GeeksforGeeks");
 }
 ```
+
+{% hint style="info" %}
+In JavaScript, `document.write()` is used to write directly to the HTML output stream.&#x20;
+{% endhint %}
 
 ## Operators
 
@@ -752,3 +756,191 @@ emails.forEach(function(email) {
 
 ```
 
+## XHR (XMLHttpRequest)
+
+XHR is a JavaScript object that allows web pages to make HTTP requests to servers without reloading the entire page. Despite its name, XHR can request **any data type** (not just XML): JSON, HTML, plain text, binary, etc.
+
+### Basic Usage&#x20;
+
+```javascript
+// 1. Create XMLHttpRequest object
+let xhr = new XMLHttpRequest();
+
+// 2. Configure it: method, URL, async or not
+xhr.open("GET", "https://api.example.com/data", true);
+
+// 3. Define what happens when the request is done
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log("Response:", xhr.responseText); // raw text
+  } else {
+    console.error("Error:", xhr.status);
+  }
+};
+
+// 4. Handle network errors
+xhr.onerror = function () {
+  console.error("Request failed");
+};
+
+// 5. Send request
+xhr.send();
+```
+
+### POST with JSON
+
+```javascript
+let xhr = new XMLHttpRequest();
+xhr.open("POST", "https://api.example.com/data", true);
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log("Success:", xhr.responseText);
+  }
+};
+
+xhr.onerror = function () {
+  console.error("Request failed");
+};
+
+xhr.send(JSON.stringify({ user: "Abhishek", role: "Pentester" }));
+
+```
+
+**XMLHttpRequest (XHR)** is a JavaScript API introduced in the early 2000s that allows web pages to send and receive HTTP requests asynchronously without reloading the entire page, forming the backbone of AJAX and “Web 2.0” applications like Gmail and Google Maps. It lets developers request and submit data (in formats such as JSON, XML, text, or binary) using methods like `open()`, `send()`, and `setRequestHeader()`, while monitoring request progress through properties like `readyState` and `status`. Although powerful, XHR is verbose, relies heavily on callbacks, and has clunky error handling, which often makes the code harder to manage.&#x20;
+
+## fetch request&#x20;
+
+`fetch()` is a browser API for making HTTP requests (to servers, APIs, files, etc.). It's `promise-based` (returns a `Promise`), unlike the older XMLHttpRequest (XHR).&#x20;
+
+### Request options
+
+```javascript
+fetch("https://api.example.com/data", {
+  method: "POST",        // HTTP method (GET, POST, PUT, DELETE, PATCH, etc.)
+  headers: {
+    "Content-Type": "application/json",   // Request headers
+    "Authorization": "Bearer token123"   // Custom headers
+  },
+  body: JSON.stringify({ name: "Abhishek", role: "pentester" }), // Request body
+  mode: "cors",           // cors, no-cors, same-origin
+  credentials: "include", // include, same-origin, omit (for cookies/auth)
+  cache: "no-cache",      // default, no-store, reload, force-cache
+  redirect: "follow",     // follow, error, manual
+});
+```
+
+## JS DOM&#x20;
+
+* When a web page is loaded, the browser creates a Document Object Model of the page.&#x20;
+* The HTML DOM is a standard for how to get, change, add, or delete HTML elements.&#x20;
+* JavaScript fully controls the page: it can modify elements, attributes, and styles; add or remove elements/attributes; and handle or create events.
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+### DOM Manipulation
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+### Finding HTML Elements
+
+| Method                                  | Description                   |
+| --------------------------------------- | ----------------------------- |
+| document.getElementById(_id_)           | Find an element by element id |
+| document.getElementsByTagName(_name_)   | Find elements by tag name     |
+| document.getElementsByClassName(_name_) | Find elements by class name   |
+
+### Changing HTML Elements
+
+| Property                                        | Description                                                                              |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| _element_.innerHTML =  _new html content_       | Change the inner HTML of an element                                                      |
+| _element_._attribute = new value_               | Change the attribute value of an HTML element. E.g., `src` attribute, `href` attribute.  |
+| _element_.style._property = new style_          | Change the style of an HTML element                                                      |
+| **Method**                                      | **Description**                                                                          |
+| _element_.setAttribut&#x65;_(attribute, value)_ | Change the attribute value of an HTML element                                            |
+
+### Reacting to Events&#x20;
+
+A JavaScript can be executed when an event occurs, like when a user clicks on an HTML element.&#x20;
+
+Examples of HTML events:
+
+* When a user clicks the mouse
+* When a web page has loaded
+* When an image has been loaded
+* When the mouse moves over an element
+* When an input field is changed
+* When an HTML form is submitted
+* When a user strokes a key
+
+## JS as a Goldmine
+
+### Hidden Endpoints&#x20;
+
+A modern web application's JavaScript is often a client that communicates with a backend API. Developers may not link all API endpoints from the website's navigation. However, the JavaScript code will contain the URLs for every endpoint it needs to interact with. By analyzing the code, you can find these hidden or unlinked endpoints.
+
+* Example: A developer might use a hidden API to load user profile information only after a specific button is clicked, or for administrative functions. The HTML might not contain a direct link, but the JavaScript will have the `fetch()` or `XMLHttpRequest` call.
+
+```javascript
+// In a script file, you might find this
+function loadAdminDashboard() {
+    fetch('/api/v1/admin/dashboard').then(response => {
+        // ...handle response
+    });
+}
+```
+
+An attacker can spot `/api/v1/admin/dashboard` in the code, and then try to access it directly, even without administrator privileges. This can lead to broken access control if the server doesn't properly check the user's permissions.
+
+***
+
+### Sensitive Data Leaks
+
+Developers might inadvertently include sensitive information in the JavaScript code that gets sent to the browser. This is a common mistake and can be a goldmine for an attacker.
+
+* Example:
+  * Hardcoded secrets: A developer might forget to remove an API key, a database connection string, or a secret for a third-party service before pushing the code to production.
+
+```javascript
+// In a config.js file, for example
+const API_KEY = "sk_live_1234567890abcdef";
+const DATABASE_URL = "postgres://user:password@db.example.com/production_db";
+```
+
+An attacker can use this leaked API key to make unauthorized requests, potentially costing the company money or accessing sensitive data.
+
+***
+
+### Vulnerable Parameter and Logic Flaws&#x20;
+
+JavaScript code gives you insight into the request parameters the application uses and the expected values. By seeing how the front end is structured, you can learn how to craft a malicious request. This is not a bug in itself, but a prerequisite for finding other bugs.
+
+* Example: A script might use a parameter named `user_id` to fetch user information. The front end might only allow the current user's ID to be used, but by analyzing the code, an attacker can discover this and try to use other IDs. This can lead to an insecure direct object reference (IDOR) vulnerability if the server doesn't properly validate that the user is authorized to access the requested data.
+
+```javascript
+// The code fetches the current user's profile
+const userId = getLoggedInUserId();
+fetch(`/api/profile?id=${userId}`);
+
+// An attacker sees this and tries to manually send a request:
+// GET /api/profile?id=123 (where 123 is another user's ID)
+```
+
+***
+
+### Comment and Hidden Functionality
+
+Developers often leave comments in their code for future reference. These comments can sometimes reveal valuable information about the application's functionality or potential weaknesses. Additionally, JavaScript might contain code for features that were never fully implemented or were hidden from the public.
+
+* Example: A developer might leave a note about an old, insecure endpoint that was "temporarily disabled."
+
+```javascript
+// TODO: This endpoint is insecure and needs to be rewritten. For now, it's disabled.
+// fetch('/api/v2/old/insecure-data-dump')
+```
+
+An attacker will see this and immediately test that `/api/v2/old/insecure-data-dump` endpoint to see if it's truly disabled or if they can still access it. This can lead to data leaks or other vulnerabilities.

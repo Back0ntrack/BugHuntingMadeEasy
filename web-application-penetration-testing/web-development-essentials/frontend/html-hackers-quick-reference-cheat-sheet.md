@@ -9,6 +9,8 @@
 _From a hacker’s perspective, HTML is important for identifying input points, forms, file uploads, meta directives, links, and frames, but the real security testing always targets how the server handles this data._
 {% endhint %}
 
+***
+
 ## Core Focus Areas
 
 ### What a tester should check in the HTML <a href="#what-a-tester-should-check-in-the-html" id="what-a-tester-should-check-in-the-html"></a>
@@ -66,6 +68,8 @@ _From a hacker’s perspective, HTML is important for identifying input points, 
 * Devs leave sensitive info in HTML comments.
   * E.g., `<!-- TODO: remove debug.php -->`
   * API keys, passwords, SQL queries sometimes left.
+
+***
 
 ## Final Hacker's Strategy
 
