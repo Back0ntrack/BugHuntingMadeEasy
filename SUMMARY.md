@@ -9,6 +9,7 @@
       * [JavaScript Hacker's Quick-Reference Cheat-Sheet](web-application-penetration-testing/web-development-essentials/frontend/javascript-hackers-quick-reference-cheat-sheet.md)
     * [Backend](web-application-penetration-testing/web-development-essentials/backend/README.md)
       * [PHP (Hypertext Preprocessor)](web-application-penetration-testing/web-development-essentials/backend/php-hypertext-preprocessor.md)
+      * [PHP Hacker's Quick-Reference Cheat-Sheet](web-application-penetration-testing/web-development-essentials/backend/php-hackers-quick-reference-cheat-sheet.md)
   * [Web Essentials](web-application-penetration-testing/web-essentials.md)
   * [Tools](web-application-penetration-testing/tools/README.md)
     * [Web Proxies](web-application-penetration-testing/tools/web-proxies.md)

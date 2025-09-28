@@ -189,6 +189,116 @@ foreach ($colors as $x) {
 }
 ```
 
+## PHP Superglobals
+
+PHP superglobals are predefined variables that are globally available in all scopes. They are used to handle different types of data, such as input data, server data, session data, and more.
+
+#### 1. $GLOBALS
+
+```php
+$x = 75;
+
+function myfunction()
+{
+    echo $GLOBALS['x'];     //75
+}
+```
+
+#### 2. $\_SERVER
+
+`$_SERVER` is a PHP super global variable which holds information about headers, paths, and script locations.
+
+The following table lists the most important elements that can go inside `$_SERVER`:
+
+| Element/Code                        | Description                                                                                                                                                                                                             |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| $\_SERVER\['PHP\_SELF']             | Returns the filename of the currently executing script                                                                                                                                                                  |
+| $\_SERVER\['GATEWAY\_INTERFACE']    | Returns the version of the Common Gateway Interface (CGI) the server is using                                                                                                                                           |
+| $\_SERVER\['SERVER\_ADDR']          | Returns the IP address of the host server                                                                                                                                                                               |
+| $\_SERVER\['SERVER\_NAME']          | Returns the name of the host server (such as www.w3schools.com)                                                                                                                                                         |
+| $\_SERVER\['SERVER\_SOFTWARE']      | Returns the server identification string (such as Apache/2.2.24)                                                                                                                                                        |
+| $\_SERVER\['SERVER\_PROTOCOL']      | Returns the name and revision of the information protocol (such as HTTP/1.1)                                                                                                                                            |
+| $\_SERVER\['REQUEST\_METHOD']       | Returns the request method used to access the page (such as POST)                                                                                                                                                       |
+| $\_SERVER\['REQUEST\_TIME']         | Returns the timestamp of the start of the request (such as 1377687496)                                                                                                                                                  |
+| $\_SERVER\['QUERY\_STRING']         | Returns the query string if the page is accessed via a query string                                                                                                                                                     |
+| $\_SERVER\['HTTP\_ACCEPT']          | Returns the Accept header from the current request                                                                                                                                                                      |
+| $\_SERVER\['HTTP\_ACCEPT\_CHARSET'] | Returns the Accept\_Charset header from the current request (such as utf-8,ISO-8859-1)                                                                                                                                  |
+| $\_SERVER\['HTTP\_HOST']            | Returns the Host header from the current request                                                                                                                                                                        |
+| $\_SERVER\['HTTP\_REFERER']         | Returns the complete URL of the current page (not reliable because not all user-agents support it)                                                                                                                      |
+| $\_SERVER\['HTTPS']                 | Is the script queried through a secure HTTP protocol                                                                                                                                                                    |
+| $\_SERVER\['REMOTE\_ADDR']          | Returns the IP address from where the user is viewing the current page                                                                                                                                                  |
+| $\_SERVER\['REMOTE\_HOST']          | Returns the Host name from where the user is viewing the current page                                                                                                                                                   |
+| $\_SERVER\['REMOTE\_PORT']          | Returns the port being used on the user's machine to communicate with the web server                                                                                                                                    |
+| $\_SERVER\['SCRIPT\_FILENAME']      | Returns the absolute pathname of the currently executing script                                                                                                                                                         |
+| $\_SERVER\['SERVER\_ADMIN']         | Returns the value given to the SERVER\_ADMIN directive in the web server configuration file (if your script runs on a virtual host, it will be the value defined for that virtual host) (such as someone@w3schools.com) |
+| $\_SERVER\['SERVER\_PORT']          | Returns the port on the server machine being used by the web server for communication (such as 80)                                                                                                                      |
+| $\_SERVER\['SERVER\_SIGNATURE']     | Returns the server version and virtual host name which are added to server-generated pages                                                                                                                              |
+| $\_SERVER\['PATH\_TRANSLATED']      | Returns the file system based path to the current script                                                                                                                                                                |
+| $\_SERVER\['SCRIPT\_NAME']          | Returns the path of the current script                                                                                                                                                                                  |
+| $\_SERVER\['SCRIPT\_URI']           | Returns the URI of the current page                                                                                                                                                                                     |
+
+### $\_SERVER\['PHP\_SELF'] to XSS
+
+The `$_SERVER['PHP_SELF']` is a global variable that can led to XSS. Let's understand how.&#x20;
+
+Assume we have the following form in a page named "test\_form.php":
+
+```php
+<form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
+```
+
+Now, if a user enters the normal URL in the address bar like "http://www.example.com/test\_form.php", the above code will be translated to:
+
+```html
+<form method="post" action="test_form.php">
+```
+
+So far, so good.
+
+However, consider that a user enters the following URL in the address bar:
+
+```
+http://www.example.com/test_form.php/%22%3E%3Cscript%3Ealert('hacked')%3C/script%3E
+```
+
+In this case, the above code will be translated to:
+
+```html
+<form method="post" action="test_form.php/"><script>alert('hacked')</script>
+```
+
+#### 3. $\_REQUEST
+
+`$_REQUEST` is a PHP super global variable which contains submitted form data, and all cookie data. In other words, `$_REQUEST` is an array containing data from `$_GET`, `$_POST`, and `$_COOKIE`.
+
+{% hint style="info" %}
+_`$_REQUEST` is avoided because it merges `$_GET`, `$_POST` and `$_COOKIE` (in the order from `variables_order`), creating ambiguity and allowing an attacker to override expected input; testers therefore send payloads in both GET and POST (and cookies) to see which source the app trusts—if the app reads the value as GET but accepts a malicious POST (or cookie) override, that can enable XSS/SQLi or logic bypasses, so always use explicit `$_GET`/`$_POST` and strict validation._
+{% endhint %}
+
+#### 4. $\_GET
+
+```
+$name = $_GET['fname'];
+echo $name;
+```
+
+#### 5. $\_POST
+
+```
+$name = $_POST['fname'];
+echo $name;
+```
+
+#### 6. $\_SESSION
+
+The `$_SESSION` superglobal used to store session variables, which persist across multiple pages for the duration of the user's session. It is used for managing user login states, preferences or temporary data that should persist across multiple page requests. \
+\
+
+
+
+
+
+
 ## PHP Form Handling
 
 The PHP superglobals `$_GET` and `$_POST` are used to collect form-data.
@@ -234,6 +344,8 @@ Your email address is: <?php echo $_GET["email"]; ?>
 </body>
 </html>
 ```
+
+**Other best example:** [**https://www.geeksforgeeks.org/php/php-form-processing/**](https://www.geeksforgeeks.org/php/php-form-processing/)
 
 ## Demo Lab for understanding the form handling&#x20;
 
@@ -556,9 +668,11 @@ So: **form.html (frontend)** → **request (GET or POST)** → **process.php (ba
 ✅ **Final Path Recap**:\
 Input box values → HTTP request → PHP `$_GET/$_POST` → `$first/$last` → injected into HTML → `window.formData` → read by `script.js` → DOM updated.
 
-### Strict Validation for PHP [https://www.w3schools.com/php/php\_form\_url\_email.asp](https://www.w3schools.com/php/php_form_url_email.asp)
+### Strict Validation for PHP&#x20;
 
-### Creating cookies with PHP&#x20;
+[https://www.w3schools.com/php/php\_form\_url\_email.asp](https://www.w3schools.com/php/php_form_url_email.asp)
+
+## Creating cookies with PHP&#x20;
 
 A cookie is created with the [`setcookie()`](https://www.w3schools.com/php/func_network_setcookie.asp) function.
 
@@ -579,7 +693,7 @@ setcookie("user", "", time() - 3600);
 // This cookie will delete within one hour
 ```
 
-### PHP Sessions
+## PHP Sessions
 
 * A **session** in PHP is a way to **store data about a user across multiple page requests**.
 * HTTP is **stateless** — normally, when a user loads `page1.php` and then `page2.php`, the server has no memory of the first request.
@@ -708,12 +822,8 @@ Result: You see the login form.
 
 **Important:** The server doesn’t check “who should have this cookie” — it **trusts the session ID**.
 
-***
+## Set Cookie and Session (Together)
 
-#### **Step 6 — Random PHPSESSID**
+<p align="center"><strong>Best example to set cookies and use that cookies in the session handling and do session hijacking if you can guess the username and the password (last 4 characters).</strong> </p>
 
-* If you set PHPSESSID to a random string not existing on the server:
-  1. PHP will create a **new empty session file** for that ID.
-  2. `$_SESSION` will be empty → no username → login form shown.
-* If you set it to **another valid session ID** → you effectively “hijacked” that session.
-
+{% file src="../../../.gitbook/assets/archive.zip" %}
