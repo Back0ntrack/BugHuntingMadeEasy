@@ -7,6 +7,8 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      B_TOKEN: ${{ secrets.B_TOKEN }}
     steps:
       - uses: actions/checkout@v3
 
@@ -17,5 +19,5 @@ jobs:
 
       - name: Add remote and push
         run: |
-          git remote add b https://x-access-token:${{ secrets.B_TOKEN }}@github.com/Back0ntrack2/Bug_bounty_notes.git
+          git remote add b https://x-access-token:$B_TOKEN@github.com/Back0ntrack2/Bug_bounty_notes.git
           git push b main --force
