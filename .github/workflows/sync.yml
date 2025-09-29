@@ -1,23 +1,20 @@
-name: Sync to Bug_bounty_notes
+name: Sync BugHuntingMadeEasy → Bug_bounty_notes
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]   # your source branch
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-    env:
-      B_TOKEN: ${{ secrets.B_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout source repo
+        uses: actions/checkout@v3
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions-sync"
-          git config user.email "sync-bot@example.com"
-
-      - name: Add remote and push
-        run: |
-          git remote add b https://x-access-token:$B_TOKEN@github.com/Back0ntrack2/Bug_bounty_notes.git
-          git push b main --force
+      - name: Push to target repo
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          repository: Back0ntrack2/Bug_bounty_notes
+          branch: main
+          github_token: ${{ secrets.B_TOKEN }}
+          force: true
