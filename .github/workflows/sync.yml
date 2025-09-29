@@ -1,19 +1,30 @@
-name: Sync to Bug_bounty_notes
+name: Debug Sync
 
 on:
+  workflow_dispatch:   # lets you run manually from Actions tab
   push:
-    branches: [ main ]   # change if your default branch is different
+    branches: [ main ]
 
 jobs:
-  sync:
+  debug:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout BugHuntingMadeEasy
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Push to Bug_bounty_notes
+      - name: Print masked token
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote add b https://x-access-token:${{ secrets.B_TOKEN }}@github.com/Back0ntrack2/Bug_bounty_notes.git
-          git push b main --force
+          if [ -z "${{ secrets.B_TOKEN }}" ]; then
+            echo "❌ Secret B_TOKEN is missing"
+            exit 1
+          else
+            echo "✅ Secret B_TOKEN is set (value masked):"
+            echo "${{ secrets.B_TOKEN }}" | sed 's/./*/g'
+          fi
+
+      - name: Test auth to Repo B
+        run: |
+          git config --global user.name "sync-bot"
+          git config --global user.email "sync-bot@example.com"
+          git clone https://x-access-token:${{ secrets.B_TOKEN }}@github.com/Back0ntrack2/Bug_bounty_notes.git test-clone
+          ls test-clone
