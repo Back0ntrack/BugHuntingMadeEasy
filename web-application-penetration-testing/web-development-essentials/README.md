@@ -42,66 +42,59 @@ Web applications are mainly of **two types**:
 
 ***
 
-## Web Application Layout
+## Web Application&#x20;
 
-Different layers of web application&#x20;
+<figure><img src="../../.gitbook/assets/Web Application (2).png" alt=""><figcaption></figcaption></figure>
 
-<table><thead><tr><th width="217.99993896484375">Category</th><th>Description</th></tr></thead><tbody><tr><td><strong>Web Application Infrastructure</strong></td><td>Describes the structure of required components, such as the database, needed for the web application to function as intended. </td></tr><tr><td><strong>Web Application Components</strong></td><td>The components that make up a web application represent all the components that the web application interacts with. These are divided into the following three areas: <code>UI/UX</code>, <code>Client</code>, and <code>Server</code> components. </td></tr><tr><td><strong>Web Application Architecture</strong></td><td>Architecture comprises all the relationships between the various web application components.</td></tr></tbody></table>
+### Frontend (Client-Side)
 
-### Web Application Infrastructure
+* **HTML (HyperText Markup Langauge):** _structure of the webpage_
+* **CSS (Cascading Style Sheets):** _styling, layout, animations_
+  * **CSS Frameworks:** _Bootstrap, Tailwind CSS etc._
+* **JavaScript (JS):** _interactivity, logic, DOM manipulation_
+* **Frontend Frameworks/Libraries:** _React.js, Angular, Vue.js, Solid.js, Svelte_
 
-Various models of web applications are available
+> _A **frontend framework** is a **pre-built collection of code, structures, and tools** that helps developers build user interfaces faster and more efficiently instead of writing everything from scratch._
 
-* `Client-Server`: Most adopted model of web application. In this model, web applications have two types of components, those in the front end, which are usually interpreted and executed on the client-side (browser), and components in the back end, usually compiled, interpreted, and executed by the hosting server.
-* `Many servers - One database`: This model separates the database onto its own database server and allows the web applications' hosting server to access the database server to store and retrieve data.
-* `Many servers - Many Databases`: Each web application's data is hosted in a separate database. The web application can only access private data and only common data that is shared across web application. This is most commonly used model.&#x20;
+{% hint style="info" %}
+_Frameworks = shortcuts + structure + consistency_
+{% endhint %}
 
-### Web Application Components
+### Backend (Server-Side)
 
-Each web application can have a different number of components.
-
-1. `Client`
-2. `Server`
-   * Webserver
-   * Web Application Logic
-   * Database
-3. `Services` (Microservices)
-   * 3rd Party Integrations
-   * Web Application Integrations
-4. `Functions` (Serverless)
-
-### Web Application Architecture
-
-* `Presentation Layer`: These can be accessed by the client via the web browser and are returned in the form of HTML, JavaScript, and CSS.&#x20;
-* `Application Layer`: This layer ensures that all client requests (web requests) are correctly processed. Various criteria are checked, such as authorization, privileges, and data passed on to the client.&#x20;
-* `Data Layer`: The data layer works closely with the application layer to determine exactly where the required data is stored and can be accessed.&#x20;
-
-An examaple of a web application architecture could look something like this:&#x20;
-
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
-
-### Microservices
-
-We can think of microservices as independent components of the web application, which in most cases are programmed for one task only. For example, for an online store, we can decompose core tasks into the following components:
-
-* Registration
-* Search
-* Payments
-* Ratings
-* Reviews
-
-## Front End V/s Back End
-
-### Frontend
-
-The front end of a web application contains the user's components directly through their web browser (client-side). It typically includes `HTML`, `CSS` and `JavaScript`.&#x20;
-
-<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
-
-This includes everything that the user sees and interact with, like the page's main elements such as the title and text HTML, the design and animation of all elements CSS, and what functions each part of a page performs JavaScript.&#x20;
-
-### Backend
-
-The back end of a web application drives all of the core web application functionalities, all of which is executed at the back end server, which processes everything required for the web application to run correctly.
-
-<table><thead><tr><th width="171.60003662109375">Component</th><th valign="top">Description</th></tr></thead><tbody><tr><td><code>Back end Servers</code></td><td valign="top">The hardware and operating system that hosts all other components and are usually run on operating systems like <code>Linux</code>, <code>Windows</code>, or using <code>Containers</code>.</td></tr><tr><td><code>Web Servers</code></td><td valign="top">Web servers handle HTTP requests and connections. Some examples are <code>Apache</code>, <code>NGINX</code>, and <code>IIS</code>.</td></tr><tr><td><code>Databases</code></td><td valign="top">Databases (<code>DBs</code>) store and retrieve the web application data. Some examples of relational databases are <code>MySQL</code>, <code>MSSQL</code>, <code>Oracle</code>, <code>PostgreSQL</code>, while examples of non-relational databases include <code>NoSQL</code> and <code>MongoDB</code>.</td></tr><tr><td><p><code>Development</code></p><p> <code>Frameworks</code></p></td><td valign="top">Development Frameworks are used to develop the core Web Application. Some well-known frameworks include <code>Laravel</code> (<code>PHP</code>), <code>ASP.NET</code> (<code>C#</code>), <code>Spring</code> (<code>Java</code>), <code>Django</code> (<code>Python</code>), and <code>Express</code> (<code>NodeJS JavaScript</code>).</td></tr></tbody></table>
+* **Server-Side Languages:** _(handles business logic, processes requests)_
+  * **PHP:** _server-side scripting language commonly used for web apps and WordPress._
+  * **Python:** _versatile programming language known for simplicity and readability._
+  * **Node.js:** _JavaScript runtime that lets you run JS code on the server._
+  * **Java:** _robust, object-oriented language widely used in enterprise systems._
+  * **Ruby (Rails):** _Ruby framework following “convention over configuration” for rapid development._
+  * **.NET (C#, ASP.NET):** _.NET framework for building dynamic, server-side web applications._
+* **Database Layer (Data Storage & Retrieval)**
+  * **Relational Databases (SQL-based)**
+    * _MySQL / MariaDB (commonly paired with PHP in LAMP/XAMPP)_
+    * _PostgreSQL (advanced relational DB)_
+    * _Microsoft SQL Server (enterprise DB)_
+  * **NoSQL Databases (non-relational)**
+    * _MongoDB (document-based, popular with Node.js/MEAN/MERN stack)_
+    * _Redis (in-memory, caching, sessions)_
+    * _Cassandra (distributed, scalable DB)_
+* **Web Servers and Operating Systems**&#x20;
+  * **Windows Based**
+    * **IIS - Internet Information Services:** _.NET, ASP.NET, C#_
+  * **All Rounder (Both Linux and Windows)**
+    * **Apache:** _PHP, Laravel, Python (with mod\_wsgi), Perl_
+      * **Nginx:** _PHP (via PHP-FPM), Laravel, Python (uWSGI/Gunicorn), Node.js (reverse proxy), Ruby on Rails_
+      * **Caddy:** _Go apps, PHP (via FastCGI), Node.js, Python_
+      * **LiteSpeed:** _PHP, Laravel (optimized for WordPress and PHP apps)_
+      * **Tomcat:** _Java, Spring Boot (Servlet, JSP apps)_
+      * **Jetty:** _Java, Spring apps_
+* **Middleware and APIs**
+  * _REST API_
+  * _GraphQL_
+  * _gRPC/SOAP_
+* **Supporting Services**
+  * **Caching** _(Redis, Memcached — speeds up responses)_
+  * **Message Queues** _(RabbitMQ, Kafka — background tasks, async jobs)_
+  * **CDN (Content Delivery Network)** _(Cloudflare, Akamai — speeds up static file delivery)_
+  * **Load Balancer** _(distributes traffic across servers)_
+  * **Reverse Proxy** _(adds security, routes requests)_
