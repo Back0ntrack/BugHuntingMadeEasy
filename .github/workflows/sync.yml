@@ -2,7 +2,7 @@ name: Sync to Bug_bounty_notes
 
 on:
   push:
-    branches: [ main ]   # adjust if your default branch is different
+    branches: [ main ]   # change if your default branch is different
 
 jobs:
   sync:
@@ -15,5 +15,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote add b https://x-access-token:${{ secrets.TOKEN_OF_LIMITEVADER }}@github.com/Back0ntrack2/Bug_bounty_notes.git
+          git remote add b https://x-access-token:${{ secrets.B_TOKEN }}@github.com/Back0ntrack2/Bug_bounty_notes.git
           git push b main --force
