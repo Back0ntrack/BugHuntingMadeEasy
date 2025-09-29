@@ -11,6 +11,7 @@
       * [PHP (Hypertext Preprocessor)](web-application-penetration-testing/web-development-essentials/backend/php-hypertext-preprocessor.md)
       * [PHP Hacker's Quick-Reference Cheat-Sheet](web-application-penetration-testing/web-development-essentials/backend/php-hackers-quick-reference-cheat-sheet.md)
       * [Node.js](web-application-penetration-testing/web-development-essentials/backend/node.js.md)
+      * [Middleware and APIs](web-application-penetration-testing/web-development-essentials/backend/middleware-and-apis.md)
   * [Web Essentials](web-application-penetration-testing/web-essentials.md)
   * [Tools](web-application-penetration-testing/tools/README.md)
     * [Web Proxies](web-application-penetration-testing/tools/web-proxies.md)
