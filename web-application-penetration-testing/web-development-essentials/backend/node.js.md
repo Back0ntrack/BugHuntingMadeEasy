@@ -119,3 +119,131 @@ Only after passing through all checkposts does the car reach the destination (yo
 * **Backend Focus**: Designed for backend tasks, excluding DOM-related operations like modification or creation.
 * **Purpose**: Optimized for web application backend development with JavaScript.
 
+Let's see how the NodeJS is made to handle multiple web application requests and how it responds accordingly.&#x20;
+
+{% code overflow="wrap" %}
+```javascript
+const http = require('http'); //we imported http module for creating the server
+
+const server = http.createServer((req, res) => { 
+//the req and res will have the corresponding request and response of the website
+  const url = req.url;
+
+  // Navigation bar HTML
+  const navBar = `
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+      </ul>
+    </nav>
+  `;
+
+  // Handle different routes
+  if (url === '/home') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write(`
+      <html>
+        <body>
+          ${navBar}
+          <h1>You're in the homepage</h1>
+        </body>
+      </html>
+    `);
+  } else if (url === '/contact-us') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write(`
+      <html>
+        <body>
+          ${navBar}
+          <h1>You're in the contact-us page</h1>
+        </body>
+      </html>
+    `);
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.write(`
+      <html>
+        <body>
+          ${navBar}
+          <h1>404 - Page Not Found</h1>
+        </body>
+      </html>
+    `);
+  }
+
+  res.end();
+});
+
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+```
+{% endcode %}
+
+In the above code we've written separate logic for everything. This can be simplified using Express JS which has special functions for each specific type of request made and serves output accordingly. You can see in the below code that how express JS simplifies the code&#x20;
+
+{% code overflow="wrap" %}
+```javascript
+const express = require('express');
+const app = express();
+
+// Middleware to parse POST request body
+app.use(express.urlencoded({ extended: true }));
+
+// Navigation bar
+const navBar = `
+  <nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/contact-us">Contact Us</a></li>
+    </ul>
+  </nav>
+`;
+
+// GET request for /home
+app.get('/home', (req, res) => {
+  res.send(`
+    <html>
+      <body>
+        ${navBar}
+        <h1>You're in the homepage</h1>
+      </body>
+    </html>
+  `);
+});
+
+// GET request for /contact-us
+app.get('/contact-us', (req, res) => {
+  res.send(`
+    <html>
+      <body>
+        ${navBar}
+        <h1>You're in the contact-us page</h1>
+      </body>
+    </html>
+  `);
+});
+
+// 404 handler for unknown routes
+app.use((req, res) => {
+  res.status(404).send(`
+    <html>
+      <body>
+        ${navBar}
+        <h1>404 - Page Not Found</h1>
+      </body>
+    </html>
+  `);
+});
+//If you didn't write these last function and a GET request is received at unknown path then response would be like. 
+// Cannot GET /unknown-path
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+```
+{% endcode %}
+
