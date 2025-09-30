@@ -111,6 +111,116 @@ Only after passing through all checkposts does the car reach the destination (yo
 * **API**: Defines endpoints that handle client requests (e.g., GET to fetch users, POST to add a user), interacting with a database (MongoDB) or memory.
 * **Data Flow**: Client sends a request (e.g., via browser or curl) → Node.js/Express processes it → Middleware validates/parses → Route logic interacts with database/memory → Response sent back.
 
+Multiple middleware can exists for security purpose. Let's understand with the help of an example.&#x20;
+
+#### **Directory Structure (for reference)**
+
+```
+project/
+│
+├── users.json
+└── app.js
+```
+
+`users.json` (example content):
+
+```json
+[
+  { "id": 1, "name": "John Doe", "email": "john@example.com" },
+  { "id": 2, "name": "Alice Smith", "email": "alice@example.com" },
+  { "id": 3, "name": "Bob Johnson", "email": "bob@example.com" }
+]
+```
+
+***
+
+#### **app.js**
+
+```javascript
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+const PORT = 3000;
+
+// =====================
+// MIDDLEWARE 1: Logger
+// =====================
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} request for ${req.url}`);
+    next(); // pass control to the next middleware
+});
+
+// =====================
+// MIDDLEWARE 2: Request Timer
+// =====================
+app.use((req, res, next) => {
+    req.requestTime = Date.now(); // attach timestamp to request
+    next();
+});
+
+// =====================
+// MIDDLEWARE 3: Validate ID for /users/:id
+// =====================
+function validateUserId(req, res, next) {
+    const id = req.params.id;
+    if (id && isNaN(parseInt(id))) {
+        return res.status(400).json({ error: "Invalid user ID. Must be a number." });
+    }
+    next();
+}
+
+// =====================
+// ROUTES
+// =====================
+
+// GET /users → list all users
+app.get('/users', (req, res) => {
+    const usersPath = path.join(__dirname, 'users.json');
+    fs.readFile(usersPath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read users data' });
+        }
+        const users = JSON.parse(data);
+        res.json({
+            requestTime: req.requestTime,
+            count: users.length,
+            users
+        });
+    });
+});
+
+// GET /users/:id → get user by id
+app.get('/users/:id', validateUserId, (req, res) => {
+    const usersPath = path.join(__dirname, 'users.json');
+    fs.readFile(usersPath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read users data' });
+        }
+        const users = JSON.parse(data);
+        const user = users.find(u => u.id === parseInt(req.params.id));
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({
+            requestTime: req.requestTime,
+            user
+        });
+    });
+});
+
+// Handle undefined routes
+app.use((req, res) => {
+    res.status(404).json({ error: 'Route not found' });
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
+```
+
 ***
 
 ## Development introduction

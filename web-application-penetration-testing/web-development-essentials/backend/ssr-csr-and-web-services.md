@@ -1,4 +1,4 @@
-# SSR and Web Services
+# SSR, CSR and Web Services
 
 ## Server-Side Rendering (SSR)
 
@@ -94,6 +94,116 @@ Accept: application/json
 }
 ```
 
+<details>
+
+<summary>Best Practices for REST APIs</summary>
+
+#### **1. Use Proper HTTP Methods (All methods should be respected)**
+
+* **GET** → Retrieve data (should be safe and idempotent).
+* **POST** → Create new resources.
+* **PUT** → Update/replace a resource.
+* **PATCH** → Partially update a resource.
+* **DELETE** → Remove a resource.
+
+***
+
+#### **2. Use Meaningful Resource URIs**
+
+* Keep URLs **noun-based**, not action-based.
+  * ✅ `/users/123/posts`
+  * ❌ `/getUserPosts?id=123`
+* Use **plural nouns** for collections (`/users`), singular for single items (`/users/123`).
+
+***
+
+#### **3. Use HTTP Status Codes Properly**
+
+* **200 OK** → Success for GET/PUT/POST (if resource returned).
+* **201 Created** → Resource successfully created (POST).
+* **204 No Content** → Successful request but no body (DELETE).
+* **400 Bad Request** → Client-side error, invalid input.
+* **401 Unauthorized** → Missing/invalid authentication.
+* **403 Forbidden** → Authenticated but no permission.
+* **404 Not Found** → Resource does not exist.
+* **500 Internal Server Error** → Server-side error.
+
+***
+
+#### **4. Support Filtering, Sorting, and Pagination**
+
+* Filtering: `/users?role=admin`
+* Sorting: `/users?sort=createdAt_desc`
+* Pagination: `/users?page=2&limit=10`
+* Keeps API responses **efficient and scalable**.
+
+***
+
+#### **5. Use Versioning**
+
+* Always version your API to avoid breaking clients:
+  * `/api/v1/users`
+  * `/api/v2/users`
+
+***
+
+#### **6. Use Consistent Naming Conventions**
+
+* Stick to **lowercase, hyphenated, or snake\_case** consistently.
+* Example: `/user-profiles` or `/user_profiles`
+
+***
+
+#### **7. Use JSON as Standard Format**
+
+* Lightweight, widely supported, easy to parse.
+* Include **meaningful error messages** in JSON for client debugging.
+
+***
+
+#### **8. Implement Proper Authentication & Authorization**
+
+* Use **OAuth 2.0**, JWT, or API keys depending on the use case.
+* Keep sensitive data secure and avoid exposing unnecessary info.
+
+***
+
+#### **9. HATEOAS (Optional Advanced)**
+
+* Hypermedia as the engine of application state: include links to related resources in responses.
+* Example: A user object might include a link to `/users/123/posts`.
+
+***
+
+#### **10. Document Your API**
+
+* Use tools like **Swagger/OpenAPI** or **Postman** to provide clear API documentation.
+* Helps clients understand how to use your API correctly.
+
+***
+
+#### **11. Handle Errors Gracefully**
+
+* Return structured error objects with code, message, and details:
+
+```json
+{
+  "error": {
+    "code": 400,
+    "message": "Invalid user ID",
+    "details": "User ID must be a positive integer"
+  }
+}
+```
+
+***
+
+#### **12. Maintain Idempotency Where Needed**
+
+* GET, PUT, DELETE should be **idempotent** — repeated calls should not cause unintended effects.
+
+</details>
+
 {% hint style="info" %}
 _REST gave devices structured endpoints to talk to servers, but GraphQL took it further by letting every device ask for exactly what it needs — no more, no less — all in a single powerful query._
 {% endhint %}
@@ -177,3 +287,26 @@ mutation {
 * **GraphQL** = Flexible, query-based, single endpoint, JSON (solves REST’s inefficiencies).
 
 > _Whether it’s SOAP with its rigid XML, REST with its clean resources, or GraphQL with its flexible queries — all were born for the same mission: to let machines talk to servers and share data across the web._
+
+***
+
+## CSR (Client-Side Rendering)
+
+**Client-Side Rendering (CSR)** is a technique where a web application's user interface (UI) is generated in the client's browser using JavaScript, rather than on the server. Instead of the server sending a fully formed HTML page, it sends a minimal required data with JavaScript that builds the UI on the client side.
+
+#### How It Works
+
+* **Initial HTTP Request:** The user's browser requests a web page from the server. Instead of sending a full HTML page, the server usually sends a **minimal HTML shell** along with JavaScript files.
+* **JavaScript Execution:** The browser downloads and executes the JavaScript. The scripts fetch data (via APIs like REST or GraphQL) and dynamically build the HTML and UI in the browser.
+* **Rendering:** The fully interactive page is displayed to the user, updated as needed without requiring full page reloads.
+
+#### Practical Example
+
+* User visits /blogs on a website.
+* Server sends a basic HTML file with \<script src="app.js"> and a \<div id="root">.
+* The browser runs app.js, which calls an API (e.g., /api/blogs) to get JSON data: \[{"title": "Post1", "content": "Blah"}].
+* JavaScript (e.g., React) builds the HTML for the blog list and inserts it into the \<div id="root">, showing the styled page.
+
+{% hint style="info" %}
+_SSR made the server speak HTML, but CSR handed the mic to the browser, letting it build pages on the fly and handle dynamic interactions like a true client-side powerhouse._
+{% endhint %}
