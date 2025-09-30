@@ -357,3 +357,138 @@ app.listen(PORT, () => {
 ```
 {% endcode %}
 
+### Authentication&#x20;
+
+There are two types of authentication in the NodeJS which is stateful and stateless. As the name suggests the stateful authentication mechanisms maintains certain information of the user with the help of a uid (user identifier).&#x20;
+
+These `uid` can be transferred in three ways.&#x20;
+
+* cookies (If our request is directly sent to the route without any middleware or APIs)
+* response&#x20;
+* headers (If there is any API (e.g., RESTful) then this will be used).
+
+<figure><img src="../../../.gitbook/assets/image (150).png" alt=""><figcaption></figcaption></figure>
+
+#### Key Differences
+
+* **Stateful (Sessions)**:
+  * Server stores session data (e.g., isAuthenticated).
+  * Good for apps with trusted clients (e.g., web browsers).
+  * Scales poorly for distributed systems (session storage overhead).
+* **Stateless (JWT)**:
+  * No server-side storage; token contains all info.
+  * Ideal for APIs, mobile apps, IoT devices.
+  * Client must send token with every request.
+
+#### Stateful&#x20;
+
+{% code overflow="wrap" %}
+```javascript
+const express = require('express');
+const session = require('express-session');
+const fs = require('fs');
+const app = express();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Session middleware
+app.use(session({
+  secret: 'my-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set to true in production with HTTPS
+}));
+
+// Load users from JSON file
+const users = JSON.parse(fs.readFileSync('user_details.json'));
+
+// Middleware to check if user is authenticated
+const isAuthenticated = (req, res, next) => {
+  if (req.session.isAuthenticated) {
+    return next();
+  }
+  res.status(403).json({ message: 'Forbidden: Please log in' });
+};
+
+// Login route
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(u => u.username === username && u.password === password);
+  if (user) {
+    req.session.isAuthenticated = true;
+    req.session.username = username;
+    return res.json({ message: 'Login successful' });
+  }
+  res.status(401).json({ message: 'Invalid credentials' });
+});
+
+// Protected home route
+app.get('/home', isAuthenticated, (req, res) => {
+  res.json({ message: `Logged in as ${req.session.username}` });
+});
+
+// Logout route
+app.post('/logout', (req, res) => {
+  req.session.destroy();
+  res.json({ message: 'Logged out' });
+});
+
+// Start server
+app.listen(3000, () => console.log('Stateful server running on port 3000'));
+```
+{% endcode %}
+
+#### Stateless
+
+{% code overflow="wrap" %}
+```javascript
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const app = express();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Load users from JSON file
+const users = JSON.parse(fs.readFileSync('user_details.json'));
+
+// Secret key for JWT (use environment variable in production)
+const JWT_SECRET = 'my-jwt-secret';
+
+// Middleware to verify JWT
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1]; // Expect 'Bearer <token>'
+  if (!token) {
+    return res.status(403).json({ message: 'Forbidden: No token provided' });
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(403).json({ message: 'Forbidden: Invalid token' });
+  }
+};
+
+// Login route
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(u => u.username === username && u.password === password);
+  if (user) {
+    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
+    return res.json({ token, message: 'Login successful' });
+  }
+  res.status(401).json({ message: 'Invalid credentials' });
+});
+
+// Protected home route
+app.get('/home', verifyToken, (req, res) => {
+  res.json({ message: `Logged in as ${req.user.username}` });
+});
+
+// Start server
+app.listen(3001, () => console.log('Stateless server running on port 3001'));
+```
+{% endcode %}
