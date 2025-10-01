@@ -492,3 +492,12 @@ app.get('/home', verifyToken, (req, res) => {
 app.listen(3001, () => console.log('Stateless server running on port 3001'));
 ```
 {% endcode %}
+
+## How to execute lab cases
+
+```sh
+cd /var/www/html/node_xss_lab/case1
+npm init -y
+npm install express
+node index.js
+```

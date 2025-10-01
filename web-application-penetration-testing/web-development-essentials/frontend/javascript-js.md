@@ -491,7 +491,7 @@ user.name = "Bob"; // ✅ allowed
 
 ### Data Types in JS
 
-<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 JS is **loosely typed** → variable type can change on the fly.
 
@@ -837,13 +837,13 @@ fetch("https://api.example.com/data", {
 * The HTML DOM is a standard for how to get, change, add, or delete HTML elements.&#x20;
 * JavaScript fully controls the page: it can modify elements, attributes, and styles; add or remove elements/attributes; and handle or create events.
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
 ### DOM Manipulation
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Finding HTML Elements
 

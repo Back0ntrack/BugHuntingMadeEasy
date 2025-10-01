@@ -2,9 +2,9 @@
 
 ## Reflected XSS into HTML context with nothing encoded
 
-<div data-full-width="true"><figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption><p><em>payload is reflected in the <mark style="color:red;">&#x3C;h1></mark> tag</em></p></figcaption></figure></div>
+<div data-full-width="true"><figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption><p><em>payload is reflected in the <mark style="color:red;">&#x3C;h1></mark> tag</em></p></figcaption></figure></div>
 
-<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption><p><em>context successfully escaped using <code>'></code></em></p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption><p><em>context successfully escaped using <code>'></code></em></p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption><p>payload: <code>&#x3C;img/src=x onerror=alert();//</code></p></figcaption></figure>
 
