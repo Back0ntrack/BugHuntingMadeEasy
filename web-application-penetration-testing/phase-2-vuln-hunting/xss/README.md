@@ -2,22 +2,6 @@
 
 Cross-Site Scripting is a client side vulnerability that allows attackers to inject malicious scripts into web pages. When a user loads a web page containing an XSS payload, the script executes it within their browser, potentially stealing cookies, session tokens, or other sensitive data, or performing actions on behalf of the user without their consent.
 
-## Understanding JavaScript
-
-JavaScript is primarily responsible for handling **actions** on a webpage. These actions could include user interactions, animations, or dynamically updating content. It adds life to a static webpage, providing a **dynamic and interactive user experience**.
-
-**Multiple events that JavaScript can handle**
-
-* **Clipboard Events** (oncopy, oncut, onpaste)
-* **Mouse Events** (onclick, ondblclick, onmousedown, onmouseup, onmouseover, onmouseout, onmousemove, oncontextmenu)
-* **Keyboard Events** (onkeydown, onkeypress, onkeyup)
-* **Focus and Blur Events** (onfocus, onblur)
-* **Form Events** (onsubmit, onchange, oninput, onreset)
-* **Drag and Drop Events** (ondrag, ondragstart, ondragend, ondragover, ondrop)
-* **Media Events** (onplay, onpause, onended, onvolumechange)
-* **Window Events** (onload, onresize, onscroll, onunload)
-* **Touch Events** (ontouchstart, ontouchmove, ontouchend, ontouchcancel)
-
 ### Impact of XSS
 
 * Cookie stealing/session hijacking: Stealing cookies from users with authenticated sessions, allowing you to login as other users by leveraging the authentication information contained in the cookie.
