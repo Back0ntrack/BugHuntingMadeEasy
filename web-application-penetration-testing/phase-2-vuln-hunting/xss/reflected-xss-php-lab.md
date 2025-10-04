@@ -100,7 +100,7 @@ _<mark style="color:$danger;">While the existing HTML encoding prevents Cross-Si
 {% endtab %}
 {% endtabs %}
 
-## URL Path Segments
+## Case - 2 URL Path Segments
 
 #### Target
 
@@ -132,3 +132,95 @@ _By default path segments are percent-encoded according to RFC 3986. So there ar
 
 <figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
+## Case - 3 HTTP Request Body (POST Data)
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image (158).png" alt=""><figcaption></figcaption></figure>
+
+#### Check reflections
+
+<figure><img src="../../../.gitbook/assets/image (159).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for HTML Injection
+
+<figure><img src="../../../.gitbook/assets/image (160).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (161).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for XSS
+
+<figure><img src="../../../.gitbook/assets/image (162).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (163).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary>Understanding the beyond logic</summary>
+
+Since our input is reflected directly into the body we're able to execute XSS here.&#x20;
+
+<div data-full-width="true" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (164).png" alt=""><figcaption></figcaption></figure></div>
+
+</details>
+
+## Case - 4 View Headers&#x20;
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image (165).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for reflections
+
+<figure><img src="../../../.gitbook/assets/image (166).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for XSS
+
+<figure><img src="../../../.gitbook/assets/image (168).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (169).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary>Understanding the beyond logic</summary>
+
+We can see that the headers is directly reflected back into the response. So we can manipulate the header by intercepting the request and inject our malicious script.&#x20;
+
+<div data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (171).png" alt=""><figcaption></figcaption></figure></div>
+
+</details>
+
+## Case - 5 Cookies&#x20;
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image (170).png" alt=""><figcaption></figcaption></figure>
+
+#### Checking for reflection&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (172).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_In this case, we’re given the chance to edit our cookies, but in real life, sometimes the cookie is reflected back in the response—often in a hidden input field—so it can be sent as data in the request. This allows us to inject malicious payloads by intercepting and modifying the request._
+{% endhint %}
+
+#### Checking for XSS
+
+**Modify cookie directly in the storage section**
+
+<figure><img src="../../../.gitbook/assets/image (174).png" alt=""><figcaption></figcaption></figure>
+
+### Other Possible Cases
+
+6. **Error pages (404/500):** Requested URI or error details reflected in error messages.
+7. **Redirect/next URLs:** Parameters like `?next=` or `?redirect=` used in links or meta refreshes.
+8. **Filenames/uploads:** Simulated filename parameters (e.g., `?file=`) echoed as uploaded text.
+9. **Text between tags:** Input echoed as plain text inside `<p>` or `<div>`, allowing tag injection.
+10. **HTML attributes (unquoted):** Input placed in unquoted attributes, e.g. `<input value=userinput>`.
+11. **HTML attributes (single/double quoted):** Input placed inside quoted attributes, e.g. `<input value="userinput">`.
+12. **Event handlers:** Input inserted into `on*` attributes such as `onclick`, `onerror`, `onload`, etc.
+13. **URLs in attributes:** Input used in `href`/`src`/`action`/`background` etc., including `javascript:` URLs.
+14. **Inside script strings:** Input included in JavaScript strings, e.g. `var x = "userinput";`, allowing breakout.
+15. **Script tag termination:** Input that breaks out of a `<script>` block to inject HTML or new scripts.
+16. **Inline HTML (no tag breaking):** User cannot break out of the tag but can still trigger XSS via event handlers (e.g. adding `onmouseover="alert(1)"`).
+17. **Escaped JS injection:** Input is placed in a JS string and lightly escaped; XSS may still be possible by bypassing or undoing the escaping (for example via crafted sequences like `\-alert()\-`).

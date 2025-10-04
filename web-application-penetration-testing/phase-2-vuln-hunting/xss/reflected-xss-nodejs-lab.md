@@ -140,3 +140,4 @@ app.listen(PORT, () => {
 ```
 {% endcode %}
 
+> _It doesn't matter which backend language the developer used (Node.js, PHP, or anything else): ultimately the server returns HTML (from templates, PHP files, etc.). So we've to find tricks to break out._&#x20;
