@@ -2,17 +2,17 @@
 
 ## Reflected XSS into HTML context with nothing encoded
 
-<div data-full-width="true"><figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption><p><em>payload is reflected in the <mark style="color:red;">&#x3C;h1></mark> tag</em></p></figcaption></figure></div>
+<div data-full-width="true"><figure><img src="../../../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption><p><em>payload is reflected in the <mark style="color:red;">&#x3C;h1></mark> tag</em></p></figcaption></figure></div>
 
-<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption><p><em>context successfully escaped using <code>'></code></em></p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1) (1).png" alt=""><figcaption><p><em>context successfully escaped using <code>'></code></em></p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption><p>payload: <code>&#x3C;img/src=x onerror=alert();//</code></p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (1).png" alt=""><figcaption><p>payload: <code>&#x3C;img/src=x onerror=alert();//</code></p></figcaption></figure>
 
 ## Reflected XSS into attribute with angle brackets HTML-encoded
 
-<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption><p><em>note that the payload is reflected at two places as seen in next pic.</em> </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (1).png" alt=""><figcaption><p><em>note that the payload is reflected at two places as seen in next pic.</em> </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _So this time, we can craft the payload to trigger XSS in both the `<h1>` tag and the input field, since the payload is reflected in both locations._
@@ -20,7 +20,7 @@ _So this time, we can craft the payload to trigger XSS in both the `<h1>` tag an
 
 ### Trying to trigger XSS by escaping \`\<h1>\` tag
 
-<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption><p><em>Angle brackets are HTML-encoded, so we can't escape the context.</em></p></figcaption></figure>
 

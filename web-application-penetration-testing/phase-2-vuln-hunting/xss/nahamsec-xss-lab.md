@@ -80,34 +80,132 @@ We can see that there is sanitization in place due to which we're unable to brea
 
 <figure><img src="../../../.gitbook/assets/image (193).png" alt=""><figcaption></figcaption></figure>
 
-## XSS in JSON Response&#x20;
+## 3. XSS in JSON Response&#x20;
 
 #### Target
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Interacting with the website
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Analyzing the request&#x20;
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
 This seems to be an API but the content type is `text/html`. It should be `application/json` in the case if it is using an API. So we picked the first mistake here. Note that we can also try to modify the `Accept:` header in the request to allow it to use `text/html`.&#x20;
 
 #### Check for reflections
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 yay! we get into HTML.&#x20;
 
 #### Check for HTMLi
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Check for XSS
 
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+
+## 4. Filter Evasion
+
+### 4.1 Script Tag Filtered
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+#### Check for reflections&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for HTMLi
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+#### Script tag is filtered
+
 <figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
+The script tag is replaced with NULL (`''`) values.&#x20;
+
+#### XSS Using event handlers
+
 <figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+### 4.2 Attributes are filtered
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for reflections
+
+<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for HTMLi
+
+<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+#### Executing XSS using event handlers&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+Using `<img>` tag.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+So we can see attributes are set to Null (`''`) values but initial values of tag are as it is. So we can use `iframe` or `href` here.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+## 5. CSP Bypass
+
+### 5.1 CSP URI Scheme Bypass
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+We can see that CSP is in place which is forcing to use scripts from the same origin and `https://app.hackinghub.io` specific domain and `data:` is allowing inline scripts embedded as `data:` in the HTML.&#x20;
+
+#### Checking if object data is allowed to execute XSS
+
+Payload: **`<object data="data:text/html,<script>alert91)</script>"</object>`**
+
+<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+We can see that it is getting blocked due to the CSP policy.&#x20;
+
+#### Executing XSS Using Script src
+
+Payload: **`<script/src="data:text/javascript,alert('Hi')"></script>`**
+
+<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+
+### 5.2 CSP JSONP Bypass
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+
+We can see that now it is allowing three domains to execute scripts: `app.hackinghub.io`, `www.google.com` and `www.youtube.com`. &#x20;
+
+#### Abusing 3rd party JSON results to bypass the CSP
+
+Data from other websites can be fetched using JSONP. We've to find the JSONP endpoint of the whitelisted URLs and set a callback function.&#x20;
+
+Payload: `<script/src=youtube.com/oembed?url=https://youtu.be/2bCxxc6sPZU?si=dzudQIeh8BVk15Ur&callback=alert(1)>`
+
+
+
+\<script/src=https://youtube.com/oembed?url=https://www.youtube.com/watch?v=Z\_Kk1zf16l4\&callback=alert(1)>\</script>
