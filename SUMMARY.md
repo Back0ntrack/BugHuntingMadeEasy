@@ -38,6 +38,7 @@
     * [Information Disclosure](web-application-penetration-testing/phase-2-vuln-hunting/information-disclosure.md)
     * [XSS](web-application-penetration-testing/phase-2-vuln-hunting/xss/README.md)
       * [Automation](web-application-penetration-testing/phase-2-vuln-hunting/xss/automation.md)
+      * [Nahamsec XSS Lab](web-application-penetration-testing/phase-2-vuln-hunting/xss/nahamsec-xss-lab.md)
       * [Portswigger Labs Solution](web-application-penetration-testing/phase-2-vuln-hunting/xss/portswigger-labs-solution.md)
       * [Reflected XSS (PHP Lab)](web-application-penetration-testing/phase-2-vuln-hunting/xss/reflected-xss-php-lab.md)
       * [Reflected XSS (NodeJS Lab)](web-application-penetration-testing/phase-2-vuln-hunting/xss/reflected-xss-nodejs-lab.md)
