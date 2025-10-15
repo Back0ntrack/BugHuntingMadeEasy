@@ -84,11 +84,30 @@ We can see that there is sanitization in place due to which we're unable to brea
 
 #### Target
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 #### Interacting with the website
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Analyzing the request&#x20;
 
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+This seems to be an API but the content type is `text/html`. It should be `application/json` in the case if it is using an API. So we picked the first mistake here. Note that we can also try to modify the `Accept:` header in the request to allow it to use `text/html`.&#x20;
+
+#### Check for reflections
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+yay! we get into HTML.&#x20;
+
+#### Check for HTMLi
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+#### Check for XSS
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
