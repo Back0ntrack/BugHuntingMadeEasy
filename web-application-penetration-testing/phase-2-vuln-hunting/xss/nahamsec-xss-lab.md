@@ -52,7 +52,7 @@ hidden: true
 
 <figure><img src="../../../.gitbook/assets/image (182).png" alt=""><figcaption></figcaption></figure>
 
-### 2. Context JS Variable
+## 2. Context JS Variable
 
 #### Target
 
@@ -79,3 +79,16 @@ We can see that there is sanitization in place due to which we're unable to brea
 <figure><img src="../../../.gitbook/assets/image (192).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (193).png" alt=""><figcaption></figcaption></figure>
+
+## XSS in JSON Response&#x20;
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+#### Interacting with the website
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+#### Analyzing the request&#x20;
+
