@@ -166,6 +166,20 @@ So we can see attributes are set to Null (`''`) values but initial values of tag
 
 ## 5. CSP Bypass
 
+You can use the following online tools to check Content Security Policy:
+
+* [https://csp-evaluator.withgoogle.com/](https://csp-evaluator.withgoogle.com/)
+* [https://cspvalidator.org/](https://cspvalidator.org/)
+
+{% hint style="info" %}
+_Only the `unsafe-inline` and `unsafe-eval` allow us to execute our XSS payloads if there is no validation in place._&#x20;
+{% endhint %}
+
+Other Bypass Techniques:&#x20;
+
+* [Cobalt.io](https://www.cobalt.io/blog/csp-and-bypasses)
+* [Payatu](https://payatu.com/blog/content-security-policy/)
+
 ### 5.1 CSP URI Scheme Bypass
 
 #### Target
@@ -182,7 +196,7 @@ Payload: **`<object data="data:text/html,<script>alert91)</script>"</object>`**
 
 <figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
-We can see that it is getting blocked due to the CSP policy.&#x20;
+We can see that it is getting blocked due to the CSP policy. It would work if there is `object-src: 'self' data:` in the CSP.&#x20;
 
 #### Executing XSS Using Script src
 
@@ -204,8 +218,11 @@ We can see that now it is allowing three domains to execute scripts: `app.hackin
 
 Data from other websites can be fetched using JSONP. We've to find the JSONP endpoint of the whitelisted URLs and set a callback function.&#x20;
 
-Payload: `<script/src=youtube.com/oembed?url=https://youtu.be/2bCxxc6sPZU?si=dzudQIeh8BVk15Ur&callback=alert(1)>`
+Payload: **`<script/src=https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=Z_Kk1zf16l4&callback=alert(1)></script>`**
 
+<figure><img src="../../../.gitbook/assets/image (194).png" alt=""><figcaption></figcaption></figure>
 
+This is not working in firefox.&#x20;
 
-\<script/src=https://youtube.com/oembed?url=https://www.youtube.com/watch?v=Z\_Kk1zf16l4\&callback=alert(1)>\</script>
+Some good payloads: \`[https://github.com/zigoo0/JSONBee/blob/master/jsonp.txt](https://github.com/zigoo0/JSONBee/blob/master/jsonp.txt)\`&#x20;
+

@@ -292,11 +292,15 @@ Web applications interact with databases using **backend server-side languages**
 2. **Query Execution** → The backend processes input and sends SQL/NoSQL queries to the database.
 3. **Response Handling** → Data is fetched, processed, and displayed to the user.
 
-### Security Headers
+## Security Headers
 
 HTTP security headers help improve the overall security of the web application by providing mitigations against attack like XSS, clickjacking, and others.
 
-#### Strict-Transport Security
+{% hint style="info" %}
+_All headers given below are response headers._&#x20;
+{% endhint %}
+
+### Strict-Transport Security
 
 The **HTTP Strict Transport Security Header (HSTS)** is set on the server and enforces the use of encrypted HTTPS connections instead of plain-text HTTP communication.
 
@@ -306,15 +310,159 @@ Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
 This informs visiting web browsers that the site along with all its subdomains only communicates over SSL/TLS and the browser should only access it over HTTPS for the next two years (the `max-age` value in seconds). The `preload` directive indicates that the site is present on a global list of HTTPS-only sites. The purpose of preloading is to speed up page loads.
 
-#### Content-Security Policy
+### Content-Security Policy&#x20;
 
-The **Content Security Policy (CSP)** header is a security feature that helps prevent **XSS and injection attacks** by restricting which resources (scripts, styles, images) a web page can load. It is sent via the HTTP response header, and the browser enforces the rules. For example, `Content-Security-Policy: default-src 'self'; script-src 'self' <https://apis.google.com`> allows scripts only from the same domain and Google APIs, blocking unauthorized ones.
+#### 1️⃣ CSP Overview
 
-**Example CSP Header:**
+**CSP (Content-Security-Policy)** is an **HTTP response header** (or a `<meta>` tag) that tells the browser **what resources are allowed to load and execute** on a web page.
 
-`Content-Security-Policy: default-src 'self'; script-src 'self' <https://cdn.tryhackme.com>; style-src 'self'`
+It mainly protects against:
 
-#### X-Content-Type-Options
+* **Cross-Site Scripting (XSS)**
+* **Data Injection attacks**
+* **Clickjacking (via frame-ancestors)**
+* **Mixed content loading**
+
+#### 2️⃣ Basic Concept — How It Works
+
+When the browser loads a page with this header:
+
+```http
+Content-Security-Policy: default-src 'self'
+```
+
+It means:
+
+> “Only load resources (scripts, images, styles, etc.) from the same origin as this page.”
+
+If the page tries to load:
+
+* A script from `https://evil.com/script.js` → ❌ blocked
+* A style from `https://cdn.something.com/style.css` → ❌ blocked
+* A script from same domain → ✅ allowed
+
+#### 3️⃣ Syntax Structure
+
+A **CSP header** is made of **directives** and **sources**:
+
+```http
+Content-Security-Policy: directive source source ...
+```
+
+Example:
+
+```http
+Content-Security-Policy: script-src 'self' https://cdn.jsdelivr.net
+```
+
+→ Only allow JS from your own site and from `cdn.jsdelivr.net`.
+
+#### 4️⃣ Default Directive: `default-src`
+
+`default-src` is the **fallback rule** for all types of resources if a specific one isn’t defined.
+
+Example:
+
+```http
+Content-Security-Policy: default-src 'self'
+```
+
+→ All resources (scripts, images, CSS, fonts, etc.) must come from the same domain.
+
+You can override it with specific rules:
+
+{% code overflow="wrap" %}
+```http
+Content-Security-Policy: default-src 'self'; img-src *; style-src 'self' 'unsafe-inline';
+```
+{% endcode %}
+
+Here:
+
+* Scripts follow `default-src` (`'self'`)
+* Images can come from anywhere (`*`)
+* Styles can come from `'self'` and inline styles are allowed
+
+#### 5️⃣ The Main Anti-XSS Directives
+
+Let’s now focus on the **four directives** that matter most for **XSS prevention**:
+
+#### **a. `script-src`**
+
+Controls **where scripts can be loaded or executed from**.
+
+Examples:
+
+```http
+Content-Security-Policy: script-src 'self'
+```
+
+✅ Only allow scripts from your own domain.\
+❌ Block inline `<script>alert(1)</script>`\
+❌ Block external scripts from any other domain.
+
+**Common Values**
+
+| Value             | Meaning                                    | Example                    |
+| ----------------- | ------------------------------------------ | -------------------------- |
+| `'self'`          | Same origin only                           | `'self'`                   |
+| `'unsafe-inline'` | Allows inline `<script>` or `onclick=`     | `'unsafe-inline'`          |
+| `'unsafe-eval'`   | Allows use of `eval()` or `new Function()` | `'unsafe-eval'`            |
+| `'none'`          | No scripts at all                          | `'none'`                   |
+| `https://cdn.com` | Allows that external domain                | `https://cdn.jsdelivr.net` |
+| `data:`           | Allows inline **base64/data URI** scripts  | `data:`                    |
+
+**❗Why “unsafe-inline” is dangerous**
+
+```html
+<script>alert(1)</script>
+<button onclick="alert(2)">Click</button>
+```
+
+If your CSP contains `'unsafe-inline'`, both above will run → making **XSS possible**.
+
+If `'unsafe-inline'` is **not** allowed, browser blocks them → XSS prevented.
+
+#### The \`data:\` value&#x20;
+
+`data:` allows **resources to be loaded from inline data URIs**.\
+It looks like this:
+
+```html
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...">
+```
+
+This is a legitimate way to embed small images **directly into HTML** without fetching from a server.
+
+✅ Example (Safe Use):
+
+```http
+Content-Security-Policy: img-src 'self' data:
+```
+
+→ Allows images like above.
+
+***
+
+❌ But for **scripts or styles**, `data:` can be dangerous.
+
+Because:
+
+```html
+<script src="data:text/javascript,alert(1)"></script>
+```
+
+If your CSP says:
+
+```http
+Content-Security-Policy: script-src 'self' data:
+```
+
+Then the browser would **execute the base64 or text/javascript data directly** — which can allow **inline XSS bypass**.
+
+So **never allow `data:` for script-src or style-src**.
+
+### X-Content-Type-Options
 
 The **X-Content-Type-Options** header is a security feature that stops web browsers from guessing the type of a file (MIME-type sniffing). This helps prevent attacks where a file (like an image or text file) is wrongly interpreted as executable code, leading to **Cross-Site Scripting (XSS) or malware execution**. **Example:**
 
