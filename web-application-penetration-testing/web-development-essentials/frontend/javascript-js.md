@@ -489,6 +489,14 @@ const user = {name: "Alice"};
 user.name = "Bob"; // ✅ allowed
 ```
 
+### Javascript template literal&#x20;
+
+```javascript
+const a = 5;
+const b = 10;
+console.log(`The sum of a and b is ${a + b}`); // Output: The sum of a and b is 15
+```
+
 ### Data Types in JS
 
 <figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

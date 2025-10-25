@@ -67,7 +67,7 @@ Thus we've three injection points.
 
 <figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
-### Reflected XSS into HTML context with most tags and attributes blocked
+## Reflected XSS into HTML context with most tags and attributes blocked
 
 <mark style="color:red;">**Level: Intermediate (WAF in action)**</mark>
 
@@ -116,4 +116,144 @@ Other good event handler: `onfocus` But you need to call it as:&#x20;
 
 `<xss id=x onfocus=alert(document.cookie) tabindex=1>#x';`
 {% endhint %}
+
+## Reflected XSS in canonical link tag
+
+As given in the title we're not provided any place to fed our input (i.e., search form, or any other input tag). Thus as per the title let's understand the `canonical tag`.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (198).png" alt=""><figcaption></figcaption></figure>
+
+#### Canonical tag
+
+A **canonical tag** is an HTML element that tells search engines which version of a **duplicate or similar webpage** is the **preferred (original) version** to index.
+
+```
+<link rel="canonical" href="https://example.com/preferred-page/" />
+```
+
+**Purpose:**\
+To prevent **duplicate content issues** by consolidating ranking signals (like backlinks and crawl budget) to one **canonical URL**.
+
+**How It Works:**\
+When multiple URLs show similar content (e.g., `?sort=`, `/amp/`, or both HTTP/HTTPS versions), the canonical tag guides search engines to treat the specified URL as the **main source**.
+
+#### Example:&#x20;
+
+Suppose the website **`https://www.example.com`** is an e-commerce site.\
+Each product page can be accessed with different query parameters, such as:
+
+```
+https://www.example.com/products?id=1  
+https://www.example.com/products?id=2  
+https://www.example.com/products?id=3
+```
+
+Even though the URLs are different, the **base content (the main product listing page)** might be similar or derived from the same source.\
+To avoid duplicate content and tell search engines which version to index as the **main (preferred) page**, you can use a **canonical tag** like this:
+
+```
+<link rel="canonical" href="https://www.example.com/products" />
+```
+
+This tells Google and other search engines:
+
+> “These pages (`?id=1`, `?id=2`, etc.) are variations of the same content — please treat `https://www.example.com/products` as the original (canonical) page and consolidate ranking signals there.”
+
+:sob: This lab has specific simulation that user will click some shortcut keys and has used this method to execute XSS **`?accesskey='x'&onclick='alert(1)`**
+
+## Reflected XSS into a JavaScript String with single quote and backslash escaped&#x20;
+
+### Trying to execute XSS in H1 tag&#x20;
+
+Payload used: `</h1><script>alert(1)</script>`
+
+<figure><img src="../../../.gitbook/assets/image (200).png" alt=""><figcaption></figcaption></figure>
+
+Angle brackets are HTML encoded
+
+### Trying to execute XSS in JavaScript Variable
+
+Payload used: `'; alert(1)//`
+
+We can see that the single quotes are escaped with `/` due to which we're unable to come out of the quotes.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (201).png" alt=""><figcaption></figcaption></figure>
+
+Even if we use double quotes we're unable to escape the single quotes and execute XSS. Thus I checked internet for some payloads and got this one.&#x20;
+
+```
+'"`><script>/* *\x2Fjavascript:alert(1)// */</script>
+```
+
+Even if this one didn't worked but I got some hint see the below image.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (202).png" alt=""><figcaption></figcaption></figure>
+
+We've escaped out the code successfully but XSS isn't triggered. So I checked the source code.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (203).png" alt=""><figcaption></figcaption></figure>
+
+Thus we can see that we've jumped out to `document.write` because of the `</script>` snippet. So finally we can break out of the tag and execute XSS.&#x20;
+
+#### Finally Found XSS&#x20;
+
+Payload used: **`</script><script>alert(1)</script>`**
+
+<figure><img src="../../../.gitbook/assets/image (199).png" alt=""><figcaption></figcaption></figure>
+
+## Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped
+
+<figure><img src="../../../.gitbook/assets/image (204).png" alt=""><figcaption></figcaption></figure>
+
+#### Checking the reflections&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (205).png" alt=""><figcaption></figcaption></figure>
+
+So we can see that the backend is injecting the input in a message variable and then using javascript it is dynamically inserted into the h1 tag.&#x20;
+
+### Trying to break the h1 tag&#x20;
+
+Payload used: `'></h1><img/src=x>'`
+
+<figure><img src="../../../.gitbook/assets/image (206).png" alt=""><figcaption></figcaption></figure>
+
+We can see that everything is encoded and escaped. There is no way of escaping and breaking out of these stuffs.&#x20;
+
+Thus we can see those backticks (`` ` ``) being used there. It tells that [Javascript template](../../web-development-essentials/frontend/javascript-js.md#javascript-template-literal) literals is being used there. thus we can execute javascript inside `${here}` .&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (207).png" alt=""><figcaption></figcaption></figure>
+
+### Executing XSS
+
+<figure><img src="../../../.gitbook/assets/image (208).png" alt=""><figcaption></figcaption></figure>
+
+## Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped
+
+<figure><img src="../../../.gitbook/assets/image (209).png" alt=""><figcaption></figcaption></figure>
+
+#### Check reflections&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (210).png" alt=""><figcaption></figcaption></figure>
+
+After checking for reflections within the H1 tag and a variable in the script tag I tried multiple payloads to escape out of the context. But the single quotes are escaped and the double quotes and encoded.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (211).png" alt=""><figcaption></figcaption></figure>
+
+### Escaping the escape
+
+<figure><img src="../../../.gitbook/assets/image (212).png" alt=""><figcaption></figcaption></figure>
+
+### Executing XSS
+
+<figure><img src="../../../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure>
+
+
+
+Final payload: `abhi\'; alert(1)//`
+
+<figure><img src="../../../.gitbook/assets/image (214).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
+
+Other working payload: `\'-alert(1)//`
 
