@@ -226,3 +226,40 @@ This is not working in firefox.&#x20;
 
 Some good payloads: \`[https://github.com/zigoo0/JSONBee/blob/master/jsonp.txt](https://github.com/zigoo0/JSONBee/blob/master/jsonp.txt)\`&#x20;
 
+### CSP Upload Bypass
+
+#### Target
+
+<figure><img src="../../../.gitbook/assets/image (216).png" alt=""><figcaption></figcaption></figure>
+
+We can login using the provided credentials.&#x20;
+
+Let's intercept and check the request.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure>
+
+Any javascript will not be executed except it is sent from the source. Let's check these two payloads in the input.&#x20;
+
+```
+<script>alert(1)</script>
+```
+
+```
+<script src='https://nahamsec.com/1.js'>
+```
+
+<figure><img src="../../../.gitbook/assets/image (218).png" alt=""><figcaption></figcaption></figure>
+
+Thus we can see that our javascript payloads are getting blocked. Thus to bypass this we can upload the file and try to execute XSS exploiting the `self` directive.&#x20;
+
+Thus we intercepted the `Upload Profile Picture` request and let's inject XSS file.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (222).png" alt=""><figcaption></figcaption></figure>
+
+We can see the image location by right clicking on the image and `Open in New Tab`. And we can see our payload there.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (223).png" alt=""><figcaption></figcaption></figure>
+
+Final Payload: `<script src='https://437awe1c.eu1.ctfio.com/csp-upload/uploads/57e581995754d0d64c5c655728a0d831.js'></script>`
+
+<figure><img src="../../../.gitbook/assets/image (221).png" alt=""><figcaption></figcaption></figure>
