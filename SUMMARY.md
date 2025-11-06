@@ -45,6 +45,8 @@
       * [Blind XSS](web-application-penetration-testing/phase-2-vuln-hunting/xss/blind-xss.md)
       * [Nahamsec 5 Week Program](web-application-penetration-testing/phase-2-vuln-hunting/xss/nahamsec-5-week-program.md)
       * [Nahamsec MegaBites Blind XSS Lab](web-application-penetration-testing/phase-2-vuln-hunting/xss/nahamsec-megabites-blind-xss-lab.md)
+      * [Understanding the XSS Input Context](web-application-penetration-testing/phase-2-vuln-hunting/xss/understanding-the-xss-input-context.md)
+      * [Where your payload can hide](web-application-penetration-testing/phase-2-vuln-hunting/xss/where-your-payload-can-hide.md)
     * [Authentication Vulnerabilities](web-application-penetration-testing/phase-2-vuln-hunting/authentication-vulnerabilities.md)
     * [Broken Access Control](web-application-penetration-testing/phase-2-vuln-hunting/broken-access-control/README.md)
       * [Path Traversal](web-application-penetration-testing/phase-2-vuln-hunting/broken-access-control/path-traversal.md)
