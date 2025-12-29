@@ -67,8 +67,7 @@ What are we after ?&#x20;
 ### Automated Shodan
 
 * Karma v2 (Requires Shodan Premium) \[Most Effective]
-*   [Shosubgo](../tools/shoshubgo.md)\
-
+*   [Shosubgo](../tools/shoshubgo.md)<br>
 
     <figure><img src="../../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
 

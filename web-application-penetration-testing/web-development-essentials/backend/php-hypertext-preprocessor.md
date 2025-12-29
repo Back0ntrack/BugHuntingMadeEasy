@@ -292,8 +292,7 @@ echo $name;
 #### 6. $\_SESSION
 
 The `$_SESSION` superglobal used to store session variables, which persist across multiple pages for the duration of the user's session. It is used for managing user login states, preferences or temporary data that should persist across multiple page requests. \
-\
-
+<br>
 
 
 

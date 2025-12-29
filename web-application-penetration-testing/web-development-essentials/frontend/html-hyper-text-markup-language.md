@@ -20,7 +20,7 @@ The first and most dominant component of the front end of web applications is HT
 **Note: HTML tags are not case sensitive: `<P>` means the same as `<p>`.**
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (10) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 All HTML documents must start with a document type declaration: `<!DOCTYPE html>` which tells that it is an HTML 5 document.&#x20;
 
@@ -61,8 +61,7 @@ The `<div>` element is used as a container for other HTML elements.&#x20;
 ### Inline-level elements
 
 2. **Inline Elements -** Inline elements do not start on a new line; they appear on the same line as adjacent content, as long as there is space. Inline elements are typically used within block-level elements to add content or style.&#x20;
-   1.  `<span>`: A general-purpose inline container for phrasing content. \
-
+   1.  `<span>`: A general-purpose inline container for phrasing content. <br>
 
        ```html
        <p>This is a <span style="color:blue;">blue</span> text within a paragraph. </p>
@@ -241,7 +240,7 @@ The HTML `<map>` tag defines an image map which is an image with clickable areas
 </table>
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### HTML Lists
 
@@ -265,7 +264,7 @@ The HTML `<map>` tag defines an image map which is an image with clickable areas
 </html>
 ```
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```html
 <!DOCTYPE html>
@@ -285,7 +284,7 @@ The HTML `<map>` tag defines an image map which is an image with clickable areas
 </html>
 ```
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### HTML Iframes
 
@@ -327,7 +326,7 @@ HTML has several semantic elements that define the different parts of a web page
 * `<details>` - Defines additional details that the user can open and close on demand
 * `<summary>` - Defines a heading for the `<details>` element
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Difference between class and id
 
@@ -372,7 +371,7 @@ HTML has several semantic elements that define the different parts of a web page
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## HTML Forms
 
@@ -478,7 +477,7 @@ The HTML `<form>` element can contain one or more of the following form elements
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### HTML Form Attributes
 

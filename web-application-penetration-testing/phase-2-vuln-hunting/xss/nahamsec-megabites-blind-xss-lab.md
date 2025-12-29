@@ -8,8 +8,7 @@ Three subdomains:&#x20;
 
 * customer-orders-ops.
 * customer-profile-ops.
-* customer-support-ops.\
-
+* customer-support-ops.<br>
 
 <figure><img src="../../../.gitbook/assets/image (238).png" alt=""><figcaption></figcaption></figure>
 
