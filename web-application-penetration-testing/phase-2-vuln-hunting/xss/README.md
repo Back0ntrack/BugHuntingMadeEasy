@@ -33,7 +33,7 @@ _However, **if the****&#x20;****`Content-Type`****&#x20;****is****&#x20;****`app
 
 ## 6 Main XSS Cases😀
 
-<figure><img src="../../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (41) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### 1. URL Reflection
 

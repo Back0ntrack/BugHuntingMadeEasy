@@ -49,6 +49,8 @@
       * [Where your payload can hide](web-application-penetration-testing/phase-2-vuln-hunting/xss/where-your-payload-can-hide.md)
     * [CSRF](web-application-penetration-testing/phase-2-vuln-hunting/csrf/README.md)
       * [Portswigger Labs Solution](web-application-penetration-testing/phase-2-vuln-hunting/csrf/portswigger-labs-solution.md)
+    * [File Upload Attacks](web-application-penetration-testing/phase-2-vuln-hunting/file-upload-attacks/README.md)
+      * [Portswigger Labs Solution](web-application-penetration-testing/phase-2-vuln-hunting/file-upload-attacks/portswigger-labs-solution.md)
     * [Authentication Vulnerabilities](web-application-penetration-testing/phase-2-vuln-hunting/authentication-vulnerabilities.md)
     * [Broken Access Control](web-application-penetration-testing/phase-2-vuln-hunting/broken-access-control/README.md)
       * [Path Traversal](web-application-penetration-testing/phase-2-vuln-hunting/broken-access-control/path-traversal.md)
