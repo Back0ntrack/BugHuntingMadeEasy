@@ -35,6 +35,10 @@ multipart/form-data : Used to safely send binary data/large files
 
 It doesn't proof the type of content or the content itself but it is metadata which tells the server treat this data as "specific" content.&#x20;
 
+### Web servers and their executables
+
+<table><thead><tr><th>Web Server</th><th width="128.2000732421875">Main Script</th><th>Other common executed extension</th></tr></thead><tbody><tr><td>Apache/nginx</td><td><code>.php</code></td><td><code>.php3</code>, <code>.php4</code>, <code>.php5</code>, <code>.php7</code>, <code>.phps</code>,  <code>.phtml</code></td></tr><tr><td>Microsoft IIS</td><td><code>.asp</code> / <code>.aspx</code> / <code>.php</code></td><td><code>.asp</code>: <code>.asa</code>, <code>.cer</code><br><br><br><code>.aspx</code>: <code>.ashx</code>, <code>.asmx</code>, <code>.axd</code>, <code>.cshtml</code>, <code>.vhtml</code><br></td></tr><tr><td>Tomcat / Jetty</td><td><code>.jsp</code></td><td><code>.jspx</code>, <code>.jsw</code>, <code>.jsv</code>, <code>.jspf</code></td></tr></tbody></table>
+
 ## Methodology
 
 ### 1. Identify All Upload Entry Points
@@ -143,3 +147,31 @@ Even non-executable uploads can be dangerous.
 * `.pdf` (JavaScript actions)
 
 🧪 Open file as victim/admin user.
+
+<figure><img src="../../../.gitbook/assets/File Upload Attack.jpg" alt=""><figcaption></figcaption></figure>
+
+## Character Injection Bash Script&#x20;
+
+The following are some of the characters we may try injecting:
+
+* `%20`
+* `%0a`
+* `%00`
+* `%0d0a`
+* `/`
+* `.\`
+* `.`
+* `…`
+* `:`
+
+```shellscript
+# try to add more PHP extensions
+for char in '%20' '%0a' '%00' '%0d0a' '/' '.\\' '.' '…' ':'; do
+    for ext in '.php' '.phps'; do
+        echo "shell$char$ext.jpg" >> wordlist.txt
+        echo "shell$ext$char.jpg" >> wordlist.txt
+        echo "shell.jpg$char$ext" >> wordlist.txt
+        echo "shell.jpg$ext$char" >> wordlist.txt
+    done
+done
+```
