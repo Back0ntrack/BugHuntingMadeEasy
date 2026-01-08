@@ -33,15 +33,15 @@ _However, **if the****&#x20;****`Content-Type`****&#x20;****is****&#x20;****`app
 
 ## 6 Main XSS Cases😀
 
-<figure><img src="../../../.gitbook/assets/image (41) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (41) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### 1. URL Reflection
 
 When URL is reflected somehow in source code, we can add our own XSS vector/payload to it. For PHP pages it’s possible to do add anything in the URL after page name (without changing it) with the use of a slash character (/).
 
-<figure><img src="../../../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (43) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (44) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### 2. Inline HTMLi: Tag Breaking
 
