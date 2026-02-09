@@ -10,15 +10,15 @@ We're provided with an account `wiener:peter` and some blog posts are provided. 
 
 ### Functionality
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we've an email change functionality in which we can change the email of the user.&#x20;
 
 Let's intercept and see the actual request going through.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see that we've successfully got 302 request which redirects to the same page again with changed mail id.&#x20;
 
@@ -26,7 +26,7 @@ We can see that we've successfully got 302 request which redirects to the same p
 
 Generate CSRF PoC using CSRF PoC Generator in Burp Suite using Engagement Tools for the same above request and deliver it to victim.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 When the victim will open the website in which this code is hosted his email will automatically change to `change@mail.com`.&#x20;
 
@@ -34,29 +34,29 @@ When the victim will open the website in which this code is hosted his email wil
 
 ### Target
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We're provided with an account `wiener:peter` and some blog posts are provided. There is no option for registration.&#x20;
 
 ### Functionality
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we've an email change functionality in which we can change the email of the user.&#x20;
 
 Let's intercept and see the actual request going through.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Exploitation
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see that it is also accepting get requests. Let's try to change email without CSRF token through GET request in the repeater and we can see that we've successfully changed the email without csrf token.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (11) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we can generate csrf PoC using burp suite and send it to victim to execute our CSRF attack.&#x20;
 
@@ -64,13 +64,13 @@ Now we can generate csrf PoC using burp suite and send it to victim to execute o
 
 ### Target
 
-<figure><img src="../../../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We're provided with an account `wiener:peter` and some blog posts are provided. There is no option for registration.&#x20;
 
 ### Functionality
 
-<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we've an email change functionality in which we can change the email of the user.&#x20;
 

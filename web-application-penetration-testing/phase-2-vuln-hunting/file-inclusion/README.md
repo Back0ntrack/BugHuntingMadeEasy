@@ -4,7 +4,7 @@
 
 ### Tech-stack function
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### PHP Wrappers
 
@@ -18,7 +18,7 @@ File Inclusion is a web application vulnerability that occurs when an applicatio
 dynamically loads or executes files based on user-controlled input without proper\
 validation. This vulnerability only allows to read or execute existing files.
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Types of File Inclusion
 
@@ -30,4 +30,4 @@ validation. This vulnerability only allows to read or execute existing files.
 
 ## Attack Methodology
 
-<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>

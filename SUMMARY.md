@@ -73,5 +73,5 @@
     * [Network Protocols](infrastructure-penetration-testing/penetration-testing-essentials/network-protocols.md)
   * [Network Penetration Testing](infrastructure-penetration-testing/network-penetration-testing/README.md)
     * [Enumeration and Exploitation](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/README.md)
-      * [Pentesting MSSQL](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/pentesting-mssql.md)
-      * [Using PowerUpSQL](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/using-powerupsql.md)
+      * [Pentesting MSSQL](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/pentesting-mssql/README.md)
+        * [Using PowerUpSQL](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/pentesting-mssql/using-powerupsql.md)
