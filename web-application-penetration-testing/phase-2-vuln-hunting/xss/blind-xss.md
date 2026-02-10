@@ -289,7 +289,7 @@ If the victim's paste action **stores** the payload (e.g., in a comment or ticke
 
 4. Open victim.html, click inside the box and press Ctrl+V.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 5\. The alert will fire showing the XSS worked.
 
@@ -813,11 +813,11 @@ _❌ It won't work in simple  \<input> or  \<textarea> fields, because those onl
 
 **attacker.html page. Copy payload from here.**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **vulnerable.html. paste the payload in the chatbot and see the boom.**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Why This Pastejacking Attack Worked
 
