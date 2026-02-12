@@ -75,3 +75,4 @@
     * [Enumeration and Exploitation](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/README.md)
       * [Pentesting MSSQL](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/pentesting-mssql/README.md)
         * [Using PowerUpSQL](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/pentesting-mssql/using-powerupsql.md)
+        * [Using SQLRecon](infrastructure-penetration-testing/network-penetration-testing/enumeration-and-exploitation/pentesting-mssql/using-sqlrecon.md)
