@@ -14,7 +14,7 @@ Thus we can see that we've the ability to upload profile picture.
 
 Let's check on which tech stack the website is running.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we can assume that PHP is being used in background as the web server is Apache (XAMPP stack or LAMP Stack). Thus we need to upload a PHP webshell.&#x20;
 

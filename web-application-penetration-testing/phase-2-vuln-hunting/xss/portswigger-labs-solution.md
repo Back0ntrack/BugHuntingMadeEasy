@@ -265,7 +265,7 @@ Other working payload: `\'-alert(1)//`
 
 #### Checking for reflections
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We get two reflections. In the `<h1>` tag and in the `<img src...>` tag.&#x20;
 

@@ -289,7 +289,7 @@ If the victim's paste action **stores** the payload (e.g., in a comment or ticke
 
 4. Open victim.html, click inside the box and press Ctrl+V.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 5\. The alert will fire showing the XSS worked.
 

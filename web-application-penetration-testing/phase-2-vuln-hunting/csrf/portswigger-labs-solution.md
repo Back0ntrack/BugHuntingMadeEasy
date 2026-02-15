@@ -10,7 +10,7 @@ We're provided with an account `wiener:peter` and some blog posts are provided. 
 
 ### Functionality
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we've an email change functionality in which we can change the email of the user.&#x20;
 
