@@ -40,7 +40,7 @@ An Autonomous System Number (ASN) is a unique identifier assigned to networks th
 
 > **Note:** If you identify that a cloud service (e.g., AWS, Azure, GCP) is being used during a reverse DNS lookup, stop the process at that point. This is because it's unlikely to resolve to the actual apex or subdomain—instead, it typically resolves to a generic cloud instance (e.g., an EC2 hostname), which is not useful for further enumeration.
 >
-> [#web-application-on-cloud](../web-essentials.md#web-application-on-cloud "mention")
+> [#web-application-on-cloud](../../penetration-testing-essentials/web-essentials.md#web-application-on-cloud "mention")
 
 ## Getting data with [whoisxmlapi](../tools/whoisxmlapi.md)
 
