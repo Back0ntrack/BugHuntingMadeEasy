@@ -6,7 +6,7 @@ In description it is given that there is no validation at all.&#x20;
 
 ### Target
 
-<figure><img src="../../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we can see that we've the ability to upload profile picture.
 
@@ -14,27 +14,27 @@ Thus we can see that we've the ability to upload profile picture.
 
 Let's check on which tech stack the website is running.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we can assume that PHP is being used in background as the web server is Apache (XAMPP stack or LAMP Stack). Thus we need to upload a PHP webshell.&#x20;
 
 ### Exploitation
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we need to find the location of the avatar where it is being uploaded. We can find it by right clicking and opening it in new tab.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus we got our shell.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can also upload file accordingly to perform read and write operations on the server.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Flawed File Type Validation -> Web shell upload via Content-Type restriction bypass
 
@@ -49,15 +49,15 @@ But the server forgets that an attacker can intercept and modify the MIME type a
 
 ### Target
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 here again we're provided with the option to upload avatar. Thus we've identified our entry point.&#x20;
 
 ### Functionality
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 This time again we've the same Apache server but we're not allowed to upload files other than impage/jpeg or image/png.&#x20;
 
@@ -65,17 +65,17 @@ This time again we've the same Apache server but we're not allowed to upload fil
 
 We can see that a jpg file is uploaded successfully.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (10) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Let's try to intercept this request in burp and try to exploit it .&#x20;
 
 {% tabs %}
 {% tab title="Original Request" %}
-<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Modified Request" %}
-<figure><img src="../../../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see that Content-Type: \*/\* is not allowed only `image/jpeg` or `image/png` is allowed.&#x20;
 {% endtab %}
@@ -83,11 +83,11 @@ We can see that Content-Type: \*/\* is not allowed only `image/jpeg` or `image/p
 {% tab title="Exploitation" %}
 What we've done now is don't modify anything else. Just remove the data part of the image and add your malicious php code, change Content-Type to required one and we're good to go.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (14) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../../../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Web Shell upload via path traversal
 
@@ -95,17 +95,17 @@ Sometimes as a second line of defense what the developer generally do is they pr
 
 ### Target
 
-<figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (16) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Again we're provided with the ability to upload our profile picture. Let's try to upload shell.php file using the same way we uploaded previously.&#x20;
 
 ### Functionality
 
-<figure><img src="../../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 A simple jpg file is uploaded successfully. now let's try to upload shell.php.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Our shell.php uploaded successfully. Let's try to execute some commands.
 
