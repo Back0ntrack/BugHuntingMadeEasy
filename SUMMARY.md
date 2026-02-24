@@ -20,7 +20,9 @@
 
 ## Microsoft Cloud and AI Honors <a href="#cloud" id="cloud"></a>
 
-* [Page 1](cloud/page-1.md)
+* [Azure Fundamentals](cloud/azure-fundamentals/README.md)
+  * [Describe Cloud concepts](cloud/azure-fundamentals/describe-cloud-concepts.md)
+  * [Core architectural components of Azure](cloud/azure-fundamentals/core-architectural-components-of-azure.md)
 
 ## Web App  <a href="#web" id="web"></a>
 

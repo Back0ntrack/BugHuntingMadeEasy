@@ -40,7 +40,7 @@ Windows Service
 select @@servername;
 ```
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 ## The Core 4 Databases&#x20;
 
@@ -55,11 +55,11 @@ Every MSSQL instance starts with four system databases that manage the server it
 select name from sys.databases; 
 ```
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Authorization Hierarchy
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 **Important:**
@@ -378,7 +378,7 @@ In Microsoft SQL Server, operating system command execution from within the data
 
 #### Command Execution User&#x20;
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Enable Xp\_CmdShell
 
@@ -396,7 +396,7 @@ RECONFIGURE;
 EXEC xp_cmdshell 'whoami';
 ```
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### OLE Automation Procedures
 
@@ -439,7 +439,7 @@ EXEC sp_OACreate 'WScript.Shell', @obj OUTPUT;
 EXEC sp_OAMethod @obj, 'Run', NULL, 'cmd.exe /c whoami';
 ```
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### SQL Server Agent&#x20;
 
@@ -479,7 +479,7 @@ SELECT servicename, service_account
 FROM sys.dm_server_services;
 ```
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 3. **Create a job.**
 
@@ -510,6 +510,6 @@ EXEC sp_add_jobserver
 EXEC sp_start_job @job_name = 'Run_PowerShell_Script';
 ```
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
