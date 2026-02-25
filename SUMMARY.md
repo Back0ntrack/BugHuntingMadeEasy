@@ -23,6 +23,9 @@
 * [Azure Fundamentals](cloud/azure-fundamentals/README.md)
   * [Describe Cloud concepts](cloud/azure-fundamentals/describe-cloud-concepts.md)
   * [Core architectural components of Azure](cloud/azure-fundamentals/core-architectural-components-of-azure.md)
+  * [Azure Compute and Network services](cloud/azure-fundamentals/azure-compute-and-network-services.md)
+  * [Azure Storage Services](cloud/azure-fundamentals/azure-storage-services.md)
+  * [Azure Identity Access and Security](cloud/azure-fundamentals/azure-identity-access-and-security.md)
 
 ## Web App  <a href="#web" id="web"></a>
 
