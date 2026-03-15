@@ -69,12 +69,12 @@ Azure provides tools and documentation to help organizations **prove compliance 
 
 ### What is Microsoft Purview?
 
-**Microsoft Purview** is a **data governance and compliance solution** that helps organizations manage and protect their data across multiple environments.
+Microsoft Purview is a family of data governance, risk, and compliance solutions that helps you get a single, unified view into your data. Microsoft Purview brings insights about your on-premises, multicloud, and software-as-a-service data together.
 
 It provides tools for:
 
-* Data discovery
-* Data classification
+* Automated Data discovery
+* Sensitive Data classification
 * Data governance
 * Compliance management
 

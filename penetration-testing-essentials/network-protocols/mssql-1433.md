@@ -55,7 +55,7 @@ Every MSSQL instance starts with four system databases that manage the server it
 select name from sys.databases; 
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Authorization Hierarchy
 

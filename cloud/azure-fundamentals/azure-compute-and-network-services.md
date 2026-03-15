@@ -93,15 +93,7 @@ Azure Container Apps let you run and scale containers easily without managing in
 * Supports built-in **scaling and load balancing**.
 * Designed for **elastic and scalable applications**.
 
-### Azure Kubernetes Service (AKS)
-
-AKS automates deployment and lifecycle management of large-scale containerized applications.
-
-* A **container orchestration service**.
-* Manages container lifecycle (deploy, scale, update, monitor).
-* Ideal for managing large fleets of containers.
-
-### Azure Container apps (microservices)
+#### Azure Container apps (microservices)
 
 Containers enable microservices by allowing applications to be split into independent, scalable components.
 
@@ -120,6 +112,16 @@ Containers enable microservices by allowing applications to be split into indepe
 * Database container
 
 for a single website we're maintaining three different containers increasing security and ease of maintenance.
+
+### Azure Kubernetes Service (AKS)
+
+AKS automates deployment and lifecycle management of large-scale containerized applications.
+
+* A **container orchestration service**.
+* Manages container lifecycle (deploy, scale, update, monitor).
+* Ideal for managing large fleets of containers.
+
+Azure Kubernetes Service (AKS) is similar to Azure Container Apps (ACA) in that both run containers, but AKS gives you full control over the Kubernetes cluster and container orchestration, while ACA abstracts the Kubernetes layer and manages it for you.
 
 ## Azure Functions (SaaS)
 
@@ -233,9 +235,13 @@ Azure virtual networking supports both public and private endpoints to enable co
 * Public endpoints have a public IP address and can be accessed from anywhere in the world.
 * Private endpoints exist within a virtual network and have a private IP address from within the address space of that virtual network.
 
-## Azure ExpressRoute
+### Azure VPNs
 
-Azure ExpressRoute extends your on-premises network to Microsoft cloud services like Azure and Microsoft 365 through a dedicated private connection called an ExpressRoute circuit. It does not use the public internet, providing higher reliability, faster speeds, consistent latency, and improved security compared to standard internet-based connections.
+Azure VPN Gateway is a managed service that establishes secure, encrypted, and private connectivity between Azure virtual networks (VNets) and on-premises locations or between Azure VNets over the public internet.
+
+### Azure ExpressRoute
+
+Azure ExpressRoute is a dedicated, private network service that connects on-premises infrastructure directly to [Microsoft Azure](https://azure.microsoft.com/en-us/products/expressroute), bypassing the public internet for faster speeds, lower latency, and higher security. It enables secure, high-bandwidth connections (up to 100 Gbps) for hybrid cloud environments, data migration, and disaster recovery.&#x20;
 
 ExpressRoute enables direct access to the following services in all regions:
 
@@ -244,7 +250,7 @@ ExpressRoute enables direct access to the following services in all regions:
 * Azure compute services, such as Azure Virtual Machines
 * Azure cloud services, such as Azure Cosmos DB and Azure Storage
 
-## Azure DNS
+### Azure DNS
 
 Azure DNS is a hosting service for DNS domains that provides name resolution by using Microsoft Azure infrastructure. By hosting your domains in Azure, you can manage your DNS records using the same credentials, APIs, tools, and billing as your other Azure services.
 

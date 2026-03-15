@@ -25,7 +25,7 @@ Azure is a continually expanding set of cloud services that help you meet curren
 
 ## Azure Governance Hierarchy
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Management Groups (Top Level Governance Layer)
 
@@ -197,6 +197,8 @@ Reasons:
 
 ### Availability Zones
 
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
 An **Availability Zone (AZ)** is:
 
 > One or more physically separate datacenters within the same region.
@@ -255,3 +257,7 @@ Microsoft ensures:
 
 * Updates are rolled out one region at a time in a pair.
 * Not both go down for maintenance simultaneously.
+
+{% hint style="info" %}
+When you create a storage account, you select the primary region for the account. The paired secondary region is based on Azure Region Pairs, and can't be changed.
+{% endhint %}

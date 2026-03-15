@@ -160,100 +160,7 @@ Examples:
 
 These can affect discounts and billing terms.
 
-***
-
-## 3. Azure Pricing Calculator vs Total Cost of Ownership (TCO) Calculator
-
-Azure provides two main tools for **cost estimation**.
-
-***
-
-## 3.1 Azure Pricing Calculator
-
-The **Pricing Calculator** helps estimate the **cost of Azure services before deployment**.
-
-It allows users to:
-
-* Select Azure services
-* Configure resource specifications
-* Estimate monthly costs
-
-#### Example Use Case
-
-A company wants to deploy:
-
-* 3 Virtual Machines
-* Azure SQL Database
-* Storage account
-
-They can add these services in the calculator to estimate the **monthly cost**.
-
-***
-
-#### Key Features
-
-* Estimates Azure resource costs
-* Supports multiple services
-* Allows configuration changes
-* Provides cost breakdown
-
-***
-
-## 3.2 Total Cost of Ownership (TCO) Calculator
-
-The **TCO calculator** compares **on-premises infrastructure costs with Azure cloud costs**.
-
-It helps organizations decide if migrating to Azure is financially beneficial.
-
-***
-
-#### Example Comparison
-
-| On-Premises Cost | Azure Equivalent           |
-| ---------------- | -------------------------- |
-| Server hardware  | Virtual machines           |
-| Datacenter power | Azure infrastructure       |
-| Cooling systems  | Managed by Azure           |
-| IT maintenance   | Reduced operational effort |
-
-The calculator estimates **long-term cost savings when moving to Azure**.
-
-***
-
-#### Key Purpose
-
-| Tool               | Purpose                         |
-| ------------------ | ------------------------------- |
-| Pricing Calculator | Estimate Azure deployment costs |
-| TCO Calculator     | Compare on-prem vs Azure costs  |
-
-***
-
-## 4. Exercise: Estimate Workload Costs Using Pricing Calculator
-
-A common scenario is estimating the cost of running an application in Azure.
-
-#### Example Scenario
-
-A company wants to deploy a web application consisting of:
-
-* Web server (VM)
-* Database
-* Storage
-* Networking
-
-Steps:
-
-1. Open the **Azure Pricing Calculator**
-2. Add required services
-3. Configure specifications
-4. Review estimated monthly cost
-
-This allows organizations to **plan budgets before deploying workloads**.
-
-***
-
-## 5. Microsoft Cost Management Tool
+## 3. Microsoft Cost Management Tool
 
 **Microsoft Cost Management** is a suite of tools that help organizations **monitor, analyze, and optimize Azure spending**.
 
@@ -310,29 +217,7 @@ Alerts can trigger when:
 
 ***
 
-#### Cost Recommendations
-
-Azure can suggest ways to reduce costs.
-
-Examples:
-
-* Shut down unused VMs
-* Resize over-provisioned resources
-* Remove unused services
-
-***
-
-#### Cost Reporting
-
-Organizations can generate reports to:
-
-* Understand cost distribution
-* Track spending trends
-* Forecast future expenses
-
-***
-
-## 6. Purpose of Tags in Azure
+## 4. Purpose of Tags in Azure
 
 **Tags** are metadata labels applied to Azure resources.
 

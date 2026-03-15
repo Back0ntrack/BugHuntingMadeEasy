@@ -20,16 +20,34 @@ layout:
 
 # Azure Storage Services
 
-## Storage Account Endpoints
+## Storage Account
 
-Every storage account in Azure must have a unique-in-Azure account name. The combination of the account name and the Azure Storage service endpoint forms the endpoints for your storage account.
+A storage account provides a unique namespace for your Azure Storage data that's accessible from anywhere in the world over HTTP or HTTPS. Data in this account is secure, highly available, durable, and massively scalable.
 
 **Rules:**&#x20;
 
 * Storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only.
 * Your storage account name must be unique within Azure. No two storage accounts can have the same name. This supports the ability to have a unique, accessible namespace in Azure.
 
-<table data-full-width="true"><thead><tr><th>Storage service</th><th>Endpoint</th></tr></thead><tbody><tr><td>Blob Storage</td><td>https://&#x3C;storage-account-name>.blob.core.windows.net</td></tr><tr><td>Data Lake Storage Gen2</td><td>https://&#x3C;storage-account-name>.dfs.core.windows.net</td></tr><tr><td>Azure Files</td><td>https://&#x3C;storage-account-name>.file.core.windows.net</td></tr><tr><td>Queue Storage</td><td>https://&#x3C;storage-account-name>.queue.core.windows.net</td></tr><tr><td>Table Storage</td><td>https://&#x3C;storage-account-name>.table.core.windows.net</td></tr></tbody></table>
+### Determines
+
+The type of account determines the&#x20;
+
+* Storage Service&#x20;
+* Redundancy Options
+* Performance Tier&#x20;
+* Access Tier
+
+Although we can configure different options such as storage services, redundancy, performance tier, and access tier, Azure provides storage account types that act as capability templates and determine which configuration options are available for a storage account.
+
+### Azure Storage Account Types&#x20;
+
+| Type                        | Supported Services                                                                        | Redundancy Options                   | Usage                                                                                                                                                                                                                                        |
+| --------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Standard general-purpose v2 | Blob Storage (including Data Lake Storage), Queue Storage, Table Storage, and Azure Files | LRS, GRS, RA-GRS, ZRS, GZRS, RA-GZRS | Standard storage account type for blobs, file shares, queues, and tables. Recommended for most scenarios using Azure Storage. If you want support for network file system (NFS) in Azure Files, use the premium file shares account type.    |
+| Premium block blobs         | Blob Storage (including Data Lake Storage)                                                | LRS, ZRS                             | Premium storage account type for block blobs and append blobs. Recommended for scenarios with high transaction rates or that use smaller objects or require consistently low storage latency.                                                |
+| Premium file shares         | Azure Files                                                                               | LRS, ZRS                             | Premium storage account type for file shares only. Recommended for enterprise or high-performance scale applications. Use this account type if you want a storage account that supports both Server Message Block (SMB) and NFS file shares. |
+| Premium page blobs          | Page blobs only                                                                           | LRS                                  | Premium storage account type for page blobs only.                                                                                                                                                                                            |
 
 ## Azure Storage Redundancy&#x20;
 
@@ -116,44 +134,13 @@ The Azure Storage platform includes the following data services:
 ### Azure Blobs (Binary Large Object)
 
 * Cloud-based **object storage solution**
+* In **Azure Blobs** everything is stored inside a blob container.&#x20;
 * Designed to store **massive amounts of data**
 * It is unstructured and there is no restriction on the type of data it holds.&#x20;
 * It can store anything irrespective of the data type and size.&#x20;
 * Supports thousands of simultaneous uploads.
 * It can store binary data streamed from a scientific instrument or custom format for an app.&#x20;
 * Data is uploaded as blobs, and Azure takes care of the physical storage needs.&#x20;
-
-#### Access&#x20;
-
-Users or client applications can access blobs using:
-
-* **Direct URL**
-* **Azure Storage REST API**
-* **Azure PowerShell**
-* **Azure CLI**
-* **Azure Storage Client Libraries**
-* Azure provides SDKs for multiple programming languages:
-  * .NET
-  * Java
-  * Node.js
-  * Python
-  * PHP
-  * Ruby
-
-#### Blob Storage tiers&#x20;
-
-To accommodate different access needs, Azure provides several access tiers, which you can use to balance your storage costs with your access needs.
-
-&#x20;The available access tiers include:
-
-* **Hot access tier**: Optimized for storing data that is accessed frequently (for example, images for your website).
-* **Cool access tier**: Optimized for data that is infrequently accessed and stored for at least 30 days (for example, invoices for your customers).
-* **Cold access tier**: Optimized for storing data that is infrequently accessed and stored for at least 90 days.
-* **Archive access tier**: Appropriate for data that is rarely accessed and stored for at least 180 days, with flexible latency requirements (for example, long-term backups).
-
-{% hint style="info" %}
-_Archive storage stores data offline and offers the lowest storage costs, but also the highest costs to rehydrate and access data._
-{% endhint %}
 
 ### Azure Files&#x20;
 
@@ -186,22 +173,79 @@ Azure Disk storage, or Azure managed disks, are block-level storage volumes mana
 
 Azure Table storage stores large amounts of structured data. Azure tables are a NoSQL datastore that accepts authenticated calls from inside and outside the Azure cloud. This enables you to use Azure tables to build your hybrid or multicloud solution and have your data always available. Azure tables are ideal for storing structured, non-relational data.
 
+{% hint style="info" %}
+_Archive storage stores data offline and offers the lowest storage costs, but also the highest costs to rehydrate and access data._
+{% endhint %}
+
+## Azure Access Tiers&#x20;
+
+Access tiers are applicable only to Blob Storage in Microsoft Azure and are used to optimize storage costs based on how frequently the data is accessed.
+
+* **Hot**
+  * For **frequently accessed data**
+  * **Highest storage cost**
+  * **Lowest access cost**
+  * Example: website images, active application files
+* **Cool**
+  * For **infrequently accessed data**
+  * **Lower storage cost than Hot**
+  * **Higher access cost than Hot**
+  * Requires **minimum storage duration (\~30 days)**
+  * Example: short-term backups, monthly reports
+* **Cold**
+  * For **rarely accessed data**
+  * **Lower storage cost than Cool**
+  * **Higher access cost**
+  * Requires **longer minimum storage duration (\~90 days)**
+  * Example: older backups, compliance logs
+* **Archive**
+  * For **very rarely accessed long-term data**
+  * **Lowest storage cost**
+  * **Highest retrieval cost**
+  * Data must be **rehydrated before access**
+  * Requires **minimum storage duration (\~180 days)**
+  * Example: legal records, long-term archival backups
+
+## Azure Performance Tier&#x20;
+
+It is defined at storage account level. The performance tiers are:&#x20;
+
+* **Standard**
+  * Uses **HDD (Hard Disk Drives)**
+  * **Lower cost**
+  * Suitable for **general-purpose workloads**
+  * Used for most storage accounts like **GPv2**
+  * Example: backups, logs, documents, images
+* **Premium**
+  * Uses **SSD (Solid State Drives)**
+  * **Higher cost**
+  * Provides **low latency and high IOPS (I/O Operations per second)**
+  * Designed for **high-performance workloads**
+  * Example: databases, high-transaction applications, VM disks
+
 ## Azure Data Migration Options&#x20;
 
 Azure supports both real-time migration of infrastructure, applications, and data using Azure Migrate as well as asynchronous migration of data using Azure Data Box.
 
-### Azure Migrate&#x20;
+### Service Based Migration Tools&#x20;
 
-Azure Migrate is a service that helps you migrate from an on-premises environment to the cloud.
+#### Infrastructure / Workload Migration
 
-#### Integrated Tools&#x20;
+* **Azure Migrate**
+  * Discovers and assesses on-prem resources
+  * Migrates **servers, applications, and workloads**
 
-* **Azure Migrate: Discovery and assessment**. Discover and assess on-premises servers running on VMware, Hyper-V, and physical servers in preparation for migration to Azure.
-* **Azure Migrate: Server Migration**. Migrate VMware VMs, Hyper-V VMs, physical servers, other virtualized servers, and public cloud VMs to Azure.
-* **Data Migration Assistant**. Data Migration Assistant is a stand-alone tool to assess SQL Servers. It helps pinpoint potential problems blocking migration. It identifies unsupported features, new features that can benefit you after migration, and the right path for database migration.
-* **Azure Database Migration Service**. Migrate on-premises databases to Azure VMs running SQL Server, Azure SQL Database, or SQL Managed Instances.
-* **Azure App Service migration assistant**. Azure App Service migration assistant is a standalone tool to assess on-premises websites for migration to Azure App Service. Use Migration Assistant to migrate .NET and PHP web apps to Azure.
-* **Azure Data Box**. Use Azure Data Box products to move large amounts of offline data to Azure.
+#### Database Migration
+
+* **Azure Database Migration Service**
+  * Migrates databases like SQL Server, MySQL, PostgreSQL
+  * Supports **near-zero downtime migration**
+
+#### Data Integration / ETL Migration
+
+* **Azure Data Factory**
+  * Orchestrates data movement pipelines
+  * Used for **continuous data replication or transformation**
 
 ### Azure Data Box&#x20;
 
@@ -248,15 +292,6 @@ Azure Migrate is a service that helps you migrate from an on-premises environmen
 * Entire process tracked in Azure Portal
 {% endstep %}
 {% endstepper %}
-
-Here are the various scenarios where Data Box can be used to import data to Azure.
-
-* Onetime migration - when a large amount of on-premises data is moved to Azure.
-* Moving a media library from offline tapes into Azure to create an online media library.
-* Migrating your VM farm, SQL server, and applications to Azure.
-* Moving historical data to Azure for in-depth analysis and reporting using HDInsight.
-* Initial bulk transfer - when an initial bulk transfer is done using Data Box (seed) followed by incremental transfers over the network.
-* Periodic uploads - when large amount of data is generated periodically and needs to be moved to Azure.
 
 ## Azure File Movement Options&#x20;
 

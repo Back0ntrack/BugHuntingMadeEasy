@@ -26,6 +26,7 @@
   * [Azure Compute and Network services](cloud/azure-fundamentals/azure-compute-and-network-services.md)
   * [Azure Storage Services](cloud/azure-fundamentals/azure-storage-services.md)
   * [Azure Identity Access and Security](cloud/azure-fundamentals/azure-identity-access-and-security.md)
+  * [Azure Directory Services](cloud/azure-fundamentals/azure-directory-services.md)
   * [Cost Management in Azure](cloud/azure-fundamentals/cost-management-in-azure.md)
   * [Features and Tools in Azure for Governance and Compliance](cloud/azure-fundamentals/features-and-tools-in-azure-for-governance-and-compliance.md)
 
