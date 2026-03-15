@@ -29,6 +29,9 @@
   * [Azure Directory Services](cloud/azure-fundamentals/azure-directory-services.md)
   * [Cost Management in Azure](cloud/azure-fundamentals/cost-management-in-azure.md)
   * [Features and Tools in Azure for Governance and Compliance](cloud/azure-fundamentals/features-and-tools-in-azure-for-governance-and-compliance.md)
+* [Security Fundamentals](cloud/security-fundamentals/README.md)
+  * [Identity, Security and Compliance Concepts](cloud/security-fundamentals/identity-security-and-compliance-concepts.md)
+  * [Introduction to Microsoft Entra](cloud/security-fundamentals/introduction-to-microsoft-entra.md)
 
 ## Web App  <a href="#web" id="web"></a>
 

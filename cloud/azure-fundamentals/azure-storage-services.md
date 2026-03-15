@@ -79,7 +79,7 @@ Azure Storage offers two options for how your data is replicated in the primary 
 * With ZRS, your data is still accessible for both read and write operations even if a zone becomes unavailable.
 * ZRS is also recommended for restricting replication of data within a country or region to meet data governance requirements.
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Redundancy in a secondary region&#x20;
 
@@ -105,7 +105,7 @@ _Because data is replicated to the secondary region asynchronously, a failure th
 * Total copies = **6 copies (3 primary + 3 secondary)**
 * Offers durability of at least **99.99999999999999% (16 nines) per year**
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Geo-zone Redundant Storage&#x20;
 
@@ -119,7 +119,7 @@ _Because data is replicated to the secondary region asynchronously, a failure th
 * Provides maximum availability, excellent performance and resilience for disaster recovery.&#x20;
 * Offers durability of at least **99.99999999999999% (16 nines) per year**
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Azure Storage Services&#x20;
 
