@@ -32,6 +32,8 @@
 * [Security Fundamentals](cloud/security-fundamentals/README.md)
   * [Identity, Security and Compliance Concepts](cloud/security-fundamentals/identity-security-and-compliance-concepts.md)
   * [Introduction to Microsoft Entra](cloud/security-fundamentals/introduction-to-microsoft-entra.md)
+  * [Access Management in Entra](cloud/security-fundamentals/access-management-in-entra.md)
+  * [Microsoft Security Solutions](cloud/security-fundamentals/microsoft-security-solutions.md)
 
 ## Web App  <a href="#web" id="web"></a>
 
