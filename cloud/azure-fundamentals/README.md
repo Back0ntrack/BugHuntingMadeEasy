@@ -1,8 +1,10 @@
 # Azure Fundamentals
 
-<figure><img src="../../.gitbook/assets/AZ - 900(Introduction to Cloud Infrastructure).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/AZ - 900(Introduction to Cloud Infrastructure) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% file src="../../.gitbook/assets/AZ - 900(Introduction to Cloud Infrastructure).xmind" %}
+
+{% file src="../../.gitbook/assets/AZ - 900(Introduction to Cloud Infrastructure).png" %}
 
 ### Practical Covered in it:&#x20;
 

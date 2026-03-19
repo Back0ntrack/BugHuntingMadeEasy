@@ -34,6 +34,8 @@
   * [Introduction to Microsoft Entra](cloud/security-fundamentals/introduction-to-microsoft-entra.md)
   * [Access Management in Entra](cloud/security-fundamentals/access-management-in-entra.md)
   * [Microsoft Security Solutions](cloud/security-fundamentals/microsoft-security-solutions.md)
+* [AZ - 1003 (Applied Skills on Storage)](cloud/az-1003-applied-skills-on-storage/README.md)
+  * [Concepts](cloud/az-1003-applied-skills-on-storage/concepts.md)
 
 ## Web App  <a href="#web" id="web"></a>
 
