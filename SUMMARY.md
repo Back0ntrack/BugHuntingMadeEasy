@@ -20,6 +20,7 @@
 
 ## Microsoft Cloud and AI Honors <a href="#cloud" id="cloud"></a>
 
+* [Practicals](cloud/practicals.md)
 * [Azure Fundamentals](cloud/azure-fundamentals/README.md)
   * [Describe Cloud concepts](cloud/azure-fundamentals/describe-cloud-concepts.md)
   * [Core architectural components of Azure](cloud/azure-fundamentals/core-architectural-components-of-azure.md)
@@ -29,7 +30,6 @@
   * [Azure Directory Services](cloud/azure-fundamentals/azure-directory-services.md)
   * [Cost Management in Azure](cloud/azure-fundamentals/cost-management-in-azure.md)
   * [Features and Tools in Azure for Governance and Compliance](cloud/azure-fundamentals/features-and-tools-in-azure-for-governance-and-compliance.md)
-* [Practicals](cloud/practicals.md)
 * [Security Fundamentals](cloud/security-fundamentals/README.md)
   * [Identity, Security and Compliance Concepts](cloud/security-fundamentals/identity-security-and-compliance-concepts.md)
   * [Introduction to Microsoft Entra](cloud/security-fundamentals/introduction-to-microsoft-entra.md)

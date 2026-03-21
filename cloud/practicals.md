@@ -176,3 +176,43 @@ _Note that the identities are just used to access the key vault. So whenever enc
 Once the container is created from the storage browser you can upload images to the blob containers. More permission on access can later implemented from container section.&#x20;
 
 <figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+
+### Implement Azure Key Vault&#x20;
+
+1. Open the key vault and click on create.&#x20;
+
+<figure><img src="../.gitbook/assets/image (395).png" alt=""><figcaption></figcaption></figure>
+
+2. Enter the required details and click on `Review + create`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (396).png" alt=""><figcaption></figcaption></figure>
+
+3. Once the key vault has been created then you can find the objects to be stored in it in the side bar.&#x20;
+
+<figure><img src="../.gitbook/assets/image (397).png" alt=""><figcaption></figcaption></figure>
+
+### Manage RBAC in Azure&#x20;
+
+1. Select `Access Control(IAM)` in the required resource you want and click on `Add`. and then `Add Role Assignment`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (398).png" alt=""><figcaption></figcaption></figure>
+
+2. In the add role assignment, select the role you want to give to a specific member or identity and let's go.&#x20;
+
+<figure><img src="../.gitbook/assets/image (399).png" alt=""><figcaption></figcaption></figure>
+
+### Creating an Azure Policy&#x20;
+
+1. Click on `Authoring` -> `Assignment` -> `Assign Policy` section under the policy.&#x20;
+
+<figure><img src="../.gitbook/assets/image (400).png" alt=""><figcaption></figcaption></figure>
+
+2. Select appropriate policy to implement from the policy definition selection section.&#x20;
+
+<figure><img src="../.gitbook/assets/image (401).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (402).png" alt=""><figcaption></figcaption></figure>
+
+3. Assign parameters according to your need and click on `Review + create`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (403).png" alt=""><figcaption></figcaption></figure>
