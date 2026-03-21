@@ -50,11 +50,11 @@ Microsoft Entra ID provides services such as:&#x20;
   * Use existing user accounts and groups
 * Enables seamless migration to Azure
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Azure Authentication Methods&#x20;
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Single Sign-On
 
@@ -86,7 +86,7 @@ Microsoft global Azure and Azure Government offer the following three Passwordle
 
 Microsoft Entra External ID refers to all the ways you can securely interact with users outside of your organization.
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 The following capabilities make up External Identities:
 
@@ -100,7 +100,7 @@ Conditional Access is a tool that Microsoft Entra ID uses to allow (or deny) acc
 
 Conditional Access also provides a more granular multifactor authentication experience for users. For example, a user might not be challenged for second authentication factor if they're at a known location. However, they might be challenged for a second authentication factor if their sign-in signals are unusual or they're at an unexpected location.
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 Conditional Access is useful when you need to:
 
@@ -111,7 +111,7 @@ Conditional Access is useful when you need to:
 
 ## Azure RBAC&#x20;
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 Scopes include:
 
@@ -131,7 +131,7 @@ Azure RBAC is enforced on any action that's initiated against an Azure resource 
 
 Zero Trust is a security model that assumes the worst case scenario and protects resources with that expectation. Zero Trust assumes breach at the outset, and then verifies each request as though it originated from an uncontrolled network.
 
-<div data-with-frame="true"><figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure></div>
+<div data-with-frame="true"><figure><img src="../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure></div>
 
 To address this new world of computing, Microsoft highly recommends the Zero Trust security model, which is based on these guiding principles:
 
@@ -145,7 +145,7 @@ The objective of defense-in-depth is to protect information and prevent it from 
 
 ### Layers&#x20;
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 Each layer provides protection so that if one layer is breached, a subsequent layer is already in place to prevent further exposure. This approach removes reliance on any single layer of protection. It slows down an attack and provides alert information that security teams can act upon, either automatically or manually.
 

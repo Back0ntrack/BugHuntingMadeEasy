@@ -29,6 +29,7 @@
   * [Azure Directory Services](cloud/azure-fundamentals/azure-directory-services.md)
   * [Cost Management in Azure](cloud/azure-fundamentals/cost-management-in-azure.md)
   * [Features and Tools in Azure for Governance and Compliance](cloud/azure-fundamentals/features-and-tools-in-azure-for-governance-and-compliance.md)
+* [Practicals](cloud/practicals.md)
 * [Security Fundamentals](cloud/security-fundamentals/README.md)
   * [Identity, Security and Compliance Concepts](cloud/security-fundamentals/identity-security-and-compliance-concepts.md)
   * [Introduction to Microsoft Entra](cloud/security-fundamentals/introduction-to-microsoft-entra.md)
@@ -96,6 +97,7 @@
 ## Infrastructure&#x20;
 
 * [Enumeration and Exploitation](infrastructure/enumeration-and-exploitation/README.md)
+  * [Pentesting FTP](infrastructure/enumeration-and-exploitation/pentesting-ftp.md)
   * [Pentesting MSSQL](infrastructure/enumeration-and-exploitation/pentesting-mssql/README.md)
     * [Using SQLRecon](infrastructure/enumeration-and-exploitation/pentesting-mssql/using-sqlrecon.md)
     * [Using PowerUpSQL](infrastructure/enumeration-and-exploitation/pentesting-mssql/using-powerupsql.md)

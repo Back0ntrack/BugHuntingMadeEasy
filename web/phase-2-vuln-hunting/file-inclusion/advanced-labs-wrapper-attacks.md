@@ -2,7 +2,7 @@
 
 Common target for all exercise ahead is inlanefreight (HTB) & DVWA
 
-<figure><img src="../../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
 
 No security is in place and allow\_url\_include is set to On which is required for all the below wrappers used.
 
