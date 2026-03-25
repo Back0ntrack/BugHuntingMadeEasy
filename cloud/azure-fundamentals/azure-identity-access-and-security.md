@@ -50,11 +50,11 @@ Microsoft Entra ID provides services such as:&#x20;
   * Use existing user accounts and groups
 * Enables seamless migration to Azure
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Azure Authentication Methods&#x20;
 
-<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Single Sign-On
 
@@ -86,7 +86,7 @@ Microsoft global Azure and Azure Government offer the following three Passwordle
 
 Microsoft Entra External ID refers to all the ways you can securely interact with users outside of your organization.
 
-<figure><img src="../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The following capabilities make up External Identities:
 
@@ -100,7 +100,7 @@ Conditional Access is a tool that Microsoft Entra ID uses to allow (or deny) acc
 
 Conditional Access also provides a more granular multifactor authentication experience for users. For example, a user might not be challenged for second authentication factor if they're at a known location. However, they might be challenged for a second authentication factor if their sign-in signals are unusual or they're at an unexpected location.
 
-<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Conditional Access is useful when you need to:
 
@@ -111,7 +111,7 @@ Conditional Access is useful when you need to:
 
 ## Azure RBAC&#x20;
 
-<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Scopes include:
 
