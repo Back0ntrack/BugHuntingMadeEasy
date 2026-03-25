@@ -50,7 +50,7 @@ Microsoft Entra ID provides services such as:&#x20;
   * Use existing user accounts and groups
 * Enables seamless migration to Azure
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Azure Authentication Methods&#x20;
 

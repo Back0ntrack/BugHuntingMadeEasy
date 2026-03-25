@@ -58,11 +58,11 @@ _Encryption configured at the storage account level is automatically applied to 
 
 1. Inside storage account settings select `Security + Networking` -> `Encryption`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 2. To enable encryption for an entire storage account, configure the encryption type in the storage account settings. To apply different encryption settings to specific blobs or containers, create and use an encryption scope.
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _With encryption scopes, a single storage account can use multiple encryption keys for different data within the account._
@@ -72,15 +72,15 @@ _With encryption scopes, a single storage account can use multiple encryption ke
 
 1. Inside storage account settings select `Data management` -> `Lifecycle Management`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Lifecycle management rules can be applied to all blobs as well as selected blobs as well.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 3. We can add conditions accordingly for moving the blobs from `Hot` -> `Cool`-> `Cold` -> `Archive` -> `Delete`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Immutable Storage
 
@@ -95,7 +95,7 @@ It allows users to store critical data in (Write Once, Read Many) state.&#x20;
 
 2. Click on add policy under `Immutable blob Storage` and select necessary options.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Network Security&#x20;
 
