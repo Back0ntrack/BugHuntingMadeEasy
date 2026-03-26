@@ -8,11 +8,11 @@
 
 * It is a part of a resource group.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Other Azure data services, such as Azure SQL and Azure Cosmos DB, are managed as independent Azure resources and can't be included in a storage account.
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Deployment Model&#x20;
 
@@ -102,6 +102,17 @@ Hot -> Cool -> Cold -> Archive -> Delete (End of Life)
 * If you delete a file share that has share snapshots, all of its snapshots are deleted along with the share.
 
 ## Azure Storage Security&#x20;
+
+### Access
+
+&#x20;We've two options to connect to our service.&#x20;
+
+1. Service Endpoints (available in `Public access` option)
+2. Private Endpoints (available in `Private Endpoint` option)
+
+{% hint style="info" %}
+_Both Service Endpoints and Private Endpoints limit access to Azure resources to specific virtual networks. In Service Endpoints, the resource remains publicly accessible and uses a public IP, but access is restricted at the network level. In contrast, Private Endpoints assign a private IP to the resource within the VNet, eliminating the need for public exposure._
+{% endhint %}
 
 ### Encryption&#x20;
 

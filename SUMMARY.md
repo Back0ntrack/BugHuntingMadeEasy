@@ -36,7 +36,7 @@
   * [Access Management in Entra](cloud/security-fundamentals/access-management-in-entra.md)
   * [Microsoft Security Solutions](cloud/security-fundamentals/microsoft-security-solutions.md)
 * [AZ - 1002 (Secure access to workloads)](cloud/az-1002-secure-access-to-workloads/README.md)
-  * [Introduction to Virtual Networks](cloud/az-1002-secure-access-to-workloads/introduction-to-virtual-networks.md)
+  * [Azure Virtual Network (Vnets)](cloud/az-1002-secure-access-to-workloads/azure-virtual-network-vnets.md)
 * [AZ - 1003 (Applied Skills on Storage)](cloud/az-1003-applied-skills-on-storage/README.md)
   * [Concepts](cloud/az-1003-applied-skills-on-storage/concepts.md)
 

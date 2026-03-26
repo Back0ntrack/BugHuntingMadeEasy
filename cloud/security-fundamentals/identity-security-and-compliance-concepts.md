@@ -27,7 +27,7 @@ Encryption is the process of making data unreadable and unusable to unauthorized
 * This method improves security because the private key is never shared.&#x20;
 * It is commonly used in secure communication protocols, digital signatures, and authentication. Examples include RSA, ECC, and Diffie-Hellman.
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Hashing (Maintains Integrity)
 
@@ -37,13 +37,13 @@ Hashing uses an algorithm to convert text to a _unique_ fixed-length value calle
 _There is a concept of `salt` for every matched hash which makes each hash unique even if strings are same._&#x20;
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## GRC Concepts&#x20;
 
 **Governance, Risk, and Compliance (GRC)** is a framework that organizations use to manage policies, risks, and regulatory requirements in a structured way. It helps ensure that IT systems and business processes are secure, aligned with organizational goals, and compliant with laws and standards.
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 • **Governance:** Refers to the policies, procedures, and decision-making structures used to guide and control an organization’s IT and security activities. Governance ensures that technology supports business objectives, defines roles and responsibilities, and establishes security policies and standards that employees must follow.
 
@@ -53,7 +53,7 @@ _There is a concept of `salt` for every matched hash which makes each hash uniqu
 
 ## Identity as the primary security perimeter&#x20;
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Four Pillars of Identity Infrastructure&#x20;
 
@@ -68,7 +68,7 @@ Identity is a concept that spans an entire environment, so organizations need to
 
 Federation enables the access of services across organizational or domain boundaries by establishing trust relationships between the respective domain’s identity provider. With federation, there's no need for a user to maintain a different username and password when accessing resources in other domains.
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The simplified way to think about this federation scenario is as follows:
 
