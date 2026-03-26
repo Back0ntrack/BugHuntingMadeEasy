@@ -28,6 +28,13 @@ _Note that two address space (subnet) can't have same IP address range. Also if 
 
 <figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
+
+
+| Virtual Network | VM                |
+| --------------- | ----------------- |
+| VNet1           | vm1               |
+| VNet2           | <p>vm2<br>vm3</p> |
+
 ## Create a NSG
 
 1. Select network security group from the side bar and click on `create`.
