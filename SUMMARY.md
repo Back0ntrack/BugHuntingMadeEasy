@@ -16,6 +16,7 @@
   * [☣️ Kali Linux](penetration-testing-essentials/kali-linux/README.md)
     * [Python Virtual Environment](penetration-testing-essentials/kali-linux/python-virtual-environment.md)
   * [Network Protocols](penetration-testing-essentials/network-protocols/README.md)
+    * [SSH (22)](penetration-testing-essentials/network-protocols/ssh-22.md)
     * [MSSQL (1433)](penetration-testing-essentials/network-protocols/mssql-1433.md)
 
 ## Microsoft Cloud and AI Honors <a href="#cloud" id="cloud"></a>
