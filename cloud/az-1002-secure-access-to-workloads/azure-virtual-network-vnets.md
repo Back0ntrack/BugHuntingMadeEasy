@@ -2,7 +2,7 @@
 
 ## Vnet
 
-<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * A **Virtual Network (VNet)** is a **logical isolation of Azure resources**
 * Used to create **private networks in the cloud**
@@ -64,7 +64,7 @@ This is done with help of&#x20;
 
 ### Hub and Spoke Model&#x20;
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Hub-and-Spoke is a network architecture pattern** used in Azure to organize and secure multiple virtual networks.
 
@@ -352,9 +352,9 @@ Layer 4 firewall (IP + Port based)
 * Inbound Rule: These rules **deny all inbound traffic** except traffic from your virtual network and Azure load balancers.
 * Outbound Rule: These rules **only allow outbound traffic** to the internet and your virtual network.
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Application Security Groups (ASG)
 
