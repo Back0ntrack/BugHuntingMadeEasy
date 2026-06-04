@@ -40,6 +40,9 @@
   * [Azure Virtual Network (Vnets)](cloud/az-1002-secure-access-to-workloads/azure-virtual-network-vnets.md)
 * [AZ - 1003 (Applied Skills on Storage)](cloud/az-1003-applied-skills-on-storage/README.md)
   * [Concepts](cloud/az-1003-applied-skills-on-storage/concepts.md)
+* [AZ - 104 (Azure Administrator Associate)](cloud/az-104-azure-administrator-associate/README.md)
+  * [Prerequisites](cloud/az-104-azure-administrator-associate/prerequisites.md)
+  * [Identities and Governance](cloud/az-104-azure-administrator-associate/identities-and-governance.md)
 
 ## Web App  <a href="#web" id="web"></a>
 
