@@ -1,3 +1,24 @@
+---
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
+---
+
 # Python Virtual Environment
 
 A Virtual Environment is a Python environment, that is an isolated working copy of Python that allows you to work on a specific project without affecting other projects So basically it is a tool that enables multiple side-by-side installations of Python, one for each project.
@@ -34,7 +55,7 @@ source <virtual_env_name>/bin/activate
 deactivate [in the virtual environment]
 ```
 
-<figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
 
 ## Python 2.7 environment setup \[Most Useful]
 
@@ -49,7 +70,7 @@ source old_python/bin/activate
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
 
 > When creating a virtual environment in Kali Linux, a folder with the same name is generated in the current directory. It's recommended to create all virtual environments inside a dedicated `virtual_env` folder for better organization and easy access.
 
@@ -64,4 +85,4 @@ source old_python/bin/activate
 
 Generally tools are installed in a dedicated python environment and can be accessed in `~/.local/share/pipx/venvs` whereas executables are located in `~/.local/bin`. `pipx ensurepath` ensures that the pipx bin directory is correctly added to your PATH environment variable. &#x20;
 
-<figure><img src="../../../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>

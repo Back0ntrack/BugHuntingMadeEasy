@@ -282,3 +282,61 @@ choose options accordingly.&#x20;
 
 <figure><img src="../.gitbook/assets/image (403).png" alt=""><figcaption></figcaption></figure>
 
+### Deploy a static website using Azure Blob Storage
+
+1. Create desired Resource Group and storage account.&#x20;
+2. In the resource group navigate to `Static Website` in the Data management section and enable it. Two containers named `$web` and `$logs` will be automatically created.&#x20;
+
+<figure><img src="../.gitbook/assets/image (418).png" alt=""><figcaption></figcaption></figure>
+
+3. Add `index.html` and `404.html` in the $web container.&#x20;
+
+<figure><img src="../.gitbook/assets/image (419).png" alt=""><figcaption></figcaption></figure>
+
+4. Copy the `primary endpoint` from the `static website` in `Data Management` from the storage account settings and open it in another browser tab.&#x20;
+
+### Share Files Securely
+
+1. Create resource group and a storage account.&#x20;
+2. Create a container with name `partner-drop` and add a random file in it.&#x20;
+3. Try to open the file using the URL. we can see that it is accessible.&#x20;
+4. Now in the `access-policy` section of the `partner-drop` container click on `Add Policy`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (420).png" alt=""><figcaption></figcaption></figure>
+
+5. Add policy with name `partner-read-policy` and add today's date as start time and 1 hour later as end time and save the policy.&#x20;
+6. Select the text file and generate `SAS` token from the settings and select `partner-read-policy` from the dropdown and generate SAS token and URL.&#x20;
+
+<figure><img src="../.gitbook/assets/image (421).png" alt=""><figcaption></figcaption></figure>
+
+7. Now try to access the text file using the URL. Now it shows like this.&#x20;
+
+<figure><img src="../.gitbook/assets/image (422).png" alt=""><figcaption></figcaption></figure>
+
+8. Now paste the URL generated while generating SAS Token.&#x20;
+
+<figure><img src="../.gitbook/assets/image (423).png" alt=""><figcaption></figcaption></figure>
+
+9. Now delete the stored access policy. it will revoke all SAS tokens that were generated from it.&#x20;
+
+{% hint style="info" %}
+* &#x20;_If we don't link an access policy to the SAS token then we need to change the entire Azure Storage Account key for revoking the link access._&#x20;
+* _This breaks every other application or service using that key._&#x20;
+* _With access policy, just changing or removing the policy instantly revokes the access._&#x20;
+{% endhint %}
+
+### Set up new employee access Entra ID and RBAC&#x20;
+
+1. Create new resource group and storage account.&#x20;
+2. From the tenant create group inside the `manage` section. You can get the tenant by searching `Microsoft Entra ID`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (424).png" alt=""><figcaption></figcaption></figure>
+
+3. Click on `New Group` from the overview section.&#x20;
+
+<figure><img src="../.gitbook/assets/image (425).png" alt=""><figcaption></figcaption></figure>
+
+4. Fill the required details and click on `Create`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (426).png" alt=""><figcaption></figcaption></figure>
+
