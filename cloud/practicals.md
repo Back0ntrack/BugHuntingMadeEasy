@@ -340,3 +340,11 @@ choose options accordingly.&#x20;
 
 <figure><img src="../.gitbook/assets/image (426).png" alt=""><figcaption></figcaption></figure>
 
+5. Select `users` from the tenant page in the manage section.&#x20;
+
+<figure><img src="../.gitbook/assets/image (427).png" alt=""><figcaption></figcaption></figure>
+
+6. Click on `New User` and add details appropriately.&#x20;
+
+<figure><img src="../.gitbook/assets/image (428).png" alt=""><figcaption></figcaption></figure>
+
