@@ -43,6 +43,7 @@
 * [AZ - 104 (Azure Administrator Associate)](cloud/az-104-azure-administrator-associate/README.md)
   * [Prerequisites](cloud/az-104-azure-administrator-associate/prerequisites.md)
   * [Identities and Governance](cloud/az-104-azure-administrator-associate/identities-and-governance.md)
+  * [Monitor and Backup Azure Resources](cloud/az-104-azure-administrator-associate/monitor-and-backup-azure-resources.md)
 
 ## Web App  <a href="#web" id="web"></a>
 

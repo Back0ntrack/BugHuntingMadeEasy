@@ -348,3 +348,124 @@ choose options accordingly.&#x20;
 
 <figure><img src="../.gitbook/assets/image (428).png" alt=""><figcaption></figcaption></figure>
 
+7. select the newly created users from the above section again and add it to the group from the `Edit` section.&#x20;
+8. From the resource group assign reader role to the group. This thing can be done from groups section as well.&#x20;
+9. Select `Access-Control` from the resource group and click on `Add` to add a role assignment.&#x20;
+
+<figure><img src="../.gitbook/assets/image (435).png" alt=""><figcaption></figcaption></figure>
+
+10. Select reader role from the roles and select the whole group from the groups.&#x20;
+
+<figure><img src="../.gitbook/assets/image (436).png" alt=""><figcaption></figcaption></figure>
+
+11. In the `check access` section of the IAM verify that it has readers role.&#x20;
+
+<figure><img src="../.gitbook/assets/image (437).png" alt=""><figcaption></figcaption></figure>
+
+12. Sign in using `Alex` account and try to create a storage account in the resource group. you'll see the following error.&#x20;
+
+<figure><img src="../.gitbook/assets/image (438).png" alt=""><figcaption></figcaption></figure>
+
+since the new user only has read access he can't create any storage account inside the resource group.&#x20;
+
+### Build a simple website endpoint using Azure Functions
+
+1. Create a Resource Group.&#x20;
+2. Search and select `Functions app` and click on create.&#x20;
+
+<figure><img src="../.gitbook/assets/image (429).png" alt=""><figcaption></figcaption></figure>
+
+3. Select `flex` consumption from the options.&#x20;
+
+<figure><img src="../.gitbook/assets/image (430).png" alt=""><figcaption></figcaption></figure>
+
+4. Fill in the required details within the tabs that will open and select `Node JS` in the runtime stack in `basics` tab and click on `Create`.&#x20;
+5. Verify the status if running of the functions app.&#x20;
+
+<figure><img src="../.gitbook/assets/image (431).png" alt=""><figcaption></figcaption></figure>
+
+6. Create the function project using command as in below screenshot.&#x20;
+
+<figure><img src="../.gitbook/assets/image (432).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (433).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (434).png" alt=""><figcaption></figcaption></figure>
+
+7. The Invoke URL will print `Hello World` on the browsere.&#x20;
+
+### Manage Microsoft Entra Groups and Users&#x20;
+
+#### Create Microsoft Entra Users&#x20;
+
+1. Search `Microsoft Entra ID` and select `Users` in the manage section. and click on `New User`.
+
+<figure><img src="../.gitbook/assets/image (439).png" alt=""><figcaption></figcaption></figure>
+
+2. Enter things as per the requirement and click on `Review + Create`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (440).png" alt=""><figcaption></figcaption></figure>
+
+#### Create Microsoft Entra Groups&#x20;
+
+1. Search `Microsoft Entra ID` and select `Groups` in the manage section. and click on `New Group`.
+
+<figure><img src="../.gitbook/assets/image (441).png" alt=""><figcaption></figcaption></figure>
+
+2. Add required things and click on `Create` .&#x20;
+
+<figure><img src="../.gitbook/assets/image (442).png" alt=""><figcaption></figcaption></figure>
+
+### Manage Azure resource deployment using an Azure Resource Manager Template&#x20;
+
+1. Navigate to the already created resource group and select `Export Templates` from the `Automation` tab.&#x20;
+
+<figure><img src="../.gitbook/assets/image (443).png" alt=""><figcaption></figcaption></figure>
+
+2. you can make changes in this template as per your requirement.&#x20;
+3. Search `Custom Deployment` in the portal and then paste your template in the `Build your own template in the editor`/&#x20;
+
+<figure><img src="../.gitbook/assets/image (444).png" alt=""><figcaption></figcaption></figure>
+
+## AZ - 104
+
+### Implement Azure backups for Virtual Machines&#x20;
+
+1. navigate to the virtual machine for which you want to take backup and select `backup` in the `Backup + disaster recovery`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (445).png" alt=""><figcaption></figcaption></figure>
+
+2. Enter the required details and click on `Enable backup`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (446).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_A recovery service vault will automatically gets created when you create backup of the vm._&#x20;
+{% endhint %}
+
+To initiate the first backup again navigate to the backup and click on `backup now`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (447).png" alt=""><figcaption></figcaption></figure>
+
+The same can be done using this commands:&#x20;
+
+{% code overflow="wrap" %}
+```powershell
+az backup protection enable-for-vm --resource-group AZ300-RGlod62425250 --vault-name AZ300-RecoveryServicesVault-62425250 --vm VM3    --policy-name DefaultPolicy
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (449).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```
+Get-AzRecoveryServicesVault -Name "AZ300-RecoveryServicesVault-62425250" | Set-AzRecoveryServicesVaultContext
+
+$policy = Get-AzRecoveryServicesBackupProtectionPolicy -Name "DefaultPolicy"
+
+Enable-AzRecoveryServicesBackupProtection -ResourceGroupName "AZ300-RGlod62425250" -Name "VM2" -Policy $policy
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (448).png" alt=""><figcaption></figcaption></figure>
+
