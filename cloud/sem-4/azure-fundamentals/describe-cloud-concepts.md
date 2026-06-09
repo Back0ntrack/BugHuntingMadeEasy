@@ -16,6 +16,8 @@ layout:
     visible: false
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # Describe Cloud concepts
@@ -26,7 +28,7 @@ Cloud computing is the delivery of computing services over the internet. These s
 
 ### Shared Responsibility Model
 
-<figure><img src="../../.gitbook/assets/shared responsibility b3829bfe.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/shared responsibility b3829bfe.png" alt=""><figcaption></figcaption></figure>
 
 The shared responsibility model explains how security and management duties are divided between the cloud provider and the customer. In a traditional on-premises datacenter, the organization is responsible for everything—physical security, power, hardware maintenance, infrastructure, software updates, and system patching.
 
@@ -114,7 +116,7 @@ E.g., _An e-commerce company keeps customer payment data in a private cloud but 
 * Azure provides uptime guarantees through **Service Level Agreements (SLAs)** in percentage.
 * Availability level depends on the specific Azure service used.
 
-<figure><img src="../../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Scalability
 

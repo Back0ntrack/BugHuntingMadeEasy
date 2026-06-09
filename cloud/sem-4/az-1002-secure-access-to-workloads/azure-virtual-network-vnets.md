@@ -2,7 +2,7 @@
 
 ## Vnet
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * A **Virtual Network (VNet)** is a **logical isolation of Azure resources**
 * Used to create **private networks in the cloud**
@@ -45,7 +45,7 @@ In every subnet, **5 IP addresses are reserved by Azure**:
 
 ## VNet Peering
 
-<figure><img src="../../.gitbook/assets/global-vnet-peering-2368962c.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/global-vnet-peering-2368962c.png" alt=""><figcaption></figcaption></figure>
 
 Virtual network peering enables you to seamlessly connect two Azure virtual networks. Once peered, the virtual networks appear as one, for connectivity purposes. There are two types of VNet peering.
 
@@ -64,7 +64,7 @@ This is done with help of&#x20;
 
 ### Hub and Spoke Model&#x20;
 
-<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Hub-and-Spoke is a network architecture pattern** used in Azure to organize and secure multiple virtual networks.
 
@@ -301,7 +301,7 @@ Defines **how packets travel**
 
 Use a virtual network gateway to send encrypted traffic between Azure and on-premises over the internet and to send encrypted traffic between Azure networks. A virtual network gateway contains routing tables and gateway services.
 
-<figure><img src="../../.gitbook/assets/2-virtual-network-gateway (1).svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/2-virtual-network-gateway (1).svg" alt=""><figcaption></figcaption></figure>
 
 ### Network Virtual Appliance (NVA)
 
@@ -352,9 +352,9 @@ Layer 4 firewall (IP + Port based)
 * Inbound Rule: These rules **deny all inbound traffic** except traffic from your virtual network and Azure load balancers.
 * Outbound Rule: These rules **only allow outbound traffic** to the internet and your virtual network.
 
-<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Application Security Groups (ASG)
 
@@ -362,7 +362,7 @@ Layer 4 firewall (IP + Port based)
 
 Logical grouping of VMs
 
-<figure><img src="../../.gitbook/assets/application-security-groups.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/application-security-groups.png" alt=""><figcaption></figcaption></figure>
 
 You join your virtual machines to an application security group. Then you use the application security group as a source or destination in the network security group rules.
 

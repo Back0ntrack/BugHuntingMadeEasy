@@ -1,6 +1,6 @@
 # Introduction to Microsoft Entra
 
-<figure><img src="../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (380).png" alt=""><figcaption></figcaption></figure>
 
 Microsoft Entra ID, formerly Azure Active Directory, is Microsoft’s cloud-based identity and access management service. Organizations use Microsoft Entra ID to enable their employees, guests, and others to sign in and access the resources they need, including:
 
@@ -15,7 +15,7 @@ _Microsoft Entra ID can be synchronized with your existing on-premises Active Di
 
 It is a percentage that functions as an indicator for how aligned you are with Microsoft's best practice recommendations for security.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (381).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (381).png" alt=""><figcaption></figcaption></figure>
 
 ## Basic Terminology of Entra&#x20;
 
@@ -62,7 +62,7 @@ It is a percentage that functions as an indicator for how aligned you are with M
 
 ### User Identities (Human Identities)
 
-<figure><img src="../../.gitbook/assets/image (382).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (382).png" alt=""><figcaption></figcaption></figure>
 
 * Represent **people** who need access to organizational resources.
 * Examples: employees, administrators, customers, partners, vendors, or consultants.
@@ -109,7 +109,7 @@ Service Principal
 
 ### Managed Identities&#x20;
 
-<figure><img src="../../.gitbook/assets/image (383).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (383).png" alt=""><figcaption></figcaption></figure>
 
 **Managed Identities (in Microsoft Entra ID / Azure)** are a special type of **workload identity** used by Azure services to **authenticate to other Azure services securely without storing credentials like passwords, keys, or secrets**.
 
@@ -212,7 +212,7 @@ The Microsoft Entra Cloud Sync provisioning agent uses the System for Cross-doma
 
 **External Identities** in Microsoft Entra allow **users outside an organization to securely access applications and resources**. These users are not part of the organization’s internal directory but can still authenticate and collaborate using their own identities.
 
-<figure><img src="../../.gitbook/assets/image (384).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (384).png" alt=""><figcaption></figcaption></figure>
 
 ### Business-to-Business (B2B) Collaboration
 

@@ -2,17 +2,17 @@
 
 ## Introduction&#x20;
 
-<figure><img src="../../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
 
 SSH or Secure Shell is a protocol that is used to connect to remote networks securely and execute commands.&#x20;
 
 ## **Start the SSH Service**
 
-<figure><img src="../../.gitbook/assets/image (406).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (406).png" alt=""><figcaption></figcaption></figure>
 
 ### Configuration files&#x20;
 
-<figure><img src="../../.gitbook/assets/image (407).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (407).png" alt=""><figcaption></figcaption></figure>
 
 ## Authentication Mechanisms in SSH&#x20;
 
@@ -26,7 +26,7 @@ All the authentication mechanisms for SSH is stored inside&#x20;
 
 ### Password Authentication&#x20;
 
-<figure><img src="../../.gitbook/assets/image (409).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (409).png" alt=""><figcaption></figcaption></figure>
 
 | State in config               | Actual behavior     |
 | ----------------------------- | ------------------- |
@@ -36,17 +36,17 @@ All the authentication mechanisms for SSH is stored inside&#x20;
 
 Note that even if this field is commented `PasswordAuthentication` is enabled by default.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (408).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (408).png" alt=""><figcaption></figcaption></figure>
 
 #### Getting Blocked
 
-<figure><img src="../../.gitbook/assets/image (412).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (412).png" alt=""><figcaption></figcaption></figure>
 
 ### Public Key Authentication&#x20;
 
 It is the most secure way to login to an SSH server as it is brute-force resistance and no need to remember password.
 
-<figure><img src="../../.gitbook/assets/image (417).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (417).png" alt=""><figcaption></figcaption></figure>
 
 | State in config file        | Actual behavior     |
 | --------------------------- | ------------------- |
@@ -60,7 +60,7 @@ It is the most secure way to login to an SSH server as it is brute-force resista
 * **Public key (of client stored in server)** → verifies identity
 * **authorized\_keys (server)** → access control list
 
-<figure><img src="../../.gitbook/assets/image (410).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (410).png" alt=""><figcaption></figcaption></figure>
 
 #### Generate Key Pair&#x20;
 
@@ -78,7 +78,7 @@ ssh-keygen -t ed25519
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (413).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (413).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 **Danger**
@@ -94,7 +94,7 @@ _The password you entered is to protect the private key file. So even if private
 **Way - 1:**\
 Thus we can either copy paste the keys manually if we don't have password:
 
-<figure><img src="../../.gitbook/assets/image (414).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (414).png" alt=""><figcaption></figcaption></figure>
 
 **Way - 2:**
 
@@ -108,11 +108,11 @@ ssh-copy-id username@kali_ip
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (415).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (415).png" alt=""><figcaption></figcaption></figure>
 
 #### Login directly
 
-<figure><img src="../../.gitbook/assets/image (416).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (416).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Recommended .ssh permission**

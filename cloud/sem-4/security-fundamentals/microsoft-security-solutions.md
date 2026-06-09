@@ -98,11 +98,11 @@ It is a _“generative AI-powered security solution that improves defender effic
     * Predefined Prompts
     * Suggested Prompts
 
-<figure><img src="../../.gitbook/assets/image (389).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (389).png" alt=""><figcaption></figcaption></figure>
 
 ### Process Flow&#x20;
 
-<figure><img src="../../.gitbook/assets/image (390).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (390).png" alt=""><figcaption></figcaption></figure>
 
 ## Core Infrastructure Security services&#x20;
 
@@ -184,7 +184,7 @@ Provided with the help of Azure Virtual Network (VNet) which becomes a fundament
 
 Each VNet can contain multiple subnets.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (391).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (391).png" alt=""><figcaption></figcaption></figure>
 
 ### Network Security Groups&#x20;
 
@@ -245,7 +245,7 @@ What if a remote developer want to use some virtual machine. We need to open a p
 
 Thus azure bastion provides a solution by securely connecting to virtual machine using a browser.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (392).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (392).png" alt=""><figcaption></figcaption></figure>
 
 ### Azure Key Vault&#x20;
 
@@ -260,13 +260,13 @@ It helps in managing:&#x20;
 * Certificate managment
   * Allows to provision, manage and deploy your public and private SSL/TLS certificates for Azure and internally connnected resources.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (393).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (393).png" alt=""><figcaption></figcaption></figure>
 
 
 
 ## Azure Sentinel
 
-<figure><img src="../../.gitbook/assets/image (394).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (394).png" alt=""><figcaption></figcaption></figure>
 
 ### SIEM (Security Information and Event Management)
 

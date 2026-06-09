@@ -6,11 +6,11 @@ Conditional Access is a **security policy engine** and a foundational tool in Mi
 
 A Conditional Access policy analyses signals including user, location, device, application, and risk to automate decisions for authorizing access to resources (apps and data).
 
-<figure><img src="../../.gitbook/assets/image (385).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (385).png" alt=""><figcaption></figcaption></figure>
 
 ### Conditional access policy components&#x20;
 
-<figure><img src="../../.gitbook/assets/image (386).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (386).png" alt=""><figcaption></figcaption></figure>
 
 #### Assignments&#x20;
 
@@ -35,7 +35,7 @@ A Conditional Access policy analyses signals including user, location, device, a
 
 ## Global Secure Access&#x20;
 
-<figure><img src="../../.gitbook/assets/image (387).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (387).png" alt=""><figcaption></figcaption></figure>
 
 **Global Secure Access (GSA)** is a **unified cloud security solution within Microsoft Entra** that secures how users connect to both **internet resources and private corporate applications**.
 
@@ -259,7 +259,7 @@ All built-in roles are preconfigured bundles of permissions designed for specifi
 
 ### Service Specific Built-in roles
 
-<figure><img src="../../.gitbook/assets/image (388).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (388).png" alt=""><figcaption></figcaption></figure>
 
 There are three broad categories.
 

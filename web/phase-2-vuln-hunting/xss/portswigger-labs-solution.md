@@ -219,7 +219,7 @@ Payload used: `'></h1><img/src=x>'`
 
 We can see that everything is encoded and escaped. There is no way of escaping and breaking out of these stuffs.&#x20;
 
-Thus we can see those backticks (`` ` ``) being used there. It tells that [Javascript template](../../../penetration-testing-essentials/web-development-essentials/frontend/javascript-js.md#javascript-template-literal) literals is being used there. thus we can execute javascript inside `${here}` .&#x20;
+Thus we can see those backticks (`` ` ``) being used there. It tells that [Javascript template](../../../prerequisites/web-development-essentials/frontend/javascript-js.md#javascript-template-literal) literals is being used there. thus we can execute javascript inside `${here}` .&#x20;
 
 <figure><img src="../../../.gitbook/assets/image (207).png" alt=""><figcaption></figcaption></figure>
 

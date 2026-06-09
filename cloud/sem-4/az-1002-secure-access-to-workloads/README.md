@@ -1,6 +1,6 @@
 # AZ - 1002 (Secure access to workloads)
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 Note: The environment currently consists of VNet1 and VNet2 in West Europe, housing VM1 (Subnet1-1) and VM2/VM3 (Subnet2-1). The following tasks outline the new infrastructure, routing, and security configurations required.
 
@@ -17,21 +17,21 @@ _Note that regions may vary due to policy violation in certain regions. Steps wi
 
 1. Select virtual network and click on create.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Enter details accordingly.&#x20;
 
 {% tabs %}
 {% tab title="Basics" %}
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Security" %}
-<figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="IP addresses" %}
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -41,23 +41,23 @@ _Note that two address space (subnet) can't have same IP address range. Also if 
 
 3. After selecting required options click on `Review + Create`. Note that address space selected in `IP addresses` section is for VNet range not Subnet range.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 ## Create Subnet&#x20;
 
 1. Click on subnet from the `Settings` of the VNet and then click on Add.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 2. Enter the required details and click on Add.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6).png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## Establishing VNet Peering&#x20;
 
 1. Click on `Peerings` from the Settings of the VNet4 and then click on Add.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -162,11 +162,11 @@ What VNet4 can do with the remote VNet
 
 2. Select necessary option and click on Add.
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 3. Verify the status `connected` which proves that two ways communication is established.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
 ## Deploy Azure Firewall&#x20;
 
@@ -178,35 +178,35 @@ _We need to create a subnet for the firewall in the VNet where we want to deploy
 
 1. Navigate to the specific VNet where you want to deploy the firewall and select Subnet from the sidebar and click on `Create`.
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
 2. Select the necessary options and click on `Add`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
 ### Deploy Firewall&#x20;
 
 1. Click on `Create` in the Azure Firewalls section from the sidebar.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
 2. Select the required option and click on `Review + Create` and `Create` button will deploy the firewall.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
 3. Copy the private firewall IP for future use.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 
 ### Create Rules&#x20;
 
 1. Select `Rules` from the Settings in the sidebar of the Firewall section.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 2. Select `Network Rule Collection` and clik on Add.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
 3. Select the required options and click on Add.&#x20;
 
@@ -214,11 +214,11 @@ _We need to create a subnet for the firewall in the VNet where we want to deploy
 _Note that Azure Firewall allows only what is explicitly permitted, and everything else is denied due to an implicit deny rule._
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 4. Once the rule is implemented it will only allow traffic to specified destination and port. But we've not yet forced the subnet traffic to go through firewall. that is done with help of UDR.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
 ## Create UDR (User Defined Routing)
 
@@ -228,21 +228,21 @@ _Note that Azure Firewall allows only what is explicitly permitted, and everythi
 
 1. Select `Route tables` from the sidebar and click on `Create`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
 2. Select required options and click on `Review + Create` and `Create`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
 ### Create UDR
 
 1. Navigate to the deployed resource.
 
-<figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
 2. click on `Routes` from the setting and click on `Add`. and enter required details and click on `Add`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _Note that this only created a route rule that on whoever this Route table is applied have to forcefully send traffic to firewall (10.0.1.4) when he wants to access internet. But we've not yet associated it with any subnet._&#x20;
@@ -252,11 +252,11 @@ _Note that this only created a route rule that on whoever this Route table is ap
 
 1. Once the Route Table is created select `Subnets` from the Settings of Route table.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
 2. Click on `Associate`, enter required details and click on `Add`&#x20;
 
-<figure><img src="../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
 ## Create Private DNS Zone&#x20;
 
@@ -264,21 +264,21 @@ _Note that this only created a route rule that on whoever this Route table is ap
 
 1. Select `Private DNS Zone` from the search bar and click on Create.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
 2. Enter required details and click on `Review + Create`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
 ### Create Virtual Network Links&#x20;
 
 1. Select `Virtual Network Links` from DNS management and click on `Add`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
 
 2. Enter required details for VNet4 and click on `Create`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _When a VNet is linked to a Private DNS zone with auto-registration enabled, **VMs in that VNet automatically create and update their DNS A records (hostname → private IP) in the zone.**_\
@@ -296,37 +296,37 @@ _Virtual Network Link is mandatory for a VNet to use (resolve) records from a Pr
 
 1. Select `Recordsets` from DNS management and click on Add.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
 
 2. Add necessary details and click on Add. (_Note that we need to add record if a VM or resource is already there before auto registration or its entry is not added_)
 
-<figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 
 ## Create a NSG
 
 1. Select network security group from the side bar and click on `create`.
 
-<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Provide the required settings and you're good to go.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 3. NSG is deployed with some predefined inbound and outbound rules.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 4. Now select `Settings` -> `Network interfaces` -> `Associate` and select the required network interface on which you want to apply NSG.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 5. After association you can add inbound and outbound rule from `Inbound securtiy rules` and `Outbound security rules`.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 6. Setting Inbound rule to allow any source to connect to RDP.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (8) (1).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1).png" alt="" width="375"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _This thing can also be added from the interface of the resource on which the NSG is associated._&#x20;
