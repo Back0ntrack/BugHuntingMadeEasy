@@ -110,6 +110,7 @@
 * [Tools](infrastructure/tools/README.md)
   * [Nmap](infrastructure/tools/nmap/README.md)
     * [Host Discovery](infrastructure/tools/nmap/host-discovery.md)
+    * [Port Discovery](infrastructure/tools/nmap/port-discovery.md)
 * [Enumeration and Exploitation](infrastructure/enumeration-and-exploitation/README.md)
   * [Pentesting FTP](infrastructure/enumeration-and-exploitation/pentesting-ftp.md)
   * [Pentesting MSSQL](infrastructure/enumeration-and-exploitation/pentesting-mssql/README.md)

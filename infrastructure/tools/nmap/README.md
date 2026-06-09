@@ -22,11 +22,25 @@ Defines **what** to scan. Nmap accepts hosts in multiple formats.
 
 _⇒ We will see various types of target specifications in the scans performed later._
 
+## Port Specification
+
+Control **which ports** Nmap scans.
+
+| Flag                   | Description                              |
+| ---------------------- | ---------------------------------------- |
+| `-p <range>`           | Specific ports or ranges                 |
+| `-p-`                  | All 65535 ports                          |
+| `-p U:53,T:80`         | UDP and TCP specific ports               |
+| `--top-ports <n>`      | Scan top N most common ports             |
+| `-F`                   | Fast scan (top 100 ports)                |
+| `-r`                   | Scan ports sequentially (not randomized) |
+| `--port-ratio <ratio>` | Scan ports with open frequency > ratio   |
+
 ***
 
 ## Nmap Default Scan&#x20;
 
-### Scan
+#### Scan
 
 {% code overflow="wrap" %}
 ```bash
@@ -61,7 +75,7 @@ Nmap performs roughly the following steps:
 
 <figure><img src="../../../.gitbook/assets/image (455).png" alt=""><figcaption></figcaption></figure>
 
-> _Since `8.8.8.8` is a remote host, Nmap cannot use ARP. Instead, it sends multiple host discovery probes, including **ICMP Echo Requests (ping)****, TCP SYN ping (-PS), TCP ACK ping (-PA) and ICMP Timestamp request (-PP)**. The **ICMP Echo Reply** and **TCP SYN/ACK** responses confirm that the host is alive._
+> _Since `8.8.8.8` is a remote host, Nmap cannot use ARP. Instead, it sends multiple host discovery probes, including **ICMP Echo Requests (ping), TCP SYN ping (-PS), TCP ACK ping (-PA) and ICMP Timestamp request (-PP)**. The **ICMP Echo Reply** and **TCP SYN/ACK** responses confirm that the host is alive._
 
 #### **Port Scanning**
 
@@ -74,228 +88,9 @@ Nmap performs roughly the following steps:
 &#x20;_This behavior is part of Nmap's default **SYN (stealth) scan**, which is discussed later._
 {% endhint %}
 
-## Scan Techniques
+## Port States
 
-The core of Nmap — how it probes ports to determine their state.
-
-### Port States
-
-| State               | Meaning                                                                      |
-| ------------------- | ---------------------------------------------------------------------------- |
-| `open`              | Application actively accepting connections                                   |
-| `closed`            | Port accessible but no application listening                                 |
-| `filtered`          | Firewall/filter preventing Nmap from determining state                       |
-| `unfiltered`        | Port accessible but Nmap can't determine open/closed (ACK scan)              |
-| `open\\|filtered`   | Nmap can't determine if open or filtered (UDP, IP protocol, FIN, NULL, Xmas) |
-| `closed\\|filtered` | Nmap can't determine if closed or filtered (IP ID idle scan)                 |
-
-***
-
-### TCP SYN Scan (Half-Open / Stealth Scan)
-
-**Default scan when running as root.** Sends SYN → receives SYN/ACK (open) or RST (closed). Never completes the 3-way handshake → stealthier than connect scan.
-
-```bash
-sudo nmap -sS 192.168.16.131
-```
-
-***
-
-### TCP Connect Scan
-
-Uses the OS `connect()` system call — completes the full TCP handshake. Default for unprivileged users. Slower and more detectable than SYN.
-
-```bash
-nmap -sT 192.168.16.131
-```
-
-***
-
-### UDP Scan
-
-Scans UDP ports. Sends empty UDP packets (or protocol-specific payloads). Slow because open/filtered ports rarely respond.
-
-```bash
-sudo nmap -sU 192.168.16.131
-
-# Combine with SYN for TCP+UDP
-sudo nmap -sS -sU 192.168.16.131
-```
-
-UDP scans are extremely slow. Limit with `-p` and use `--top-ports` or combine with `--version-intensity` to speed up.
-
-***
-
-### TCP ACK Scan
-
-Does **not** determine open/closed — used to map **firewall rulesets**. Determines whether ports are filtered or unfiltered.
-
-```bash
-sudo nmap -sA 192.168.16.131
-```
-
-***
-
-### TCP FIN Scan
-
-Sends a FIN packet. Closed ports respond with RST; open/filtered ports drop silently. Can bypass some non-stateful firewalls.
-
-```bash
-sudo nmap -sF 192.168.16.131
-```
-
-***
-
-### TCP Xmas Scan
-
-Sets FIN, PSH, and URG flags (lit up like a Christmas tree). Same logic as FIN scan.
-
-```bash
-sudo nmap -sX 192.168.16.131
-```
-
-***
-
-### TCP NULL Scan
-
-Sends a packet with **no flags set**. Same response logic as FIN/Xmas.
-
-```bash
-sudo nmap -sN 192.168.16.131
-```
-
-FIN, Xmas, and NULL scans exploit RFC 793 — they **do not work against Windows** (Windows sends RST for all, regardless of port state). Effective against Unix/Linux.
-
-***
-
-### TCP Maimon Scan
-
-Sends FIN/ACK. Some BSD-derived systems drop the packet for open ports. Rarely useful today.
-
-```bash
-sudo nmap -sM 192.168.16.131
-```
-
-***
-
-### TCP Window Scan
-
-Like ACK scan but examines the TCP window size field in RST responses. Can differentiate open/closed on some systems.
-
-```bash
-sudo nmap -sW 192.168.16.131
-```
-
-***
-
-### Custom TCP Scan
-
-Set arbitrary TCP flags using `--scanflags`. Values: `URG`, `ACK`, `PSH`, `RST`, `SYN`, `FIN` or numeric.
-
-```bash
-# SYN+FIN scan
-sudo nmap --scanflags SYNFIN 192.168.16.131
-
-# Custom flags with base scan type for response interpretation
-sudo nmap --scanflags SYNFIN -sF 192.168.16.131
-```
-
-***
-
-### SCTP INIT Scan
-
-Like TCP SYN scan but for SCTP protocol (used in telecom/VoIP). Sends INIT chunk.
-
-```bash
-sudo nmap -sY 192.168.16.131
-```
-
-***
-
-### SCTP COOKIE-ECHO Scan
-
-Sends COOKIE-ECHO chunk. Open ports silently drop it; closed ports respond with ABORT.
-
-```bash
-sudo nmap -sZ 192.168.16.131
-```
-
-***
-
-### IP Protocol Scan
-
-Not a port scan — determines which **IP protocols** (TCP, UDP, ICMP, IGMP, etc.) are supported by the target.
-
-```bash
-sudo nmap -sO 192.168.16.131
-```
-
-***
-
-### Idle / Zombie Scan
-
-The **stealthiest scan** — no packets sent from your real IP. Uses a "zombie" host's IP ID sequence to infer port state.
-
-```bash
-# Find a suitable zombie (needs incremental IP ID)
-sudo nmap -O -v 192.168.16.140
-
-# Run idle scan using zombie
-sudo nmap -sI 192.168.16.140 192.168.16.131
-```
-
-The zombie host must have incremental (or predictable) IP ID values and must be idle (low traffic). Not all hosts qualify.
-
-***
-
-### FTP Bounce Scan
-
-Uses an FTP server's PORT command to scan another host. Most modern FTP servers patch this.
-
-```bash
-sudo nmap -b anonymous@192.168.16.131 192.168.16.140
-```
-
-***
-
-## Port Specification
-
-Control **which ports** Nmap scans.
-
-| Flag                   | Description                              |
-| ---------------------- | ---------------------------------------- |
-| `-p <range>`           | Specific ports or ranges                 |
-| `-p-`                  | All 65535 ports                          |
-| `-p U:53,T:80`         | UDP and TCP specific ports               |
-| `--top-ports <n>`      | Scan top N most common ports             |
-| `-F`                   | Fast scan (top 100 ports)                |
-| `-r`                   | Scan ports sequentially (not randomized) |
-| `--port-ratio <ratio>` | Scan ports with open frequency > ratio   |
-
-```bash
-# Specific ports
-sudo nmap -p 22,80,443,8080 192.168.16.131
-
-# Port range
-sudo nmap -p 1-1024 192.168.16.131
-
-# All 65535 ports
-sudo nmap -p- 192.168.16.131
-
-# Top 20 most common ports
-sudo nmap --top-ports 20 192.168.16.131
-
-# Fast scan (100 ports)
-sudo nmap -F 192.168.16.131
-
-# Mix TCP and UDP port specification
-sudo nmap -p T:80,443,U:53,161 192.168.16.131
-
-# Only ports with open ratio > 0.5
-sudo nmap --port-ratio 0.5 192.168.16.131
-```
-
-***
+<table><thead><tr><th width="175">State</th><th>Meaning</th></tr></thead><tbody><tr><td><code>open</code></td><td>An application is actively listening on the port and accepting connections or packets.</td></tr><tr><td><code>closed</code></td><td>A closed port is accessible (it receives and responds to Nmap probe packet), but there is no application running on it or listening on it.</td></tr><tr><td><code>filtered</code></td><td>Nmap cannot determine whether port is open because packet filtering prevent its probes from reaching the port. The filter doesn’t respond and just drop the packet.</td></tr><tr><td><code>unfiltered</code></td><td>The port is reachable, but Nmap cannot determine whether it is open or closed (commonly seen with ACK scans).</td></tr><tr><td><code>open\|filtered</code></td><td>A port is placed in this state if or when it is unable to determine whether a port is open or filtered. It occurs when an open port give no response.</td></tr><tr><td><code>closed\|filtered</code></td><td>Nmap cannot determine whether the port is closed or filtered (rare; typically seen in Idle scans).</td></tr></tbody></table>
 
 ## Service and Version Detection
 

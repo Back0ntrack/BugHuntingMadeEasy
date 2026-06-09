@@ -1,6 +1,12 @@
 # Host Discovery
 
+<figure><img src="../../../.gitbook/assets/Gemini_Generated_Image_hh7lz8hh7lz8hh7l.png" alt=""><figcaption></figcaption></figure>
+
 Determines which hosts are **alive** before port scanning.&#x20;
+
+{% hint style="danger" %}
+_When run without root privileges, Nmap automatically falls back to unprivileged techniques and performs as much scanning as the available permissions allow. Using sudo is good._&#x20;
+{% endhint %}
 
 ## Default Things
 
@@ -27,11 +33,23 @@ _`-sn` is used in all host discovery scans to avoid port discovery. Also if we u
 
 ARP is used to resolve an IP address to its corresponding MAC address on the local network.
 
-### Scan
+#### Scan
 
-<figure><img src="../../../.gitbook/assets/image (463).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n <IP> --reason
+```
+{% endcode %}
 
-### Analysis
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PR <IP> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (523).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
 
 <figure><img src="../../../.gitbook/assets/image (464).png" alt=""><figcaption></figcaption></figure>
 
@@ -39,11 +57,17 @@ ARP is used to resolve an IP address to its corresponding MAC address on the loc
 
 **ICMP Echo (Ping)** is used to verify device reachability and connectivity.
 
-### Scan
+#### Scan
 
-<figure><img src="../../../.gitbook/assets/image (456).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PE <ip> --disable-arp-ping --reason
+```
+{% endcode %}
 
-### Analysis
+<figure><img src="../../../.gitbook/assets/image (524).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
 
 <figure><img src="../../../.gitbook/assets/image (457).png" alt=""><figcaption></figcaption></figure>
 
@@ -51,11 +75,17 @@ ARP is used to resolve an IP address to its corresponding MAC address on the loc
 
 **ICMP Timestamp** is used to query remote time for clock synchronization and transit-time analysis.
 
-### Scan
+#### Scan
 
-<figure><img src="../../../.gitbook/assets/image (458).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+nmap -sn -n -PP <ip> --disable-arp-ping --reason
+```
+{% endcode %}
 
-### Analysis
+<figure><img src="../../../.gitbook/assets/image (525).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
 
 <figure><img src="../../../.gitbook/assets/image (459).png" alt=""><figcaption></figcaption></figure>
 
@@ -63,11 +93,17 @@ ARP is used to resolve an IP address to its corresponding MAC address on the loc
 
 ICMP Address Mask Requests were historically used by hosts to discover their subnet mask from a router or gateway.
 
-### Scan
+#### Scan
+
+{% code overflow="wrap" %}
+```bash
+nmap -sn -n -PM <ip> --disable-arp-ping --reason
+```
+{% endcode %}
 
 <figure><img src="../../../.gitbook/assets/image (460).png" alt=""><figcaption></figcaption></figure>
 
-### Analysis
+#### Analysis
 
 <figure><img src="../../../.gitbook/assets/image (461).png" alt=""><figcaption></figcaption></figure>
 
@@ -77,33 +113,69 @@ _ICMP Address Mask Requests (`-PM`) are largely obsolete and are ignored by most
 
 ## -PS (TCP SYN Ping)
 
-### Scan
+#### Scan
 
-<figure><img src="../../../.gitbook/assets/image (484).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PS --disable-arp-ping <ip> --reason
+```
+{% endcode %}
 
-### Analysis
+<figure><img src="../../../.gitbook/assets/image (526).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
 
 <figure><img src="../../../.gitbook/assets/image (485).png" alt=""><figcaption></figcaption></figure>
 
 ## -PA (TCP ACK Ping)
 
-### Scan
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PA --disable-arp-ping <ip> --reason
+```
+{% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (486).png" alt=""><figcaption></figcaption></figure>
+#### Scan
 
-### Analysis
+<figure><img src="../../../.gitbook/assets/image (527).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
 
 <figure><img src="../../../.gitbook/assets/image (487).png" alt=""><figcaption></figcaption></figure>
 
 ## -PU (UDP Ping)
 
-### Scan
+The target machine responds with `UDP response` if port is open else responds with `ICMP Type 3 Code 3 - Destination Unreachable`.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (488).png" alt=""><figcaption></figcaption></figure>
+#### Scan
 
-### Analysis
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PU --disable-arp-ping <ip> --reason
+```
+{% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (489).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (516).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
+
+<figure><img src="../../../.gitbook/assets/image (517).png" alt=""><figcaption></figcaption></figure>
+
+## -PY (SCTP discovery)
+
+#### Scan
+
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PY --disable-arp-ping <ip> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (514).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
+
+<figure><img src="../../../.gitbook/assets/image (515).png" alt=""><figcaption></figcaption></figure>
 
 ## -PO (Protocol Ping)
 
@@ -113,7 +185,13 @@ IP protocols are used to identify what type of network communication an IP packe
 
 ### PO1 Scan (ICMP)
 
-<figure><img src="../../../.gitbook/assets/image (471).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PO1 --disable-arp-ping <ip> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (529).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
@@ -121,7 +199,13 @@ IP protocols are used to identify what type of network communication an IP packe
 
 ### PO2 Scan (IGMPv1)
 
-<figure><img src="../../../.gitbook/assets/image (472).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PO2 --disable-arp-ping <IP> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (530).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
@@ -129,7 +213,13 @@ IP protocols are used to identify what type of network communication an IP packe
 
 ### PO3 Scan (IPv4)
 
-<figure><img src="../../../.gitbook/assets/image (476).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PO3 --disable-arp-ping <ip> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (531).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
@@ -137,7 +227,13 @@ IP protocols are used to identify what type of network communication an IP packe
 
 ### PO6 Scan (TCP)
 
-<figure><img src="../../../.gitbook/assets/image (478).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PO6 --disable-arp-ping <ip> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (492).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
@@ -145,7 +241,13 @@ IP protocols are used to identify what type of network communication an IP packe
 
 ### PO17 Scan (UDP)
 
-<figure><img src="../../../.gitbook/assets/image (480).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PO17 --disable-arp-ping <ip> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (493).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
@@ -153,7 +255,13 @@ IP protocols are used to identify what type of network communication an IP packe
 
 ### PO132 Scan (SCTP)
 
-<figure><img src="../../../.gitbook/assets/image (482).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PO132 --disable-arp-ping <ip> --reason
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (494).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
@@ -175,11 +283,17 @@ _`-PO` without a protocol number uses multiple common IP protocols for host disc
 
 ## Combining Flags
 
-### Scan
+#### Scan
 
-<figure><img src="../../../.gitbook/assets/image (490).png" alt=""><figcaption></figcaption></figure>
+{% code overflow="wrap" %}
+```bash
+sudo nmap -sn -n -PE -PP -PO1,2 -PS -PA <ip> --disable-arp-ping --reason
+```
+{% endcode %}
 
-### Analysis
+<figure><img src="../../../.gitbook/assets/image (495).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
 
 <figure><img src="../../../.gitbook/assets/image (491).png" alt=""><figcaption></figcaption></figure>
 
