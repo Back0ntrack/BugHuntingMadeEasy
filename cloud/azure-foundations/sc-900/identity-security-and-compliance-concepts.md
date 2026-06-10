@@ -37,13 +37,13 @@ Hashing uses an algorithm to convert text to a _unique_ fixed-length value calle
 _There is a concept of `salt` for every matched hash which makes each hash unique even if strings are same._&#x20;
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## GRC Concepts&#x20;
 
 **Governance, Risk, and Compliance (GRC)** is a framework that organizations use to manage policies, risks, and regulatory requirements in a structured way. It helps ensure that IT systems and business processes are secure, aligned with organizational goals, and compliant with laws and standards.
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 • **Governance:** Refers to the policies, procedures, and decision-making structures used to guide and control an organization’s IT and security activities. Governance ensures that technology supports business objectives, defines roles and responsibilities, and establishes security policies and standards that employees must follow.
 

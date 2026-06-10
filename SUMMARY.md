@@ -115,6 +115,7 @@
     * [OS Detection](infrastructure/tools/nmap/os-detection.md)
     * [Nmap Scripting Engine (NSE)](infrastructure/tools/nmap/nmap-scripting-engine-nse.md)
     * [Firewall/IDS Evasion & Spoofing](infrastructure/tools/nmap/firewall-ids-evasion-and-spoofing.md)
+  * [Metasploit Framework](infrastructure/tools/metasploit-framework.md)
 * [Enumeration and Exploitation](infrastructure/enumeration-and-exploitation/README.md)
   * [Pentesting FTP](infrastructure/enumeration-and-exploitation/pentesting-ftp.md)
   * [Pentesting MSSQL](infrastructure/enumeration-and-exploitation/pentesting-mssql/README.md)

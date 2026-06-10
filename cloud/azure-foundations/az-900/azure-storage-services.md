@@ -81,7 +81,7 @@ Azure Storage offers two options for how your data is replicated in the primary 
 * With ZRS, your data is still accessible for both read and write operations even if a zone becomes unavailable.
 * ZRS is also recommended for restricting replication of data within a country or region to meet data governance requirements.
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Redundancy in a secondary region&#x20;
 

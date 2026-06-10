@@ -1,6 +1,6 @@
 # AZ - 1002 (Secure access to workloads)
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Note: The environment currently consists of VNet1 and VNet2 in West Europe, housing VM1 (Subnet1-1) and VM2/VM3 (Subnet2-1). The following tasks outline the new infrastructure, routing, and security configurations required.
 
@@ -17,13 +17,13 @@ _Note that regions may vary due to policy violation in certain regions. Steps wi
 
 1. Select virtual network and click on create.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Enter details accordingly.&#x20;
 
 {% tabs %}
 {% tab title="Basics" %}
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Security" %}
