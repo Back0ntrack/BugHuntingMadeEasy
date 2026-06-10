@@ -158,6 +158,14 @@ sudo nmap --scanflags SYNFIN 192.168.16.131
 sudo nmap --scanflags SYNFIN -sF 192.168.16.131
 ```
 
+#### Scan
+
+<figure><img src="../../../.gitbook/assets/image (534).png" alt=""><figcaption></figcaption></figure>
+
+#### Analysis
+
+<figure><img src="../../../.gitbook/assets/image (533).png" alt=""><figcaption></figcaption></figure>
+
 ## Obsolete Scans
 
 ### TCP Maimon&#x20;
