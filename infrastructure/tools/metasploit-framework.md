@@ -2,7 +2,7 @@
 
 ## What is Metasploit ?&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
 
 #### What is Metasploit?
 
@@ -259,6 +259,8 @@ Advantages:
 
 Victim connects back to attacker.
 
+<figure><img src="../../.gitbook/assets/image (598).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
+
 ```
 Victim ─────► Attacker
 ```
@@ -274,6 +276,8 @@ Most commonly used because outbound traffic is usually allowed through firewalls
 #### Bind TCP
 
 Victim opens a port and waits.
+
+<figure><img src="../../.gitbook/assets/image (597).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
 
 ```
 Attacker ─────► Victim
