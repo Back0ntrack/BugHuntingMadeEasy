@@ -291,6 +291,18 @@ windows/x64/meterpreter/bind_tcp
 
 Requires inbound connectivity to the victim.
 
+## Msfvenom
+
+**MSFVenom** is a command-line tool that comes with the Metasploit Framework. It is used to generate **payloads** in different formats for penetration testing and security assessments.
+
+### Listing Options&#x20;
+
+#### Listing available payloads
+
+
+
+
+
 ## Meterpreter&#x20;
 
 **Meterpreter** (Meta-Interpreter) is an advanced Metasploit payload that runs **in memory** on the target and provides a powerful post-exploitation shell.
