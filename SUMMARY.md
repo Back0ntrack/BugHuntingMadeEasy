@@ -17,10 +17,11 @@
 * [Network Testing Essentials](prerequisites/network-testing-essentials/README.md)
   * [☣️ Kali Linux](prerequisites/network-testing-essentials/kali-linux/README.md)
     * [Python Virtual Environment](prerequisites/network-testing-essentials/kali-linux/python-virtual-environment.md)
+  * [Network Foundation](prerequisites/network-testing-essentials/network-foundation/README.md)
+    * [File Transfers](prerequisites/network-testing-essentials/network-foundation/file-transfers.md)
   * [Network Protocols](prerequisites/network-testing-essentials/network-protocols/README.md)
     * [SSH (22)](prerequisites/network-testing-essentials/network-protocols/ssh-22.md)
     * [MSSQL (1433)](prerequisites/network-testing-essentials/network-protocols/mssql-1433.md)
-  * [Network Foundation](prerequisites/network-testing-essentials/network-foundation.md)
 
 ## Microsoft Cloud and AI Honors <a href="#cloud" id="cloud"></a>
 
