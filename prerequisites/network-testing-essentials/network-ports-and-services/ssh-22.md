@@ -4,15 +4,88 @@
 
 <figure><img src="../../../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
 
-SSH or Secure Shell is a protocol that is used to connect to remote networks securely and execute commands.&#x20;
+**SSH (Secure Shell)** is an **Application Layer protocol** that provides secure remote access, command execution, and file transfer capabilities over an encrypted network connection.
 
-## **Start the SSH Service**
+## SSH Setup&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (406).png" alt=""><figcaption></figcaption></figure>
+### Install SSH&#x20;
 
-### Configuration files&#x20;
+{% code overflow="wrap" %}
+```bash
+sudo apt update
+sudo apt install openssh-server -y
+```
+{% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (407).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (705).png" alt=""><figcaption></figcaption></figure>
+
+### **Start the SSH Service**
+
+{% code overflow="wrap" %}
+```bash
+sudo systemctl start ssh
+sudo systemctl status ssh
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (706).png" alt=""><figcaption></figcaption></figure>
+
+### Connecting to SSH&#x20;
+
+{% code overflow="wrap" %}
+```
+ssh <user>@<IP> 
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (707).png" alt=""><figcaption></figcaption></figure>
+
+## Default Files&#x20;
+
+**All files related to the SSH service are stored in `/etc/ssh`.**
+
+<figure><img src="../../../.gitbook/assets/image (708).png" alt=""><figcaption></figcaption></figure>
+
+### sshd\_config file
+
+This is the **default Ubuntu OpenSSH server configuration file**.
+
+<figure><img src="../../../.gitbook/assets/image (710).png" alt=""><figcaption></figcaption></figure>
+
+To view the final configuration used by the SSH daemon:&#x20;
+
+{% code overflow="wrap" %}
+```
+sudo sshd -T
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (709).png" alt=""><figcaption></figcaption></figure>
+
+### SSH Host Keys&#x20;
+
+The first time you connect, you see:
+
+```
+The authenticity of host '192.168.16.142' can't be established.
+ED25519 key fingerprint is ...
+Are you sure you want to continue connecting (yes/no)?
+```
+
+That fingerprint is derived from the server's host key.
+
+#### Working of SSH Host Keys
+
+* SSH host keys identify the SSH server and are used to prevent man-in-the-middle attacks.&#x20;
+* During the initial connection, the client's SSH software stores the server's public host key in `~/.ssh/known_hosts`.&#x20;
+* On subsequent connections, the stored key is compared against the server's presented key to verify the server's identity.&#x20;
+* Host keys are stored in `/etc/ssh/` and are distinct from user authentication keys.
+
+<figure><img src="../../../.gitbook/assets/image (724).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_The most modern key is preferably used._&#x20;
+{% endhint %}
 
 ## Authentication Mechanisms in SSH&#x20;
 
@@ -24,9 +97,23 @@ All the authentication mechanisms for SSH is stored inside&#x20;
 ```
 {% endcode %}
 
+### Default Authentication Methods&#x20;
+
+{% code overflow="wrap" %}
+```
+sshd -T | grep -E 'authentication|permitrootlogin'
+```
+{% endcode %}
+
+{% hint style="info" %}
+_Even though the authentication directives are commented out in `sshd_config`, `sshd -T` shows that OpenSSH enables both public key and password authentication by default. Root login is allowed, but password-based root login is disabled; the root user can authenticate only using public keys (`PermitRootLogin prohibit-password`)._
+{% endhint %}
+
+<figure><img src="../../../.gitbook/assets/image (711).png" alt=""><figcaption></figcaption></figure>
+
 ### Password Authentication&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (409).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (712).png" alt=""><figcaption></figcaption></figure>
 
 | State in config               | Actual behavior     |
 | ----------------------------- | ------------------- |
@@ -36,17 +123,17 @@ All the authentication mechanisms for SSH is stored inside&#x20;
 
 Note that even if this field is commented `PasswordAuthentication` is enabled by default.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (408).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (714).png" alt=""><figcaption></figcaption></figure>
 
 #### Getting Blocked
 
-<figure><img src="../../../.gitbook/assets/image (412).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (715).png" alt=""><figcaption></figcaption></figure>
 
 ### Public Key Authentication&#x20;
 
 It is the most secure way to login to an SSH server as it is brute-force resistance and no need to remember password.
 
-<figure><img src="../../../.gitbook/assets/image (417).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (716).png" alt=""><figcaption></figcaption></figure>
 
 | State in config file        | Actual behavior     |
 | --------------------------- | ------------------- |
@@ -62,12 +149,46 @@ It is the most secure way to login to an SSH server as it is brute-force resista
 
 <figure><img src="../../../.gitbook/assets/image (410).png" alt=""><figcaption></figcaption></figure>
 
-#### Generate Key Pair&#x20;
+### Host-based authentication
+
+1. Enable host based authentication on the SSH server (ubuntu).&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (725).png" alt=""><figcaption></figcaption></figure>
+
+2. Enable host based authentication on the SSH client (kali).&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (726).png" alt=""><figcaption></figcaption></figure>
+
+3. Verify client host keys on the SSH client (kali)
+
+<figure><img src="../../../.gitbook/assets/image (727).png" alt=""><figcaption></figcaption></figure>
+
+4. Add hostname of client and server in each other's host files.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (728).png" alt=""><figcaption></figcaption></figure>
+
+5. Copy the value of public key of SSH client to SSH server.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (729).png" alt=""><figcaption></figcaption></figure>
+
+6. Configure trusted users on the SSH server. Since we've copied the public key of `root@kali` we've to add root user of `kali` host.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (730).png" alt=""><figcaption></figcaption></figure>
+
+7. Login with `HostbasedAuthentication=yes` method.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (731).png" alt=""><figcaption></figcaption></figure>
+
+## Public Key Authentication Setup&#x20;
+
+### Generate Key Pair&#x20;
 
 {% hint style="info" %}
-Server → kali\
-Client → r0b
+_Server → Ubuntu (r0b)_\
+_Client → kali (nexploit)_
 {% endhint %}
+
+#### Client Side
 
 {% code overflow="wrap" %}
 ```bash
@@ -78,7 +199,7 @@ ssh-keygen -t ed25519
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (413).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (718).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 **Danger**
@@ -86,15 +207,15 @@ ssh-keygen -t ed25519
 _The password you entered is to protect the private key file. So even if private key gets leaked the attacker wouldn't be able to log in._
 {% endhint %}
 
-#### Store keys
+### Store keys
 
-* The SSH server on `kali` needs to know that which public keys are allowed to login.
-* So we need to store the public key of `rob` into `kali`.
+* The SSH server on `ubuntu` needs to know that which public keys are allowed to login.
+* So we need to store the public key of `kali` in `ubuntu`.
 
 **Way - 1:**\
 Thus we can either copy paste the keys manually if we don't have password:
 
-<figure><img src="../../../.gitbook/assets/image (414).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (719).png" alt=""><figcaption></figcaption></figure>
 
 **Way - 2:**
 
@@ -108,11 +229,11 @@ ssh-copy-id username@kali_ip
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (415).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (721).png" alt=""><figcaption></figcaption></figure>
 
-#### Login directly
+### Login
 
-<figure><img src="../../../.gitbook/assets/image (416).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (722).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Recommended .ssh permission**
@@ -122,3 +243,4 @@ _chmod 600 \~/.ssh/id\_ed25519_\
 _chmod 600 \~/.ssh/id\_ed25519.pub # optional, can be 644_\
 _chmod 600 \~/.ssh/authorized\_keys_
 {% endhint %}
+
