@@ -87,6 +87,17 @@ That fingerprint is derived from the server's host key.
 _The most modern key is preferably used._&#x20;
 {% endhint %}
 
+### Recommended File Permissions&#x20;
+
+| Item                                                  | Permission       |
+| ----------------------------------------------------- | ---------------- |
+| `~/.ssh/` directory                                   | `700`            |
+| All private keys (`id_rsa`, `id_ed25519`, `id_ecdsa`) | `600`            |
+| All public keys (`*.pub`)                             | `644`            |
+| `authorized_keys`                                     | `600`            |
+| `known_hosts`                                         | `644` (or `600`) |
+| `~/.ssh/config`                                       | `600`            |
+
 ## Authentication Mechanisms in SSH&#x20;
 
 All the authentication mechanisms for SSH is stored inside&#x20;
@@ -244,3 +255,158 @@ _chmod 600 \~/.ssh/id\_ed25519.pub # optional, can be 644_\
 _chmod 600 \~/.ssh/authorized\_keys_
 {% endhint %}
 
+## Agent Forwarding&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (741).png" alt=""><figcaption></figcaption></figure>
+
+### Start ssh-agent on Kali&#x20;
+
+{% code overflow="wrap" %}
+```bash
+eval "$(ssh-agent -s)"
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (732).png" alt=""><figcaption></figcaption></figure>
+
+### Load SSH key
+
+{% code overflow="wrap" %}
+```bash
+ssh-add ~/.ssh/<your ssh private key>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (737).png" alt=""><figcaption></figcaption></figure>
+
+#### Verify if the key is loaded successfully
+
+{% code overflow="wrap" %}
+```bash
+ssh-add -l
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (738).png" alt=""><figcaption></figcaption></figure>
+
+### Connect to Ubuntu with agent forwarding&#x20;
+
+{% code overflow="wrap" %}
+```bash
+ssh -A r0b@192.168.16.142
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (735).png" alt=""><figcaption></figcaption></figure>
+
+### Verify Forwarding on Ubuntu
+
+{% code overflow="wrap" %}
+```bash
+echo $SSH_AUTH_SOCK
+ssh-add -l
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (739).png" alt=""><figcaption></figcaption></figure>
+
+### Login to OWASPBWA without password&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (740).png" alt=""><figcaption></figcaption></figure>
+
+## SSH Port Forwarding&#x20;
+
+* **Local Port Forwarding (-L)** → Access remote/internal service through SSH.
+* **Remote Port Forwarding (-R)** → Expose your local service on the SSH server.
+
+### Local Port Forwarding
+
+SSH Local Port Forwarding creates a port on the attacker's machine and tunnels traffic through an SSH server to reach a remote service that may not be directly accessible.
+
+<figure><img src="../../../.gitbook/assets/image (742).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```
+ssh -L <local host port>:<remote host>:<remote host port> r0b@<ip>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (743).png" alt=""><figcaption></figcaption></figure>
+
+### Remote Port Forwarding&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (744).png" alt=""><figcaption></figcaption></figure>
+
+#### Start listening on local port 9999&#x20;
+
+{% code overflow="wrap" %}
+```
+nc -lvnp 9999
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (745).png" alt=""><figcaption></figcaption></figure>
+
+#### Start and keep the session open with remote forwarding
+
+{% code overflow="wrap" %}
+```bash
+ssh -R 7777:127.0.0.1:9999 r0b@192.168.16.142
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (746).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_This will forward any traffic sent to Ubuntu's port 7777 to kali's port 9999._&#x20;
+{% endhint %}
+
+#### Make sure ubuntu has settings on
+
+<figure><img src="../../../.gitbook/assets/image (747).png" alt=""><figcaption></figcaption></figure>
+
+#### Connect from OWASP BWA&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (748).png" alt=""><figcaption></figcaption></figure>
+
+**We see that we've received the connection.**&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (749).png" alt=""><figcaption></figcaption></figure>
+
+#### Send message to kali&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (750).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (751).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_See the remote port forwarding is generally used for reverse shell connection. We can start a reverse shell listener on kali and use remote port forwarding._
+{% endhint %}
+
+### Dynamic Forwarding and Proxychains&#x20;
+
+SSH Dynamic Port Forwarding creates a local SOCKS proxy that tunnels arbitrary TCP connections through an SSH server, allowing access to any host and port reachable from that server.
+
+<figure><img src="../../../.gitbook/assets/image (752).png" alt=""><figcaption></figcaption></figure>
+
+#### Start Dynamic Port Forwarding&#x20;
+
+{% code overflow="wrap" %}
+```bash
+ssh -D <port> r0b@192.168.16.142
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (753).png" alt=""><figcaption></figcaption></figure>
+
+#### Configure Proxychains&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (754).png" alt=""><figcaption></figcaption></figure>
+
+#### Connect to any services using proxychains&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (755).png" alt=""><figcaption></figcaption></figure>
+
+#### Proof&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (756).png" alt=""><figcaption></figcaption></figure>
