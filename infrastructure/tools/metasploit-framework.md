@@ -2,7 +2,7 @@
 
 ## What is Metasploit ?&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
 
 #### What is Metasploit?
 
@@ -25,7 +25,7 @@ ls /usr/share/metasploit-framework/tools/
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 ## Modules&#x20;
 

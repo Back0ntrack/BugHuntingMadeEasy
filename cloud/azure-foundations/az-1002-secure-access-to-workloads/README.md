@@ -1,6 +1,6 @@
 # AZ - 1002 (Secure access to workloads)
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Note: The environment currently consists of VNet1 and VNet2 in West Europe, housing VM1 (Subnet1-1) and VM2/VM3 (Subnet2-1). The following tasks outline the new infrastructure, routing, and security configurations required.
 
@@ -17,21 +17,21 @@ _Note that regions may vary due to policy violation in certain regions. Steps wi
 
 1. Select virtual network and click on create.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Enter details accordingly.&#x20;
 
 {% tabs %}
 {% tab title="Basics" %}
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Security" %}
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="IP addresses" %}
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -41,7 +41,7 @@ _Note that two address space (subnet) can't have same IP address range. Also if 
 
 3. After selecting required options click on `Review + Create`. Note that address space selected in `IP addresses` section is for VNet range not Subnet range.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Create Subnet&#x20;
 
@@ -306,11 +306,11 @@ _Virtual Network Link is mandatory for a VNet to use (resolve) records from a Pr
 
 1. Select network security group from the side bar and click on `create`.
 
-<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Provide the required settings and you're good to go.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 3. NSG is deployed with some predefined inbound and outbound rules.&#x20;
 
