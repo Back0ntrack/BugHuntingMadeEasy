@@ -125,6 +125,7 @@
 * [Enumeration and Exploitation](infrastructure/enumeration-and-exploitation/README.md)
   * [Pentesting FTP](infrastructure/enumeration-and-exploitation/pentesting-ftp.md)
   * [Pentesting SSH](infrastructure/enumeration-and-exploitation/pentesting-ssh.md)
+  * [Pentesting MSRPC](infrastructure/enumeration-and-exploitation/pentesting-msrpc.md)
   * [Pentesting MSSQL](infrastructure/enumeration-and-exploitation/pentesting-mssql/README.md)
     * [Using SQLRecon](infrastructure/enumeration-and-exploitation/pentesting-mssql/using-sqlrecon.md)
     * [Using PowerUpSQL](infrastructure/enumeration-and-exploitation/pentesting-mssql/using-powerupsql.md)
