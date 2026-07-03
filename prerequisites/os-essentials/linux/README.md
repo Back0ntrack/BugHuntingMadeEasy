@@ -397,5 +397,383 @@ cat ./myscript.sh
 ```
 {% endcode %}
 
+### Managing Files and Directories&#x20;
 
+<table data-search="false"><thead><tr><th width="255.60003662109375">Command</th><th width="432.4000244140625">Description</th></tr></thead><tbody><tr><td><code>touch file</code></td><td>Create an empty file / update timestamp if it exists</td></tr><tr><td><code>mkdir dir</code></td><td>Create a directory</td></tr><tr><td><code>mkdir -p a/b/c</code></td><td>Create nested directories in one go</td></tr><tr><td><code>cp src dest</code></td><td>Copy a file</td></tr><tr><td><code>cp -r src dest</code></td><td>Copy a directory recursively</td></tr><tr><td><code>mv src dest</code></td><td>Move or rename a file/directory</td></tr><tr><td><code>rm file</code></td><td>Remove a file</td></tr><tr><td><code>rm -r dir</code></td><td>Remove a directory recursively</td></tr><tr><td><code>rm -rf dir</code></td><td>Force remove, no confirmation prompts</td></tr><tr><td><code>rmdir dir</code></td><td>Remove an empty directory only</td></tr></tbody></table>
 
+<figure><img src="../../../.gitbook/assets/image (828).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (829).png" alt=""><figcaption></figcaption></figure>
+
+### Working with File Paths (Spaces and Expansion)
+
+The shell splits a command line into arguments using **whitespace**. A file or directory name containing a space will be treated as two separate arguments unless it's quoted or escaped.
+
+#### Handling Spaces&#x20;
+
+{% code overflow="wrap" %}
+```bash
+touch "my file.txt"      # Double quotes
+touch 'my file.txt'      # Single quotes
+touch my\ file.txt       # Escape the space
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (830).png" alt=""><figcaption></figcaption></figure>
+
+#### Brace Expansions&#x20;
+
+{% code overflow="wrap" %}
+```bash
+touch file{1,2,3}.txt
+touch file{4..8}.txt
+touch file{1..2}{b..d}.txt
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (831).png" alt=""><figcaption></figcaption></figure>
+
+### Wildcards&#x20;
+
+**Wildcards** are special characters used by the shell to match one or more filenames or directory names based on a pattern. Before executing a command, the shell expands the wildcard pattern into all matching files and directories. This process is known as **pathname expansion (globbing)**.
+
+<table><thead><tr><th width="115.39996337890625">Wildcard</th><th width="413.5999755859375">Description</th><th>Example</th></tr></thead><tbody><tr><td><code>*</code></td><td>Matches zero or more characters</td><td><code>ls *.txt</code></td></tr><tr><td><code>?</code></td><td>Matches exactly one character</td><td><code>ls file?.txt</code></td></tr><tr><td><code>[abc]</code></td><td>Matches any one character inside the brackets</td><td><code>ls file[123].txt</code></td></tr><tr><td><code>[a-z]</code></td><td>Matches any one character within a range</td><td><code>ls file[a-z].txt</code></td></tr><tr><td><code>[!abc]</code></td><td>Matches any one character except those inside the brackets</td><td><code>ls file[!0-9].txt</code></td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (832).png" alt=""><figcaption></figcaption></figure>
+
+### Hard and Soft Links
+
+{% hint style="info" %}
+_An inode (index node) is a foundational data structure in Linux filesystems that stores metadata about a file or directory (such as permissions, size, owner, and disk location) but excludes its actual data and filename._
+{% endhint %}
+
+A **link** is a reference to a file. Linux supports two kinds&#x20;
+
+#### Hard Link
+
+* A **hard link** is another directory entry that points directly to the **same inode** as the original file.
+* Both filenames refer to the same physical data on disk.
+* Modifying either file changes the same data.&#x20;
+
+{% hint style="danger" %}
+- _Deleting one filename doesn't delete the actual file until all hard links are removed._&#x20;
+- _Hard link cannot link directories._&#x20;
+- _Hard link cannot cross file systems (another device/drive)_
+{% endhint %}
+
+{% code overflow="wrap" %}
+```
+ln original.txt hardlink.txt
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (833).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (834).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (837).png" alt=""><figcaption></figcaption></figure>
+
+#### Soft Link
+
+* A **symbolic link** is a special file that stores the **path** to another file or directory.
+* Unlike a hard link, it has its own inode and simply redirects to the target whenever it is accessed.
+* Becomes a **broken (dangling) link** if the target is deleted or moved.
+
+<figure><img src="../../../.gitbook/assets/image (836).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+_Notice the `../` because from inside `linked`, you must go **one directory up** to reach `original.txt`._
+
+_**Always provide absolute path for correct symlinks for better results.**_&#x20;
+{% endhint %}
+
+### Compression, Decompression and Archiving
+
+* **Archiving** bundles multiple files into a single file without reducing size (`tar`).&#x20;
+* **Compression** reduces the size of that archive using an algorithm (`gzip`, `bzip2`, `xz`).&#x20;
+
+<table data-search="false"><thead><tr><th width="156.39996337890625">Option</th><th width="413.20001220703125">Description</th></tr></thead><tbody><tr><td><code>-c</code></td><td>Create a new archive</td></tr><tr><td><code>-x</code></td><td>Extract an archive</td></tr><tr><td><code>-t</code></td><td>List archive contents</td></tr><tr><td><code>-f</code></td><td>Specify archive filename</td></tr><tr><td><code>-v</code></td><td>Verbose output (show processed files)</td></tr><tr><td><code>-z</code></td><td>Compress/Decompress using <strong>gzip</strong> (<code>.tar.gz</code>)</td></tr><tr><td><code>-j</code></td><td>Compress/Decompress using <strong>bzip2</strong> (<code>.tar.bz2</code>)</td></tr><tr><td><code>-J</code></td><td>Compress/Decompress using <strong>xz</strong> (<code>.tar.xz</code>)</td></tr><tr><td><code>-C</code></td><td>Extract or archive from a specific directory</td></tr></tbody></table>
+
+#### Creating an archive
+
+{% code overflow="wrap" %}
+```bash
+tar -cvf archive.tar testdir/
+# -c => Create a new archive
+# -v => Verbose output
+# -f => archive filename
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (838).png" alt=""><figcaption></figcaption></figure>
+
+#### Extracting an archive&#x20;
+
+{% code overflow="wrap" %}
+```bash
+tar -xvf archive.tar 
+# -x => Extract an archive
+# -v => verbose output
+# -f => archive filename
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (839).png" alt=""><figcaption></figcaption></figure>
+
+#### Creating Compressed archive&#x20;
+
+{% code overflow="wrap" %}
+```bash
+tar -czvf temp_compr_archive.gz ./temp/
+# -z => Compress with gzip
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (840).png" alt=""><figcaption></figcaption></figure>
+
+#### Extracting Compressed archive
+
+{% code overflow="wrap" %}
+```bash
+tar -xzvf temp_compr_archive.gz
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (842).png" alt=""><figcaption></figcaption></figure>
+
+#### Compressing Files&#x20;
+
+<table><thead><tr><th width="190.00006103515625">Option</th><th width="310.79998779296875">Description</th></tr></thead><tbody><tr><td><code>-r</code></td><td>Compress directories recursively</td></tr><tr><td><code>-e</code></td><td>Encrypt archive with a password</td></tr><tr><td><code>-9</code></td><td>Maximum compression</td></tr><tr><td><code>-0</code></td><td>No compression (archive only)</td></tr></tbody></table>
+
+{% code overflow="wrap" %}
+```bash
+zip backup.zip <files> 
+zip backup.zip -r <folder> 
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (843).png" alt=""><figcaption></figcaption></figure>
+
+#### Extracting Compressed files&#x20;
+
+<table><thead><tr><th width="190.00006103515625">Option</th><th width="310.79998779296875">Description</th></tr></thead><tbody><tr><td><code>-d</code></td><td>Extracting files in specific directory</td></tr><tr><td><code>-l</code></td><td>Listing archive contents</td></tr></tbody></table>
+
+{% code overflow="wrap" %}
+```bash
+unzip <zip file> -d <folder> 
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (844).png" alt=""><figcaption></figcaption></figure>
+
+#### GZIP&#x20;
+
+{% hint style="danger" %}
+_It compresses a single file only with `.gz` extension._&#x20;
+{% endhint %}
+
+The **`gzip`** command compresses a **single file** using the GNU Zip compression algorithm. It does **not** create an archive or combine multiple files. After compression, the original file is replaced with a **`.gz`** file.
+
+| Command               | Description                         |
+| --------------------- | ----------------------------------- |
+| `gzip file.txt`       | Compress a file                     |
+| `gzip -k file.txt`    | Compress and keep the original file |
+| `gzip -d file.txt.gz` | Decompress a `.gz` file             |
+
+#### Gunzip&#x20;
+
+The **`gunzip`** command decompresses files compressed with **`gzip`**. It is equivalent to using `gzip -d`.
+
+<figure><img src="../../../.gitbook/assets/image (845).png" alt=""><figcaption></figcaption></figure>
+
+### Searching the Filesystem&#x20;
+
+Linux offers several tools to locate files and directories — by name, type, size, modification time, or a pre-built index.
+
+Tools available:&#x20;
+
+* find
+* locate
+
+For builtin tools
+
+* which
+* whereis
+
+#### Find
+
+<table data-search="false"><thead><tr><th width="270">Command</th><th>Description</th></tr></thead><tbody><tr><td><code>find / -name "file.txt"</code></td><td>Search by exact filename in root directory. </td></tr><tr><td><code>find / -iname "file.txt"</code></td><td>Case-insensitive filename search</td></tr><tr><td><code>find . -name "*.txt"</code></td><td>Search using wildcards</td></tr><tr><td><code>find . -type f</code></td><td>Search for regular files</td></tr><tr><td><code>find . -type d</code></td><td>Search for directories</td></tr><tr><td><code>find . -size +10M</code></td><td>Search for files larger than 10 MB</td></tr><tr><td><code>find . -size -1M</code></td><td>Search for files smaller than 1 MB</td></tr><tr><td><code>find . -perm 644</code></td><td>Search by file permissions</td></tr><tr><td><code>find . -user r0b</code></td><td>Search by file owner</td></tr><tr><td><code>find . -empty</code></td><td>Search for empty files and directories</td></tr><tr><td><code>find . -name "*.log" -delete</code></td><td>Delete matching files</td></tr><tr><td><code>find . -name "*.log" -exec rm {} \;</code></td><td>Execute a command on matching files</td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (846).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (847).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (848).png" alt=""><figcaption></figcaption></figure>
+
+#### Locate
+
+The **`locate`** command searches for files using a **pre-built database** instead of scanning the filesystem. As a result, it is much faster than `find`.
+
+* update the database: `sudo updatedb`
+* search for files: `locate <filename>`
+
+<figure><img src="../../../.gitbook/assets/image (849).png" alt=""><figcaption></figcaption></figure>
+
+### File and Directory Security&#x20;
+
+Every file and directory on Linux carries a permission set that governs who can read, write, or execute it. This set is not fixed — it's **assigned by default**, can be **inherited**, **changed** deliberately, or **bypassed** under specific conditions.
+
+#### Security values
+
+<table data-search="false"><thead><tr><th width="123.60003662109375">Value</th><th width="165.9998779296875">Permission</th></tr></thead><tbody><tr><td><strong>4</strong></td><td>Read (r)</td></tr><tr><td><strong>2</strong></td><td>Write (w)</td></tr><tr><td><strong>1</strong></td><td>Execute (x)</td></tr></tbody></table>
+
+#### Default Permissions - \`umask\`
+
+{% hint style="danger" %}
+_Linux files do not inherit permissions from their parent directory._&#x20;
+{% endhint %}
+
+<table><thead><tr><th width="148.39996337890625">Object</th><th width="198.79998779296875">Default Permission</th></tr></thead><tbody><tr><td>File</td><td><code>666</code> (<code>rw-rw-rw-</code>)</td></tr><tr><td>Directory</td><td><code>777</code> (<code>rwxrwxrwx</code>)</td></tr></tbody></table>
+
+When a file or directory is created, Linux doesn't ask what permissions to give it — it starts from a maximum (666 for files, 777 for directories) and subtracts the **umask** value of the shell that created it.
+
+<figure><img src="../../../.gitbook/assets/image (850).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```
+002 means 
+Owner : 0
+Group : 0
+Others: 2
+A value of 2 means remove the write (w) permission.
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```
+Default File Permission
+
+666
+-002
+----
+664 (-rw-rw-r--)
+```
+{% endcode %}
+
+#### Changing Ownership&#x20;
+
+{% hint style="warning" %}
+_Only the root user can change the ownership of a file._&#x20;
+{% endhint %}
+
+Every file and directory in Linux has an **owner (user)** and an associated **group**. Linux provides commands to change the ownership of files and directories.
+
+<figure><img src="../../../.gitbook/assets/image (851).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```bash
+# Change owner and group of file
+chown <owner>:<group> <file>
+# Change owner of the file
+chown <owner> <file> 
+# Change owner and group of files within a directory recursively
+chown -R <owner>:<group> <file>
+# Change group of the file 
+chgrp <group> <file> 
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (853).png" alt=""><figcaption></figcaption></figure>
+
+#### Changing Permissions&#x20;
+
+{% code overflow="wrap" %}
+```
+-rwsr-xr-x 1 root root 93640 Feb  3 02:15 /usr/bin/passwd
+ │││ │││ │││
+ │││ │││ │└┴── Others (r-x)
+ │││ │└┴────── Group (r-x)
+ │└┴────────── Owner (rws)
+ └──────────── File Type (- = Regular File, d for directory)
+```
+{% endcode %}
+
+Linux controls access to files and directories using **permission bits** for the **Owner**, **Group**, and **Others**. The **`chmod` (Change Mode)** command is used to modify these permissions.
+
+Permissions are modified using symbolic operators.
+
+{% code overflow="wrap" %}
+```bash
+sudo chmod <class><symbol><permission> <file>
+sudo chmod <numeric value> <file>
+```
+{% endcode %}
+
+| Symbol | Description          |
+| ------ | -------------------- |
+| `+`    | Add permission       |
+| `-`    | Remove permission    |
+| `=`    | Set exact permission |
+
+| Class          | Description  |
+| -------------- | ------------ |
+| `u`            | User (Owner) |
+| `g`            | Group        |
+| `o`            | Others       |
+| `a` / Nothing  | All users    |
+
+<table data-search="false"><thead><tr><th width="143.60003662109375" align="right">Value</th><th width="141.19989013671875">Permission</th></tr></thead><tbody><tr><td align="right"><code>0</code></td><td><code>---</code></td></tr><tr><td align="right"><code>1</code></td><td><code>--x</code></td></tr><tr><td align="right"><code>2</code></td><td><code>-w-</code></td></tr><tr><td align="right"><code>3</code></td><td><code>-wx</code></td></tr><tr><td align="right"><code>4</code></td><td><code>r--</code></td></tr><tr><td align="right"><code>5</code></td><td><code>r-x</code></td></tr><tr><td align="right"><code>6</code></td><td><code>rw-</code></td></tr><tr><td align="right"><code>7</code></td><td><code>rwx</code></td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (854).png" alt=""><figcaption></figcaption></figure>
+
+### Special Permission bits (SGID and SUID bit)
+
+The three special permissions are:
+
+* **SUID (Set User ID)**
+* **SGID (Set Group ID)**
+* **Sticky Bit**
+
+#### SUID (Set User ID)
+
+The **SUID** permission allows a program to execute with the **permissions of the file owner**, rather than the permissions of the user running it.
+
+This is commonly used by system programs that require elevated privileges to perform specific tasks.
+
+{% code overflow="wrap" %}
+```bash
+sudo chmod u+s file
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (855).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_The `/usr/bin/passwd` program runs with the effective UID of `root` (due to the SUID bit), allowing it to modify `/etc/shadow`. However, the `passwd` program itself enforces security checks, permitting regular users to change only their own password, while only the `root` user can change the passwords of other users._
+{% endhint %}
+
+{% hint style="danger" %}
+_If you have execute permission and the SUID bit is set, you can execute the program with the **effective UID of the file owner**. We should have at least `x` permission to run the program with the file owner's privileges._&#x20;
+{% endhint %}
+
+{% hint style="info" %}
+_**Linux ignores the SUID bit on interpreted scripts** (e.g., **Shell**, **Python**, and **Perl**) for security reasons. Therefore, executing a SUID script **does not** grant the effective UID of the file owner. SUID is honored only for **compiled binaries (ELF executables)**._
+{% endhint %}
+
+#### SGID (Set Group ID)
+
+The **SGID** permission has different behavior for **files** and **directories**.
+
+* Files
+  * When SGID is applied to an executable file, the program executes with the **permissions of the file's group** instead of the user's primary group.
+* Directories
+  * New files inherit the **directory's group** instead of the creator's primary group.
+  * New subdirectories also inherit the SGID bit.
+
+{% code overflow="wrap" %}
+```bash
+sudo chmod g+s project
+```
+{% endcode %}
+
+<table data-search="false"><thead><tr><th>Feature</th><th>SUID (Set User ID)</th><th>SGID (Set Group ID)</th></tr></thead><tbody><tr><td>Permission Position</td><td>Owner execute field (<code>rws</code>)</td><td>Group execute field (<code>r-s</code>)</td></tr><tr><td>Affects</td><td><strong>Effective User ID (EUID)</strong></td><td><strong>Effective Group ID (EGID)</strong></td></tr><tr><td>Executes As</td><td>File owner</td><td>File's group</td></tr><tr><td>Requires</td><td>Execute (<code>x</code>) permission</td><td>Execute (<code>x</code>) permission</td></tr><tr><td>Need to belong to file's group?</td><td><strong>No</strong></td><td><strong>No</strong></td></tr><tr><td>Typical Use</td><td><code>/usr/bin/passwd</code> runs as <code>root</code></td><td>Programs that need temporary group privileges</td></tr><tr><td>Gives root shell?</td><td><strong>Yes</strong>, if owner is <code>root</code> and the program is exploitable (e.g., <code>bash -p</code>)</td><td><strong>No</strong>, it only changes the effective group</td></tr></tbody></table>
