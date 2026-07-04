@@ -1,4 +1,4 @@
-# 🐧 Linux
+# 🐧 Linux Fundamentals
 
 Linux is a **free and open-source operating system kernel** created by **Linus Torvalds** in 1991.
 
@@ -1185,3 +1185,195 @@ Bash keeps a record of executed commands, stored in `~/.bash_history` and loaded
 
 <figure><img src="../../../.gitbook/assets/image (859).png" alt=""><figcaption></figcaption></figure>
 
+## Text Editors&#x20;
+
+### Nano
+
+<figure><img src="../../../.gitbook/assets/image (860).png" alt=""><figcaption></figcaption></figure>
+
+### Vim&#x20;
+
+<table data-search="false"><thead><tr><th>Command / Key</th><th>Description</th></tr></thead><tbody><tr><td><code>vim file.txt</code></td><td>Open or create a file</td></tr><tr><td><code>i</code></td><td>Enter Insert mode before the cursor</td></tr><tr><td><code>a</code></td><td>Enter Insert mode after the cursor</td></tr><tr><td><code>o</code></td><td>Insert a new line below</td></tr><tr><td><code>Esc</code></td><td>Return to Normal mode</td></tr><tr><td><code>h</code> <code>j</code> <code>k</code> <code>l</code></td><td>Move left, down, up, right</td></tr><tr><td><code>gg</code></td><td>Go to the first line</td></tr><tr><td><code>G</code></td><td>Go to the last line</td></tr><tr><td><code>:10</code></td><td>Go to line 10</td></tr><tr><td><code>dd</code></td><td>Delete the current line</td></tr><tr><td><code>p</code></td><td>Paste copied/deleted text</td></tr><tr><td><code>u</code></td><td>Undo last change</td></tr><tr><td><code>Ctrl + r</code></td><td>Redo last undone change</td></tr><tr><td><code>/text</code></td><td>Search for text</td></tr><tr><td><code>n</code></td><td>Next search result</td></tr><tr><td><code>N</code></td><td>Previous search result</td></tr><tr><td><code>:w</code></td><td>Save the file</td></tr><tr><td><code>:q</code></td><td>Quit Vim</td></tr><tr><td><code>:wq</code></td><td>Save and quit</td></tr><tr><td><code>:q!</code></td><td>Quit without saving</td></tr><tr><td><code>:set number</code></td><td>Show line numbers</td></tr><tr><td><code>:set nonumber</code></td><td>Hide line numbers</td></tr><tr><td><code>:!&#x3C;command></code></td><td>Execute a shell command without leaving Vim</td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (861).png" alt=""><figcaption></figcaption></figure>
+
+## Process Management
+
+### Viewing Process&#x20;
+
+<table data-search="false"><thead><tr><th>Command</th><th>Description</th><th>Expected Output</th></tr></thead><tbody><tr><td><code>ps</code></td><td>Display processes running in the current terminal</td><td>PID, TTY, TIME, CMD</td></tr><tr><td><code>ps -e</code></td><td>Display all running processes</td><td>List of all system processes</td></tr><tr><td><code>ps -ef</code></td><td>Display all processes in full format</td><td>UID, PID, PPID, STIME, CMD</td></tr><tr><td><code>ps aux</code></td><td>Display detailed process information (BSD format)</td><td>USER, PID, %CPU, %MEM, COMMAND</td></tr><tr><td><code>top</code></td><td>Display real-time running processes</td><td>Interactive process monitor</td></tr><tr><td><code>htop</code></td><td>Interactive process viewer (if installed)</td><td>Color-coded process list</td></tr><tr><td><code>pstree</code></td><td>Display processes in a tree hierarchy</td><td>Parent-child process tree</td></tr><tr><td><code>pstree -p</code></td><td>Display process tree with PIDs</td><td>Process hierarchy with PIDs</td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (862).png" alt=""><figcaption></figcaption></figure>
+
+### Find a process by port&#x20;
+
+#### Using lsof (List Open Files)
+
+{% code overflow="wrap" %}
+```
+sudo lsof -i :<port>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (863).png" alt=""><figcaption></figcaption></figure>
+
+#### Using ss (Socket investigation Utility)
+
+{% code overflow="wrap" %}
+```
+sudo ss -tulpn | grep <port>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (864).png" alt=""><figcaption></figcaption></figure>
+
+#### Using ps&#x20;
+
+{% code overflow="wrap" %}
+```
+ps -aux | grep <port>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (865).png" alt=""><figcaption></figcaption></figure>
+
+#### Using pgrep
+
+{% code overflow="wrap" %}
+```
+pgrep -l ssh
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (866).png" alt=""><figcaption></figcaption></figure>
+
+### Identify Process id with process name&#x20;
+
+{% code overflow="wrap" %}
+```
+pidof <process name>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (867).png" alt=""><figcaption></figcaption></figure>
+
+### Killing Process&#x20;
+
+<table data-search="false"><thead><tr><th width="255.60003662109375">Command</th><th width="296.4000244140625">Description</th></tr></thead><tbody><tr><td><code>kill PID</code></td><td>SIGTERM — graceful stop</td></tr><tr><td><code>kill -9 PID</code></td><td>SIGKILL — force kill</td></tr><tr><td><code>kill -1 PID</code></td><td>SIGHUP — reload config (common for daemons)</td></tr><tr><td><code>pkill -f "process_name"</code></td><td>Kill by matching command line</td></tr><tr><td><code>killall process_name</code></td><td>Kill all instances by exact name</td></tr></tbody></table>
+
+{% code overflow="wrap" %}
+```bash
+kill <pid>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (868).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (869).png" alt=""><figcaption></figcaption></figure>
+
+### Text Processing&#x20;
+
+{% hint style="info" %}
+_Linux treats **everything as text**. Configuration files, logs, passwords, command outputs, enumeration results, scan reports, etc. Instead of manually opening files, Linux provides powerful text processing utilities that allow searching, filtering, extracting, modifying, and transforming data directly from the command line._
+{% endhint %}
+
+### Regular Expressions&#x20;
+
+A **regex** is a pattern-matching language for text.
+
+#### Core Metacharacters
+
+* `^` — anchors to the start of a line
+* `$` — anchors to the end of a line
+* `.` — matches any single character
+* `*` — zero or more of the preceding character
+* `[abc]` — any one character in the set
+* `[^abc]` — any one character NOT in the set
+* `[0-9]`, `[a-zA-Z]` — ranges
+* `\.` — escapes a literal dot (metacharacters must be escaped to be literal)
+* `+` — one or more (needs `-E`)
+* `?` — zero or one (needs `-E`)
+* `{n,m}` — between n and m repetitions (needs `-E`)
+* `(...)` — grouping (needs `-E`)
+* `|` — alternation / OR (needs `-E`)
+* `\d`, `\w`, `\s` — digit/word/whitespace shorthand — only with `grep -P` (PCRE), not standard BRE/ERE
+
+<figure><img src="../../../.gitbook/assets/image (870).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary>Explanation of commands</summary>
+
+#### 1. Extract Email Addresses
+
+```bash
+grep -oE "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" regex_practice.txt
+```
+
+* `grep` – Searches for text matching a pattern.
+* `-E` – Enables **Extended Regular Expressions (ERE)**.
+* `-o` – Prints **only the matched text**, not the entire line.
+* `[a-zA-Z0-9._%+-]+` – Matches the **username** part of an email (one or more letters, digits, `.`, `_`, `%`, `+`, `-`).
+* `@` – Matches the `@` symbol.
+* `[a-zA-Z0-9.-]+` – Matches the **domain name** (e.g., `gmail`, `example.co`).
+* `\.` – Matches the literal dot (`.`) before the top-level domain.
+* `[a-zA-Z]{2,}` – Matches the **top-level domain (TLD)** containing at least 2 letters (e.g., `com`, `org`, `in`).
+* `regex_practice.txt` – File to search.
+
+***
+
+#### 2. Extract IPv4 Addresses
+
+```bash
+grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}" regex_practice.txt
+```
+
+* `grep` – Searches for text matching a pattern.
+* `-E` – Enables **Extended Regular Expressions (ERE)**.
+* `-o` – Prints **only the matched text**, not the entire line.
+* `([0-9]{1,3}\.){3}` – Matches **three groups** of 1–3 digits followed by a dot (`.`), e.g., `192.168.1.`
+* `[0-9]{1,3}` – Matches the **last octet** (1–3 digits).
+* `regex_practice.txt` – File to search.
+* **Note:** This regex matches the IPv4 **format only**. It does **not** validate that each octet is within the valid range (`0–255`), so values like `999.999.999.999` will also match.
+
+</details>
+
+### cut
+
+`cut` extracts specific columns from delimiter-based text — faster than `awk` when you just need to pull one or two fields and don't need any logic.
+
+Key flags:
+
+* `-d` — set the delimiter
+* `-f` — select field(s) by number
+* `-c` — select by character position/range
+* `--complement` — invert the selected fields
+
+<figure><img src="../../../.gitbook/assets/image (876).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (877).png" alt=""><figcaption></figcaption></figure>
+
+### awk - Field processing
+
+Where `cut` only extracts, `awk` extracts, filters by condition, and computes — in one line. Structure: `awk 'pattern {action}' file`. `$1`, `$2`... are fields, `$0` is the whole line, `NR` is the current record number, `NF` is the number of fields, `-F` sets the delimiter.
+
+<figure><img src="../../../.gitbook/assets/image (878).png" alt=""><figcaption></figcaption></figure>
+
+### sed - Stream Editing&#x20;
+
+`sed` edits a text stream — substituting, printing, or deleting lines — without opening the file in an editor. Critical for bulk-editing configs or sanitizing logs.
+
+Key syntax:
+
+* `s/pattern/replacement/` — substitute the first match per line
+* `s/pattern/replacement/g` — substitute all matches per line
+* `-i` — edit the file in place (use `-i.bak` to keep a backup)
+* `-n` with `p` — print only matching lines (suppresses default output)
+* `d` — delete matching lines
+* `^` — anchor a replacement/action to the start of a line
+
+{% hint style="danger" %}
+_Too complex. AI usage is must. also make sure you've backup of your file somewhere else as well before using sed. as it may removes stuffs. Use carefully._&#x20;
+{% endhint %}
+
+Other tools: `sort`, `uniq`, `wc`, `tr`
