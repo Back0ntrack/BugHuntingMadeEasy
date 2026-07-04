@@ -777,3 +777,411 @@ sudo chmod g+s project
 {% endcode %}
 
 <table data-search="false"><thead><tr><th>Feature</th><th>SUID (Set User ID)</th><th>SGID (Set Group ID)</th></tr></thead><tbody><tr><td>Permission Position</td><td>Owner execute field (<code>rws</code>)</td><td>Group execute field (<code>r-s</code>)</td></tr><tr><td>Affects</td><td><strong>Effective User ID (EUID)</strong></td><td><strong>Effective Group ID (EGID)</strong></td></tr><tr><td>Executes As</td><td>File owner</td><td>File's group</td></tr><tr><td>Requires</td><td>Execute (<code>x</code>) permission</td><td>Execute (<code>x</code>) permission</td></tr><tr><td>Need to belong to file's group?</td><td><strong>No</strong></td><td><strong>No</strong></td></tr><tr><td>Typical Use</td><td><code>/usr/bin/passwd</code> runs as <code>root</code></td><td>Programs that need temporary group privileges</td></tr><tr><td>Gives root shell?</td><td><strong>Yes</strong>, if owner is <code>root</code> and the program is exploitable (e.g., <code>bash -p</code>)</td><td><strong>No</strong>, it only changes the effective group</td></tr></tbody></table>
+
+## Users and Groups&#x20;
+
+### Types of Users&#x20;
+
+Linux distinguishes users by their **UID (User ID)**, which determines their privilege level and purpose on the system.
+
+<table data-search="false"><thead><tr><th width="149.99993896484375">UID Range</th><th width="562.7999877929688">Type</th></tr></thead><tbody><tr><td><strong>0</strong></td><td><strong>root</strong> — superuser, full access, exempt from permission checks</td></tr><tr><td><strong>1–999</strong></td><td><strong>System / service accounts</strong> — created for daemons and services (e.g., <code>www-data</code>, <code>sshd</code>), not meant for interactive login</td></tr><tr><td><strong>1000+</strong></td><td><strong>Normal users</strong> — regular human accounts, created via <code>useradd</code>/<code>adduser</code></td></tr></tbody></table>
+
+### User Information
+
+{% code overflow="wrap" %}
+```bash
+whoami
+id
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+### Passwd file&#x20;
+
+`/etc/passwd` stores basic account information for every user on the system. It's world-readable — it holds no password hashes.
+
+<table data-search="false"><thead><tr><th width="123.60003662109375">Field</th><th width="381.99993896484375">Description</th></tr></thead><tbody><tr><td><strong>Username</strong></td><td>Login name</td></tr><tr><td><strong>Password</strong></td><td>Always <code>x</code> — actual hash lives in <code>/etc/shadow</code></td></tr><tr><td><strong>UID</strong></td><td>User ID</td></tr><tr><td><strong>GID</strong></td><td>Primary Group ID</td></tr><tr><td><strong>Comment</strong></td><td>Full name / description (GECOS field)</td></tr><tr><td><strong>Home Directory</strong></td><td>Path to the user's home</td></tr><tr><td><strong>Shell</strong></td><td>Default shell on login</td></tr></tbody></table>
+
+{% code overflow="wrap" %}
+```bash
+cat /etc/passwd
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_Service accounts usually have `/usr/sbin/nologin` or `/bin/false` as their shell in `/etc/passwd` — this blocks interactive login even if someone obtains the password._
+{% endhint %}
+
+### Shadow file
+
+`/etc/shadow` stores the actual password hashes and aging policy. It's readable only by **root**.
+
+<table data-search="false"><thead><tr><th width="123.60003662109375">Field</th><th width="445.19989013671875">Description</th></tr></thead><tbody><tr><td><strong>Username</strong></td><td>Login name</td></tr><tr><td><strong>Password Hash</strong></td><td>Hashed password (or <code>!</code>/<code>*</code> if locked/disabled)</td></tr><tr><td><strong>Last Changed</strong></td><td>Days since epoch password was last changed</td></tr><tr><td><strong>Min Days</strong></td><td>Minimum days before password can be changed again</td></tr><tr><td><strong>Max Days</strong></td><td>Maximum days before password must be changed</td></tr><tr><td><strong>Warn Days</strong></td><td>Days before expiry the user is warned</td></tr><tr><td><strong>Inactive</strong></td><td>Days after expiry before account is disabled</td></tr><tr><td><strong>Expire Date</strong></td><td>Absolute account expiry date</td></tr></tbody></table>
+
+{% code overflow="wrap" %}
+```bash
+sudo cat /etc/shadow
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_The hash prefix identifies the algorithm — `$1$` MD5, `$5$` SHA-256, `$6$` SHA-512. Ubuntu defaults to SHA-512 (`$6$`)._
+{% endhint %}
+
+#### Check group membership&#x20;
+
+{% code overflow="wrap" %}
+```bash
+groups
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+
+### Creating and Managing Users&#x20;
+
+#### Creating a user&#x20;
+
+1. `useradd`
+
+<table data-search="false"><thead><tr><th width="171.4000244140625">Option</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code>-m</code></td><td>Create the user's home directory</td><td><code>sudo useradd -m alice</code></td></tr><tr><td><code>-d &#x3C;dir></code></td><td>Specify a custom home directory</td><td><code>sudo useradd -d /home/dev alice</code></td></tr><tr><td><code>-s &#x3C;shell></code></td><td>Set the login shell</td><td><code>sudo useradd -s /bin/bash alice</code></td></tr><tr><td><code>-u &#x3C;UID></code></td><td>Assign a specific UID</td><td><code>sudo useradd -u 1500 alice</code></td></tr><tr><td><code>-g &#x3C;group></code></td><td>Set the primary group</td><td><code>sudo useradd -g developers alice</code></td></tr><tr><td><code>-G &#x3C;groups></code></td><td>Add supplementary groups</td><td><code>sudo useradd -G sudo,docker alice</code></td></tr><tr><td><code>-c "&#x3C;comment>"</code></td><td>Add GECOS/comment (full name, etc.)</td><td><code>sudo useradd -c "Alice Smith" alice</code></td></tr><tr><td><code>-e &#x3C;YYYY-MM-DD></code></td><td>Set account expiration date</td><td><code>sudo useradd -e 2026-12-31 alice</code></td></tr><tr><td><code>-f &#x3C;days></code></td><td>Days after password expiry before disabling account</td><td><code>sudo useradd -f 30 alice</code></td></tr><tr><td><code>-p &#x3C;encrypted-password></code></td><td>Set an <strong>already encrypted</strong> password (avoid plain text)</td><td><code>sudo useradd -p '$6$...' alice</code></td></tr><tr><td><code>-r</code></td><td>Create a system account</td><td><code>sudo useradd -r nginx</code></td></tr><tr><td><code>-M</code></td><td>Do <strong>not</strong> create a home directory</td><td><code>sudo useradd -M serviceuser</code></td></tr><tr><td><code>-N</code></td><td>Do not create a user-private group</td><td><code>sudo useradd -N alice</code></td></tr></tbody></table>
+
+{% code overflow="wrap" %}
+```bash
+sudo useradd [OPTIONAL-OPTIONS] <username>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+2. adduser
+
+{% code overflow="wrap" %}
+```bash
+adduser
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+#### Setting or changing password&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo passwd <username>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+#### Locking and Unlocking a user&#x20;
+
+**Way - 1**
+
+{% code overflow="wrap" %}
+```bash
+sudo passwd -l john
+sudo passwd -u john
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+**Way - 2**&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo usermod -L <username>
+sudo usermod -U <username>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+#### Modifying User Information&#x20;
+
+<table data-search="false"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>usermod -l newuser olduser</code></td><td>Rename a user</td></tr><tr><td><code>usermod -u 2001 user</code></td><td>Change the user's UID</td></tr><tr><td><code>usermod -d /home/newdir user</code></td><td>Change the home directory</td></tr><tr><td><code>usermod -d /home/newdir -m user</code></td><td>Move the home directory to a new location</td></tr><tr><td><code>usermod -s /bin/zsh user</code></td><td>Change the login shell</td></tr><tr><td><code>usermod -g group user</code></td><td>Change the primary group</td></tr><tr><td><code>usermod -aG group1,group2 user</code></td><td>Add supplementary groups</td></tr><tr><td><code>usermod -e YYYY-MM-DD user</code></td><td>Set the account expiration date</td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+#### Deleting User&#x20;
+
+{% code overflow="wrap" %}
+```
+sudo userdel -r <username>
+# -r => remove home directory and mail spoof
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+### Types of Groups&#x20;
+
+Every user belongs to exactly one **primary group** and can additionally belong to any number of **secondary (supplementary) groups**.
+
+<table data-search="false"><thead><tr><th width="149.99993896484375">Type</th><th width="562.7999877929688">Description</th></tr></thead><tbody><tr><td><strong>Primary Group</strong></td><td>Assigned in the GID field of <code>/etc/passwd</code>. Applied by default to any file the user creates.</td></tr><tr><td><strong>Secondary Group</strong></td><td>Listed in <code>/etc/group</code>. Grants additional access — e.g., membership in <code>sudo</code>, <code>docker</code>, or a custom team group — without changing the primary group.</td></tr></tbody></table>
+
+### Group File&#x20;
+
+{% code overflow="wrap" %}
+```bash
+cat /etc/group
+# Show all groups within the system
+
+groups
+# Shows groups the logged-in user belongs to 
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+### Creating and Managing Groups&#x20;
+
+#### Create a group&#x20;
+
+| Command                       | Description                      |
+| ----------------------------- | -------------------------------- |
+| `groupadd developers`         | Create a new group               |
+| `groupadd -g 2001 developers` | Create a group with a custom GID |
+
+{% code overflow="wrap" %}
+```bash
+sudo groupadd developers
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+
+#### Modifying Groups&#x20;
+
+| Command                       | Description            |
+| ----------------------------- | ---------------------- |
+| `groupmod -n dev developers`  | Rename a group         |
+| `groupmod -g 3001 developers` | Change the group's GID |
+
+{% code overflow="wrap" %}
+```bash
+sudo groupmod -n dev developers
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+#### Delete a group&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo groupdel <groupname>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+
+#### Managing Group membership&#x20;
+
+| Command                       | Description                         |
+| ----------------------------- | ----------------------------------- |
+| `usermod -aG developers john` | Add a user to a supplementary group |
+| `gpasswd -d john developers`  | Remove a user from a group          |
+
+<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+
+## Installing Software
+
+### Updating package information&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo apt udpate
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+
+### Upgrading packages&#x20;
+
+{% code overflow="wrap" %}
+```
+sudo apt upgrade
+sudo apt full-upgrade
+```
+{% endcode %}
+
+* **`sudo apt upgrade`** – Upgrades installed packages **without removing or installing additional packages**.
+* **`sudo apt full-upgrade`** – Upgrades packages **and allows installing or removing packages** to resolve dependencies and complete the upgrade.
+
+<figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+
+### Installing packages&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo apt install <package name/tool name> 
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+
+### Removing Package&#x20;
+
+{% code overflow="wrap" %}
+```
+sudo apt remove <package name/tool name>
+```
+{% endcode %}
+
+* **`sudo apt remove`** – Uninstalls the package **but keeps its system-wide configuration files**.
+* **`sudo apt purge`** – Uninstalls the package **and removes its system-wide configuration files**.
+
+<figure><img src="../../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+
+### Check Installed Packages
+
+{% code overflow="wrap" %}
+```bash
+dpkg -l 
+apt list --installed
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+
+### Installing Local Packages&#x20;
+
+{% code overflow="wrap" %}
+```
+sudo dpkg -i package.deb
+sudo apt install -f
+```
+{% endcode %}
+
+### Cleaning Package cache&#x20;
+
+{% code overflow="wrap" %}
+```
+sudo apt clean
+sudo apt autoclean
+sudo apt autoremove
+```
+{% endcode %}
+
+* **`sudo apt clean`** – Removes **all downloaded package files** from the local APT cache (`/var/cache/apt/archives/`).
+* **`sudo apt autoclean`** – Removes **only outdated or no longer downloadable package files** from the APT cache.
+* **`sudo apt autoremove`** – Removes **unused packages** that were installed automatically as dependencies and are no longer needed.
+
+## Working with the shell&#x20;
+
+### Environment Variables&#x20;
+
+**Environment variables** are named values held in memory by the shell, used by both the shell itself and the programs it launches to determine behavior — paths to search, default editors, locale, and more.
+
+<table data-search="false"><thead><tr><th width="149.99993896484375">Variable</th><th width="562.7999877929688">Description</th></tr></thead><tbody><tr><td><code>PATH</code></td><td>Directories searched for executables</td></tr><tr><td><code>HOME</code></td><td>Current user's home directory</td></tr><tr><td><code>USER</code></td><td>Current logged-in username</td></tr><tr><td><code>SHELL</code></td><td>Path to the user's default shell</td></tr><tr><td><code>PWD</code></td><td>Current working directory</td></tr><tr><td><code>LANG</code></td><td>System language/locale</td></tr><tr><td><code>TERM</code></td><td>Terminal type</td></tr><tr><td><code>EDITOR</code></td><td>Default text editor for CLI tools</td></tr></tbody></table>
+
+#### Listing all environment variables&#x20;
+
+{% code overflow="wrap" %}
+```bash
+env
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+
+#### Printing specific variable
+
+{% code overflow="wrap" %}
+```bash
+echo $<variable>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+
+#### Add an environment variable&#x20;
+
+Add the below line in the `~/.bashrc` file and apply changes using `source ~/.bashrc`
+
+{% code overflow="wrap" %}
+```bash
+export COMMENT="comment added by user" 
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+
+### Startup Files&#x20;
+
+Bash reads different configuration files depending on whether the shell is **login** or **non-login**, and **interactive** or **non-interactive**. This determines which settings actually apply when a terminal opens.
+
+<table data-search="false"><thead><tr><th width="197.199951171875">File</th><th width="539.6000366210938">Loaded By</th></tr></thead><tbody><tr><td><code>/etc/profile</code></td><td>System-wide, login shells</td></tr><tr><td><code>/etc/profile.d/*.sh</code></td><td>System-wide, sourced from <code>/etc/profile</code></td></tr><tr><td><code>~/.bash_profile</code></td><td><p>Per-user, login shells (takes priority if present)</p><ul><li>A user-specific startup file that is executed <strong>once when a Bash login shell starts</strong> to configure the user's login environment (e.g., environment variables, <code>PATH</code>, and startup commands).</li></ul></td></tr><tr><td><code>~/.bash_login</code></td><td>Per-user, login shells (used if <code>.bash_profile</code> is absent)</td></tr><tr><td><code>~/.profile</code></td><td>Per-user, login shells (fallback, also used by <code>sh</code>)</td></tr><tr><td><code>~/.bashrc</code></td><td>Per-user, non-login interactive shells (e.g., opening a new terminal tab)</td></tr><tr><td><code>/etc/bash.bashrc</code></td><td>System-wide, non-login interactive shells</td></tr></tbody></table>
+
+#### Login Flow&#x20;
+
+{% code overflow="wrap" %}
+```
+User Login
+     │
+     ▼
+~/.bash_profile (if exists)
+     │
+else ▼
+~/.bash_login (if exists)
+     │
+else ▼
+~/.profile
+     │
+     ▼
+Sources ~/.bashrc (if using Bash)
+     │
+     ▼
+Interactive Bash Shell Ready
+```
+{% endcode %}
+
+### Redirecting Input and Output&#x20;
+
+Every process starts with three open file descriptors — **stdin (0)**, **stdout (1)**, and **stderr (2)**. Redirection reroutes these to files instead of the terminal.
+
+<table data-search="false"><thead><tr><th width="149.99993896484375">Operator</th><th width="562.7999877929688">Meaning</th></tr></thead><tbody><tr><td><code>></code></td><td>Redirect stdout, overwrite file</td></tr><tr><td><code>>></code></td><td>Redirect stdout, append to file</td></tr><tr><td><code>&#x3C;</code></td><td>Redirect stdin from a file</td></tr><tr><td><code>2></code></td><td>Redirect stderr, overwrite file</td></tr><tr><td><code>2>></code></td><td>Redirect stderr, append to file</td></tr><tr><td><code>&#x26;></code></td><td>Redirect both stdout and stderr</td></tr><tr><td><code>2>&#x26;1</code></td><td>Merge stderr into stdout's current destination</td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (856).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (857).png" alt=""><figcaption></figcaption></figure>
+
+### Pipes&#x20;
+
+A **pipe (`|`)** connects the stdout of one command directly to the stdin of the next, without creating an intermediate file.
+
+{% code overflow="wrap" %}
+```
+ps aux | grep ssh
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (858).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_Redirection connects a command to a file. A pipe connects a command directly to another command's input — no file is ever written to disk in between._
+{% endhint %}
+
+### Command History
+
+Bash keeps a record of executed commands, stored in `~/.bash_history` and loaded into memory each session.
+
+<table data-search="false"><thead><tr><th width="255.60003662109375">Command</th><th width="296.4000244140625">Description</th></tr></thead><tbody><tr><td><code>history</code></td><td>List command history</td></tr><tr><td><code>history | grep ssh</code></td><td>Search history for a keyword</td></tr><tr><td><code>!!</code></td><td>Re-run the last command</td></tr><tr><td><code>!45</code></td><td>Re-run history entry number 45</td></tr><tr><td><code>!ssh</code></td><td>Re-run the last command starting with <code>ssh</code></td></tr><tr><td><code>Ctrl + R</code></td><td>Reverse-search history interactively</td></tr><tr><td><code>history -c</code></td><td><p></p><p>Clear history for the current session</p></td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (859).png" alt=""><figcaption></figcaption></figure>
+
