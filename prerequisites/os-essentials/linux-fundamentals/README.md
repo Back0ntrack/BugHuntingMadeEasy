@@ -1271,7 +1271,7 @@ kill <pid>
 
 <figure><img src="../../../.gitbook/assets/image (869).png" alt=""><figcaption></figcaption></figure>
 
-### Text Processing&#x20;
+## Text Processing&#x20;
 
 {% hint style="info" %}
 _Linux treats **everything as text**. Configuration files, logs, passwords, command outputs, enumeration results, scan reports, etc. Instead of manually opening files, Linux provides powerful text processing utilities that allow searching, filtering, extracting, modifying, and transforming data directly from the command line._
@@ -1377,3 +1377,687 @@ _Too complex. AI usage is must. also make sure you've backup of your file somewh
 {% endhint %}
 
 Other tools: `sort`, `uniq`, `wc`, `tr`
+
+## Authentication&#x20;
+
+### PAM (Pluggable Authentication Modules)
+
+PAM is a modular framework that decouples applications (login, sshd, su, sudo) from the actual authentication mechanism. Instead of each program hardcoding "check /etc/passwd", it calls into PAM, which loads a stack of modules defined in config files. This is why you can plug in fingerprint auth, LDAP, Kerberos, or 2FA without recompiling every program.
+
+**Each PAM rule has the format:**&#x20;
+
+{% code overflow="wrap" %}
+```
+type    control    module-path    arguments
+```
+{% endcode %}
+
+#### Types&#x20;
+
+* `auth` — verifies identity (password, key, biometric)
+* `account` — checks account validity (expired, locked, time restrictions)
+* `password` — handles updating credentials
+* `session` — sets up/tears down session (mounting home dir, logging, env vars)
+
+**Control flags:**
+
+* `required` — must pass, but continues evaluating rest of stack before failing
+* `requisite` — must pass, fails immediately (short-circuits)
+* `sufficient` — if it passes, stack succeeds immediately (unless a prior `required` failed)
+* `optional` — doesn't usually affect outcome unless it's the only module
+
+#### Authentication Flow&#x20;
+
+{% code overflow="wrap" %}
+```
+User attempts login
+        │
+        ▼
+  auth stack (are you who you say you are?)
+        │  (PAM modules run top-to-bottom per control flags)
+        ▼
+  account stack (is this account allowed to log in right now?)
+        │
+        ▼
+  password stack (only invoked when changing password)
+        │
+        ▼
+  session stack (setup env, mount home, write logs)
+```
+{% endcode %}
+
+#### /etc/pam.d
+
+Directory holding one config file per service (`sshd`, `login`, `sudo`, `su`, `passwd`, etc.). Each file lists the rule stack for that specific program.
+
+{% code overflow="wrap" %}
+```bash
+ls /etc/pam.d
+cat /etc/pam.d/sshd
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (879).png" alt=""><figcaption></figcaption></figure>
+
+#### common-auth&#x20;
+
+Shared `auth` stack included by most service files. Defines how a user actually proves identity system-wide (usually `pam_unix.so` checking `/etc/shadow`).
+
+<figure><img src="../../../.gitbook/assets/image (880).png" alt=""><figcaption></figcaption></figure>
+
+#### common-account&#x20;
+
+Shared `account` stack — checks things like account expiry (`/etc/shadow` expiry fields), whether the account is locked, or time-based access restrictions (`pam_time.so`).
+
+<figure><img src="../../../.gitbook/assets/image (881).png" alt=""><figcaption></figcaption></figure>
+
+#### common-password&#x20;
+
+Shared `password` stack — enforces password complexity/history when a user runs `passwd`. This is where `pam_pwquality.so` / `pam_cracklib.so` rules live (min length, complexity classes, reuse history).
+
+<figure><img src="../../../.gitbook/assets/image (882).png" alt=""><figcaption></figcaption></figure>
+
+## Sudo&#x20;
+
+`sudo` ("superuser do") lets an authorized user run commands as another user (typically root) based on rules in `/etc/sudoers`, without sharing the root password. Every invocation is logged (usually to `/var/log/auth.log` or via `syslog`), unlike raw `su`.
+
+### List Sudo Permissions (\`sudo -l\`)
+
+Lists what the _current user_ is permitted to run via sudo — the single most important enumeration command on any box.
+
+{% code overflow="wrap" %}
+```
+sudo -l
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (883).png" alt=""><figcaption></figcaption></figure>
+
+### Sudoers file (/etc/sudoers)
+
+Master config file defining who can run what, as whom, and under what conditions.
+
+{% code overflow="wrap" %}
+```
+cat /etc/sudoers
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (884).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```
+%admin ALL=(ALL) ALL
+```
+{% endcode %}
+
+<table><thead><tr><th width="114.5999755859375">Field</th><th width="213.59991455078125">Value</th><th width="279.00006103515625">Meaning</th></tr></thead><tbody><tr><td><code>%admin</code></td><td>User Specification</td><td>Members of the <strong>admin group</strong></td></tr><tr><td><code>ALL</code></td><td>Host Specification</td><td>On all hosts</td></tr><tr><td><code>(ALL)</code></td><td>Run As Specification</td><td>Can run commands as any user</td></tr><tr><td><code>ALL</code></td><td>Command Specification</td><td>Can execute any command</td></tr></tbody></table>
+
+**`%admin ALL=(ALL) ALL`** — Allows members of the **`admin`** group to execute **any command on any host as any user**.
+
+```
+%sudo ALL=(ALL:ALL) ALL
+```
+
+* Members of the **sudo** group can execute **any command**.
+* Can run commands as:
+  * Any user
+  * Any group
+
+This is the default configuration on Ubuntu.
+
+### Modifying sudoers file&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (885).png" alt=""><figcaption></figcaption></figure>
+
+#### With NOPASSWD
+
+Allows the command to run without re-prompting for a password. High-value from an offensive standpoint — if a `NOPASSWD` binary can be abused (GTFOBins), it's an instant root path with no credential needed.
+
+<figure><img src="../../../.gitbook/assets/image (886).png" alt=""><figcaption></figcaption></figure>
+
+#### visudo&#x20;
+
+The **only safe way** to edit `/etc/sudoers` — it locks the file, validates syntax before saving, and prevents you from locking yourself out with a broken config.
+
+### Secure\_path&#x20;
+
+A sudoers `Defaults` setting that overrides `$PATH` when a command is run via sudo, preventing PATH-hijacking attacks (planting a malicious binary earlier in a user-controlled PATH).
+
+<figure><img src="../../../.gitbook/assets/image (887).png" alt=""><figcaption></figcaption></figure>
+
+If `secure_path` is **not set**, and a sudoers entry allows running a command without an absolute path, PATH hijacking becomes possible.
+
+<details>
+
+<summary><strong>Detailed Explanation</strong></summary>
+
+## Step 1: What is PATH?
+
+Suppose you type
+
+```bash
+ls
+```
+
+How does Linux know where `ls` is?
+
+It checks the `PATH` environment variable.
+
+Example:
+
+```bash
+echo $PATH
+```
+
+Output:
+
+```
+/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
+```
+
+Linux searches directories **from left to right.**
+
+It literally does:
+
+```
+Is ls inside /usr/local/bin?
+        No
+
+Is ls inside /usr/bin?
+        Yes
+
+Execute /usr/bin/ls
+```
+
+It never checks further once it finds it.
+
+***
+
+## Step 2: What if PATH starts with my directory?
+
+Suppose
+
+```bash
+PATH=/home/r0b/bin:/usr/bin:/bin
+```
+
+Now create
+
+```bash
+mkdir ~/bin
+
+nano ~/bin/ls
+```
+
+Contents
+
+```bash
+#!/bin/bash
+
+echo "Hacked!"
+```
+
+Make executable
+
+```bash
+chmod +x ~/bin/ls
+```
+
+Now
+
+```bash
+ls
+```
+
+Output
+
+```
+Hacked!
+```
+
+NOT
+
+```
+Desktop
+Downloads
+Pictures
+```
+
+Because Linux found your fake `ls` first.
+
+This is called **PATH precedence**.
+
+***
+
+## Step 3: What happens with sudo?
+
+Suppose
+
+```bash
+sudo ls
+```
+
+How does sudo find `ls`?
+
+There are TWO possibilities.
+
+***
+
+### Case 1
+
+sudo uses YOUR PATH.
+
+Suppose
+
+```
+PATH=/home/r0b/bin:/usr/bin:/bin
+```
+
+sudo checks
+
+```
+/home/r0b/bin/ls
+```
+
+Finds it.
+
+Runs it **AS ROOT.**
+
+Your fake script now executes with root privileges.
+
+Very dangerous.
+
+***
+
+### Case 2
+
+sudo ignores your PATH.
+
+Instead it uses
+
+```
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
+
+Now
+
+```
+sudo ls
+```
+
+always becomes
+
+```
+/usr/bin/ls
+```
+
+Your fake program is ignored.
+
+Safe.
+
+***
+
+## Step 4: This is exactly why secure\_path exists.
+
+In `/etc/sudoers`
+
+```
+Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+```
+
+This means
+
+> Whenever sudo executes a command, ignore the user's PATH and use this trusted PATH instead.
+
+So even if the user changes
+
+```bash
+export PATH=/tmp:$PATH
+```
+
+sudo does
+
+```
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
+
+before running the command.
+
+***
+
+## Step 5: Why is this needed?
+
+Imagine a system administrator wrote
+
+```bash
+sudo backup
+```
+
+instead of
+
+```bash
+sudo /usr/local/bin/backup
+```
+
+If sudo trusted the user's PATH...
+
+Attacker creates
+
+```
+/tmp/backup
+```
+
+```bash
+#!/bin/bash
+
+cp /bin/bash /tmp/rootbash
+chmod +s /tmp/rootbash
+```
+
+Changes PATH
+
+```
+export PATH=/tmp:$PATH
+```
+
+Admin runs
+
+```
+sudo backup
+```
+
+Oops.
+
+Instead of
+
+```
+/usr/local/bin/backup
+```
+
+it executes
+
+```
+/tmp/backup
+```
+
+as root.
+
+Game over.
+
+This is called **PATH hijacking**.
+
+***
+
+## Step 6: But I still need sudo password!!
+
+Exactly.
+
+This is the point that confuses everyone.
+
+Suppose
+
+```
+sudo backup
+```
+
+asks
+
+```
+[sudo] password for r0b:
+```
+
+You DON'T know the password.
+
+Nothing happens.
+
+So merely changing PATH does NOT give you root.
+
+***
+
+## Step 7: Then why do pentesters care?
+
+Because of **sudo permissions**.
+
+Suppose
+
+```
+sudo -l
+```
+
+shows
+
+```
+User r0b may run:
+
+(root) NOPASSWD: /usr/bin/find
+```
+
+or
+
+```
+(root) NOPASSWD: ALL
+```
+
+Now you don't need a password.
+
+</details>
+
+## Access Control Lists (ACL)
+
+Standard Linux permissions (owner/group/other, rwx) only allow **one** owning user and **one** owning group per file. ACLs extend this to grant fine-grained permissions to specific additional users or groups on a single file/directory, without changing standard ownership.
+
+A file with an ACL shows a `+` after its permission bits:
+
+<figure><img src="../../../.gitbook/assets/image (888).png" alt=""><figcaption></figcaption></figure>
+
+### getfacl&#x20;
+
+{% code overflow="wrap" %}
+```
+getfacl <file>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (889).png" alt=""><figcaption></figcaption></figure>
+
+### setfacl
+
+Sets or modifies ACL entries.&#x20;
+
+{% code overflow="wrap" %}
+```
+setfacl -m u:abhishek:rwx file.txt     # grant user rwx
+setfacl -m g:developers:rx  file.txt   # grant group r-x
+setfacl -x u:abhishek file.txt         # remove a specific entry
+setfacl -b file.txt                    # remove ALL ACL entries
+```
+{% endcode %}
+
+## Linux Capabilities&#x20;
+
+Capabilities split the monolithic power of "root" into distinct, independently grantable units. Instead of giving a binary full root via SUID, you can give it just the one root-level privilege it actually needs (e.g., binding to a low port).
+
+### Capability sets&#x20;
+
+Each process/file has multiple capability sets:
+
+* **Permitted** — capabilities the process is allowed to use
+* **Effective** — capabilities currently active/in-use. automatically enabled when program starts.&#x20;
+* **Inheritable** — capabilities passed down to child processes on exec
+* **Bounding** — upper limit on what the process can ever acquire
+* **Ambient** — capabilities preserved across `execve` for non-SUID/non-capability-aware programs
+
+### Some Common Capabilities&#x20;
+
+<table data-search="false"><thead><tr><th width="198.79998779296875">Capability</th><th>Allows</th></tr></thead><tbody><tr><td><code>CAP_NET_BIND_SERVICE</code></td><td>Bind to privileged ports (1–1023), such as port 80 or 443.</td></tr><tr><td><code>CAP_NET_ADMIN</code></td><td>Configure network interfaces, routing tables, firewall rules, and network settings.</td></tr><tr><td><code>CAP_NET_RAW</code></td><td>Create raw sockets for tools like <code>ping</code>, <code>tcpdump</code>, and packet crafting.</td></tr><tr><td><code>CAP_SYS_ADMIN</code></td><td>Perform various system administration tasks such as mounting filesystems and namespace management.</td></tr><tr><td><code>CAP_CHOWN</code></td><td>Change the ownership of files and directories.</td></tr><tr><td><code>CAP_DAC_OVERRIDE</code></td><td>Bypass file permission checks for reading, writing, and executing files.</td></tr><tr><td><code>CAP_SETUID</code></td><td>Change the process's User ID (UID).</td></tr><tr><td><code>CAP_SETGID</code></td><td>Change the process's Group ID (GID).</td></tr><tr><td><code>CAP_KILL</code></td><td>Send signals (e.g., <code>SIGTERM</code>, <code>SIGKILL</code>) to processes owned by other users.</td></tr><tr><td><code>CAP_SYS_CHROOT</code></td><td>Use <code>chroot()</code> to change the root directory of a process.</td></tr></tbody></table>
+
+Capabilities can be attached to file or processes.&#x20;
+
+### Viewing Capabilities&#x20;
+
+{% code overflow="wrap" %}
+```
+getcap <file>
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (890).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```
+ep means: 
+e => The capability is automatically enabled when the program starts.
+p => When /usr/bin/ping starts, it is allowed to use CAP_NET_RAW.
+```
+{% endcode %}
+
+### Set Capabilities&#x20;
+
+Assign a capability to a binary (requires root)
+
+{% code overflow="wrap" %}
+```
+sudo setcap <capability> <file>
+```
+{% endcode %}
+
+**cap\_setuid** — allows a process to change its UID, including to `0` (root). If set on an interpreter (python, perl), it's an instant privesc.
+
+<figure><img src="../../../.gitbook/assets/image (891).png" alt=""><figcaption></figcaption></figure>
+
+## Linux Networking&#x20;
+
+### hostname
+
+The system's network identity/name.
+
+<figure><img src="../../../.gitbook/assets/image (892).png" alt=""><figcaption></figcaption></figure>
+
+### hostnamectl&#x20;
+
+Modern systemd tool to view/set hostname and related metadata (also shows OS, kernel, architecture — useful recon).
+
+<figure><img src="../../../.gitbook/assets/image (893).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (894).png" alt=""><figcaption></figcaption></figure>
+
+### hosts file
+
+Static, manual hostname → IP mappings, checked **before** DNS resolution.
+
+<figure><img src="../../../.gitbook/assets/image (895).png" alt=""><figcaption></figcaption></figure>
+
+### resolve.conf&#x20;
+
+Defines which DNS servers the system queries for name resolution.
+
+<figure><img src="../../../.gitbook/assets/image (896).png" alt=""><figcaption></figcaption></figure>
+
+### Network Interfaces&#x20;
+
+Physical/virtual adapters through which the machine sends/receives traffic (`eth0`, `ens33`, `lo`, `wlan0`, etc.).
+
+{% code overflow="wrap" %}
+```
+ls /sys/class/net/
+ip link show
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (897).png" alt=""><figcaption></figcaption></figure>
+
+### ip command&#x20;
+
+Modern, unified tool (replaces `ifconfig`, `route`, `arp` individually) for interfaces, addresses, and routing.
+
+{% code overflow="wrap" %}
+```
+ip a                  # show all addresses
+ip addr show eth0      # specific interface
+ip link set eth0 up    # bring interface up
+ip route               # show routing table
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (898).png" alt=""><figcaption></figcaption></figure>
+
+### ss
+
+Modern replacement for `netstat` — shows socket statistics (listening ports, established connections) much faster.
+
+{% code overflow="wrap" %}
+```
+ss -tulnp     # tcp/udp, listening, numeric, with process
+ss -antp      # all tcp connections with process info
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (899).png" alt=""><figcaption></figcaption></figure>
+
+## Scheduled Tasks&#x20;
+
+### cron
+
+The classic time-based job scheduler. A background daemon (`crond`) reads crontab files and executes commands at specified times.
+
+{% code overflow="wrap" %}
+```
+* * * * *  command
+│ │ │ │ │
+│ │ │ │ └── day of week (0-6, Sun=0)
+│ │ │ └──── month (1-12)
+│ │ └────── day of month (1-31)
+│ └──────── hour (0-23)
+└────────── minute (0-59)
+```
+{% endcode %}
+
+### List Scheduled Tasks&#x20;
+
+{% code overflow="wrap" %}
+```
+crontab -l
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (900).png" alt=""><figcaption></figcaption></figure>
+
+### Cron file locations&#x20;
+
+<table><thead><tr><th width="294">Location</th><th>Purpose</th></tr></thead><tbody><tr><td><code>/var/spool/cron/crontabs/&#x3C;user></code></td><td>Individual user crontabs (<code>crontab -e</code>)</td></tr><tr><td><code>/etc/crontab</code></td><td>System-wide crontab</td></tr><tr><td><code>/etc/cron.d/</code></td><td>Additional system-wide cron files installed by packages or administrators</td></tr></tbody></table>
+
+### Create Scheduled tasks&#x20;
+
+#### Using User Crontabs
+
+{% code overflow="wrap" %}
+```
+mkdir ~/scripts
+nano ~/scripts/test.sh
+chmod +x ~/scripts/test.sh
+crontab -e
+* * * * * /home/r0b/scripts/test.sh
+crontab -l
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (901).png" alt=""><figcaption></figcaption></figure>
+
+Wait for one minute and check `/tmp/cron_test.log`.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (902).png" alt=""><figcaption></figcaption></figure>
+
+It is written over here&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (903).png" alt=""><figcaption></figcaption></figure>
+
+#### Using system-wide crontab&#x20;
+
+it is system-wide job scheduler.&#x20;
+
+Since it's shared by the whole system, it can schedule jobs for **any user**.
+
+<figure><img src="../../../.gitbook/assets/image (904).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (905).png" alt=""><figcaption></figcaption></figure>
