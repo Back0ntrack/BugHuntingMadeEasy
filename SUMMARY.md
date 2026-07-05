@@ -28,6 +28,7 @@
     * [RPC (111,135,593)](prerequisites/network-testing-essentials/network-ports-and-services/rpc-111-135-593/README.md)
       * [MSRPC (135, 593)](prerequisites/network-testing-essentials/network-ports-and-services/rpc-111-135-593/msrpc-135-593.md)
     * [MSSQL (1433)](prerequisites/network-testing-essentials/network-ports-and-services/mssql-1433.md)
+    * [NFS (2049)](prerequisites/network-testing-essentials/network-ports-and-services/nfs-2049.md)
   * [Subnetting](prerequisites/network-testing-essentials/subnetting.md)
 
 ## Microsoft Cloud and AI Honors <a href="#cloud" id="cloud"></a>
