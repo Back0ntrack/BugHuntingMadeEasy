@@ -1,6 +1,6 @@
-# SNMP (161
+# SNMP (161)
 
-## sudo net-snmp-create-v3-userIntroduction to SNMP
+## Introduction to SNMP
 
 **SNMP (Simple Network Management Protocol)** is an **Application Layer protocol** used to **monitor, manage, and collect information from network-connected devices** over an IP network.
 
