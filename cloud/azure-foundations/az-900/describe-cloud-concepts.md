@@ -116,7 +116,7 @@ E.g., _An e-commerce company keeps customer payment data in a private cloud but 
 * Azure provides uptime guarantees through **Service Level Agreements (SLAs)** in percentage.
 * Availability level depends on the specific Azure service used.
 
-<figure><img src="../../../.gitbook/assets/image (15) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Scalability
 

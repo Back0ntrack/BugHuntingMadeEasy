@@ -795,7 +795,7 @@ id
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Passwd file&#x20;
 
@@ -809,7 +809,7 @@ cat /etc/passwd
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _Service accounts usually have `/usr/sbin/nologin` or `/bin/false` as their shell in `/etc/passwd` — this blocks interactive login even if someone obtains the password._
@@ -827,7 +827,7 @@ sudo cat /etc/shadow
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _The hash prefix identifies the algorithm — `$1$` MD5, `$5$` SHA-256, `$6$` SHA-512. Ubuntu defaults to SHA-512 (`$6$`)._
@@ -841,7 +841,7 @@ groups
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Creating and Managing Users&#x20;
 
@@ -857,7 +857,7 @@ sudo useradd [OPTIONAL-OPTIONS] <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. adduser
 
@@ -867,7 +867,7 @@ adduser
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Setting or changing password&#x20;
 
@@ -877,7 +877,7 @@ sudo passwd <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Locking and Unlocking a user&#x20;
 
@@ -890,7 +890,7 @@ sudo passwd -u john
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Way - 2**&#x20;
 
@@ -901,17 +901,17 @@ sudo usermod -U <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Modifying User Information&#x20;
 
 <table data-search="false"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>usermod -l newuser olduser</code></td><td>Rename a user</td></tr><tr><td><code>usermod -u 2001 user</code></td><td>Change the user's UID</td></tr><tr><td><code>usermod -d /home/newdir user</code></td><td>Change the home directory</td></tr><tr><td><code>usermod -d /home/newdir -m user</code></td><td>Move the home directory to a new location</td></tr><tr><td><code>usermod -s /bin/zsh user</code></td><td>Change the login shell</td></tr><tr><td><code>usermod -g group user</code></td><td>Change the primary group</td></tr><tr><td><code>usermod -aG group1,group2 user</code></td><td>Add supplementary groups</td></tr><tr><td><code>usermod -e YYYY-MM-DD user</code></td><td>Set the account expiration date</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Deleting User&#x20;
 
@@ -922,7 +922,7 @@ sudo userdel -r <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Types of Groups&#x20;
 
@@ -942,7 +942,7 @@ groups
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Creating and Managing Groups&#x20;
 
@@ -959,7 +959,7 @@ sudo groupadd developers
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Modifying Groups&#x20;
 
@@ -974,7 +974,7 @@ sudo groupmod -n dev developers
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Delete a group&#x20;
 
@@ -984,7 +984,7 @@ sudo groupdel <groupname>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Managing Group membership&#x20;
 
@@ -993,7 +993,7 @@ sudo groupdel <groupname>
 | `usermod -aG developers john` | Add a user to a supplementary group |
 | `gpasswd -d john developers`  | Remove a user from a group          |
 
-<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Installing Software
 
@@ -1005,7 +1005,7 @@ sudo apt udpate
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Upgrading packages&#x20;
 
@@ -1019,7 +1019,7 @@ sudo apt full-upgrade
 * **`sudo apt upgrade`** – Upgrades installed packages **without removing or installing additional packages**.
 * **`sudo apt full-upgrade`** – Upgrades packages **and allows installing or removing packages** to resolve dependencies and complete the upgrade.
 
-<figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Installing packages&#x20;
 
@@ -1029,7 +1029,7 @@ sudo apt install <package name/tool name>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Removing Package&#x20;
 
@@ -1042,9 +1042,9 @@ sudo apt remove <package name/tool name>
 * **`sudo apt remove`** – Uninstalls the package **but keeps its system-wide configuration files**.
 * **`sudo apt purge`** – Uninstalls the package **and removes its system-wide configuration files**.
 
-<figure><img src="../../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Check Installed Packages
 
@@ -1055,9 +1055,9 @@ apt list --installed
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (23) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (24) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Installing Local Packages&#x20;
 
@@ -1108,7 +1108,7 @@ echo $<variable>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (25) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Add an environment variable&#x20;
 

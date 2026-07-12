@@ -32,7 +32,7 @@ Thus, we successfully triggered XSS inside the input tag using an event handler.
 
 ## Reflected XSS into a JavaScript string with angle brackets HTML encoded
 
-<figure><img src="../../../../.gitbook/assets/image (23) (1) (1) (1) (1).png" alt=""><figcaption><p><em>The payload is reflected in three different locations, as shown in the image below.</em></p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (23) (1) (1) (1) (1) (1).png" alt=""><figcaption><p><em>The payload is reflected in three different locations, as shown in the image below.</em></p></figcaption></figure>
 
 <figure><img src="../../../../.gitbook/assets/image (22) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -53,9 +53,9 @@ Thus we've three injection points.
 
 ### Trying to escape context for triggering XSS in \`\<h1>\`
 
-<figure><img src="../../../../.gitbook/assets/image (24) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (24) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../../.gitbook/assets/image (25) (1) (1) (1) (1).png" alt=""><figcaption><p><em>Since angle brackets are HTML encoded we can't  trigger XSS in H1.</em> </p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (25) (1) (1) (1) (1) (1).png" alt=""><figcaption><p><em>Since angle brackets are HTML encoded we can't  trigger XSS in H1.</em> </p></figcaption></figure>
 
 ### Trying to trigger XSS by escaping \`searchTerms\`  variable
 
