@@ -17,6 +17,7 @@
 * [OS Essentials](prerequisites/os-essentials/README.md)
   * [Windows Fundamentals](prerequisites/os-essentials/windows-fundamentals/README.md)
     * [Windows CMD](prerequisites/os-essentials/windows-fundamentals/windows-cmd.md)
+    * [Windows PowerShell](prerequisites/os-essentials/windows-fundamentals/windows-powershell.md)
   * [🐧 Linux Fundamentals](prerequisites/os-essentials/linux-fundamentals/README.md)
     * [Bash Scripting](prerequisites/os-essentials/linux-fundamentals/bash-scripting.md)
     * [Python Virtual Environment](prerequisites/os-essentials/linux-fundamentals/python-virtual-environment.md)

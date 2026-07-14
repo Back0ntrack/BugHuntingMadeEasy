@@ -795,7 +795,7 @@ id
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Passwd file&#x20;
 
@@ -827,7 +827,7 @@ sudo cat /etc/shadow
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _The hash prefix identifies the algorithm — `$1$` MD5, `$5$` SHA-256, `$6$` SHA-512. Ubuntu defaults to SHA-512 (`$6$`)._
@@ -841,7 +841,7 @@ groups
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Creating and Managing Users&#x20;
 
@@ -857,7 +857,7 @@ sudo useradd [OPTIONAL-OPTIONS] <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. adduser
 
@@ -867,7 +867,7 @@ adduser
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Setting or changing password&#x20;
 
@@ -877,7 +877,7 @@ sudo passwd <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Locking and Unlocking a user&#x20;
 
@@ -890,7 +890,7 @@ sudo passwd -u john
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Way - 2**&#x20;
 
@@ -901,17 +901,17 @@ sudo usermod -U <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Modifying User Information&#x20;
 
 <table data-search="false"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>usermod -l newuser olduser</code></td><td>Rename a user</td></tr><tr><td><code>usermod -u 2001 user</code></td><td>Change the user's UID</td></tr><tr><td><code>usermod -d /home/newdir user</code></td><td>Change the home directory</td></tr><tr><td><code>usermod -d /home/newdir -m user</code></td><td>Move the home directory to a new location</td></tr><tr><td><code>usermod -s /bin/zsh user</code></td><td>Change the login shell</td></tr><tr><td><code>usermod -g group user</code></td><td>Change the primary group</td></tr><tr><td><code>usermod -aG group1,group2 user</code></td><td>Add supplementary groups</td></tr><tr><td><code>usermod -e YYYY-MM-DD user</code></td><td>Set the account expiration date</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Deleting User&#x20;
 
@@ -922,7 +922,7 @@ sudo userdel -r <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Types of Groups&#x20;
 
@@ -942,7 +942,7 @@ groups
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Creating and Managing Groups&#x20;
 
@@ -959,7 +959,7 @@ sudo groupadd developers
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Modifying Groups&#x20;
 

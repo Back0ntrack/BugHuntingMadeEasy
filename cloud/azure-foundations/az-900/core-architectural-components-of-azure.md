@@ -27,7 +27,7 @@ Azure is a continually expanding set of cloud services that help you meet curren
 
 ## Azure Governance Hierarchy
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Management Groups (Top Level Governance Layer)
 
@@ -64,7 +64,7 @@ Assigning Azure RBAC at the management group level means that all sub-management
 
 ### Subscription (Billing + Security Boundary)
 
-<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 A subscription provides you with authenticated and authorized access to Azure products and services.
 
@@ -154,23 +154,23 @@ Unless explicitly overridden (where allowed).
 
 ### Using Azure Portal
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 It is not ideal for large-scale automation and CI/CD Pipelines.
 
 ### Using Command Line Interface
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 You can quickly change between PowerShell and BASH in the CLI by selecting the **Switch to ...** button or entering `BASH` or `PWSH`.
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Using Azure CLI
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Using Windows Utilities
 
@@ -199,7 +199,7 @@ Reasons:
 
 ### Availability Zones
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 An **Availability Zone (AZ)** is:
 
@@ -236,7 +236,7 @@ _To ensure resiliency, a minimum of three separate availability zones are presen
 
 ### Region Pairs (Disaster Recovery Design)
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Azure pairs regions within the same geography at least 300 miles away.
 

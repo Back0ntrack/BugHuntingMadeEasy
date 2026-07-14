@@ -94,7 +94,7 @@ echo %CD%
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
 ### List files and directories&#x20;
 
@@ -102,7 +102,7 @@ The most-used CMD command is `dir`
 
 <table data-search="false"><thead><tr><th width="122.800048828125">Switch</th><th width="577.9998779296875">Description</th></tr></thead><tbody><tr><td><code>/a</code></td><td>Show all attributes. <code>/a:h</code> hidden, <code>/a:d</code> directories, <code>/a:s</code> system, <code>/a:r</code> read-only, <code>/a:-d</code> files only</td></tr><tr><td><code>/s</code></td><td>Recursive (subdirectories)</td></tr><tr><td><code>/q</code></td><td>Show file owner</td></tr><tr><td><code>/r</code></td><td>Show Alternate Data Streams (ADS)</td></tr><tr><td><code>/b</code></td><td>Bare format (names only, no headers/footers)</td></tr><tr><td><code>/t</code></td><td>Time field. <code>/t:c</code> creation, <code>/t:a</code> access, <code>/t:w</code> write</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Copy and Move&#x20;
 
@@ -113,7 +113,7 @@ move <source> <destination>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Rename a file&#x20;
 
@@ -124,13 +124,13 @@ ren <file> <rename file>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Delete a file
 
 <table><thead><tr><th width="178.79998779296875">Switch</th><th width="405.20001220703125">Description</th></tr></thead><tbody><tr><td><code>/f</code></td><td>Force delete read-only files</td></tr><tr><td><code>/s</code></td><td>Delete from subdirectories too</td></tr><tr><td><code>/q</code></td><td>Quiet mode</td></tr><tr><td><code>/a</code></td><td>Delete by attribute. <code>/a:h</code> hidden, <code>/a:r</code> read-only</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Searching&#x20;
 
@@ -164,9 +164,9 @@ where /q python.exe && echo Python found || echo Python not found
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### find&#x20;
 
@@ -179,7 +179,7 @@ Searches for text strings in files. Simple but limited.
 | `/n`   | Display line numbers                        |
 | `/v`   | Display lines that DON'T contain the string |
 
-<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### findstr&#x20;
 
@@ -222,7 +222,7 @@ findstr /si <text> <possible location>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 **using dir and findstr**&#x20;
 
@@ -232,11 +232,11 @@ dir /s /b | findstr /i <text file>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Users and Group&#x20;
 
@@ -246,7 +246,7 @@ Displays the current user context. Works identically in CMD and PowerShell.
 
 <table data-search="false"><thead><tr><th>Switch</th><th>Description</th></tr></thead><tbody><tr><td>(none)</td><td>Just username (DOMAIN\user)</td></tr><tr><td><code>/all</code></td><td>Everything — user, SID, groups, privileges</td></tr><tr><td><code>/user</code></td><td>Username and SID</td></tr><tr><td><code>/groups</code></td><td>All group memberships</td></tr><tr><td><code>/priv</code></td><td>All privileges and their status</td></tr><tr><td><code>/logonid</code></td><td>Logon ID</td></tr><tr><td><code>/fqdn</code></td><td>Fully qualified domain name</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Net User&#x20;
 
