@@ -33,6 +33,8 @@
     * [SNMP (161)](prerequisites/network-testing-essentials/network-ports-and-services/snmp-161.md)
     * [MSSQL (1433)](prerequisites/network-testing-essentials/network-ports-and-services/mssql-1433.md)
     * [NFS (2049)](prerequisites/network-testing-essentials/network-ports-and-services/nfs-2049.md)
+    * [RDP (3389)](prerequisites/network-testing-essentials/network-ports-and-services/rdp-3389.md)
+    * [WinRM (5985)](prerequisites/network-testing-essentials/network-ports-and-services/winrm-5985.md)
   * [Subnetting](prerequisites/network-testing-essentials/subnetting.md)
 
 ## Microsoft Cloud and AI Honors <a href="#cloud" id="cloud"></a>
@@ -142,3 +144,4 @@
     * [Using Metasploit](infrastructure/enumeration-and-exploitation/pentesting-mssql/using-metasploit.md)
     * [Execute Commands](infrastructure/enumeration-and-exploitation/pentesting-mssql/execute-commands.md)
   * [Pentesting NFS](infrastructure/enumeration-and-exploitation/pentesting-nfs.md)
+  * [Pentesting RDP](infrastructure/enumeration-and-exploitation/pentesting-rdp.md)
