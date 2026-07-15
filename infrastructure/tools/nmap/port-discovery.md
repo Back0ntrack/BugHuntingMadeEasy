@@ -18,11 +18,11 @@ nmap -sT <IP> -Pn -n --reason
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (496).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (976).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (497).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (977).png" alt=""><figcaption></figcaption></figure>
 
 ## TCP SYN Scan (Half-Open / Stealth Scan)&#x20;
 
@@ -34,11 +34,11 @@ sudo nmap -sS <IP> -Pn -n --reason
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (498).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (978).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (499).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (979).png" alt=""><figcaption></figcaption></figure>
 
 ## UDP Scan
 
@@ -50,11 +50,11 @@ sudo nmap -sU -Pn -n <IP> --reason
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (500).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (980).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (501).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (981).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _UDP scans are extremely slow. Limit with `-p` and use `--top-ports` or combine with `--version-intensity` to speed up._
@@ -76,21 +76,21 @@ sudo nmap -sA -Pn -n <ip> -p 445 --reason
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (502).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (982).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (503).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (983).png" alt=""><figcaption></figcaption></figure>
 
 ### Filtered (Firewall on)
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (504).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (984).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (505).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (985).png" alt=""><figcaption></figcaption></figure>
 
 ## TCP Flag Scans
 
@@ -108,11 +108,11 @@ sudo nmap -sF -Pn -n --reason <IP>
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (506).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (986).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (507).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (987).png" alt=""><figcaption></figcaption></figure>
 
 ### TCP NULL Scan
 
@@ -124,11 +124,11 @@ sudo nmap -sN -Pn -n --reason <IP>
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (508).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (988).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (509).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (989).png" alt=""><figcaption></figcaption></figure>
 
 ### TCP Xmas Scan
 
@@ -140,11 +140,11 @@ sudo nmap -sX -Pn -n --reason <IP>
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (510).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (990).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (511).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (991).png" alt=""><figcaption></figcaption></figure>
 
 ### Custom TCP Scan
 
@@ -160,11 +160,11 @@ sudo nmap --scanflags SYNFIN -sF 192.168.16.131
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (534).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1014).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (533).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1013).png" alt=""><figcaption></figcaption></figure>
 
 ## Obsolete Scans
 
@@ -220,11 +220,11 @@ _This scan can scan only ports from 0-255_
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (512).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (992).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (513).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (993).png" alt=""><figcaption></figcaption></figure>
 
 ## Idle / Zombie Scan
 
@@ -238,7 +238,7 @@ The **stealthiest scan** — no packets sent from your real IP. Uses a "zombie" 
 _**The zombie host must have incremental (or predictable) IP ID values and must be idle (low traffic). Not all hosts qualify.**_
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (518).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (998).png" alt=""><figcaption></figcaption></figure>
 
 ### Scan&#x20;
 
@@ -295,7 +295,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.97 seconds
 
 </details>
 
-<figure><img src="../../../.gitbook/assets/image (519).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (999).png" alt=""><figcaption></figcaption></figure>
 
 ### Analysis&#x20;
 

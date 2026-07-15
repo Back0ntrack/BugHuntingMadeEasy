@@ -26,7 +26,7 @@ sudo nmap -sC -Pn -n -F <ip>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (538).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1018).png" alt=""><figcaption></figcaption></figure>
 
 ## Run Specific scripts&#x20;
 
@@ -36,7 +36,7 @@ sudo nmap --script <script_name> -Pn -n <host>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (539).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1019).png" alt=""><figcaption></figcaption></figure>
 
 ## Useful NSE Commands
 
@@ -49,7 +49,7 @@ ls /usr/share/nmap/scripts/ | grep http
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (540).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1020).png" alt=""><figcaption></figcaption></figure>
 
 ### Get help for specific script
 
@@ -58,7 +58,7 @@ nmap --script-help http-enum
 nmap --script-help smb-vuln-ms17-010
 ```
 
-<figure><img src="../../../.gitbook/assets/image (541).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1021).png" alt=""><figcaption></figcaption></figure>
 
 ## Script Categories
 

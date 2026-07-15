@@ -38,7 +38,7 @@ OR
 nuclei -target http://example.com
 ```
 
-<figure><img src="../../.gitbook/assets/image (138).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (500).png" alt=""><figcaption></figcaption></figure>
 
 ### Scanning targets from a file
 

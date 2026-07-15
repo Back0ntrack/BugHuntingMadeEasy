@@ -214,7 +214,7 @@ Changes the current working directory. Equivalent to `cd`.
 | `-LiteralPath` | Use this path exactly as I typed it. Don't treat any characters as wildcards or special pattern characters. (E.g., Test\*) |
 | `-PassThru`    | Return the new location object                                                                                             |
 
-<figure><img src="../../../.gitbook/assets/image (976).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1456).png" alt=""><figcaption></figcaption></figure>
 
 ### Get-ChildItem&#x20;
 
@@ -252,11 +252,11 @@ Get-ChildItem -Recurse -File | Where-Object {$_.LastWriteTime -gt (Get-Date).Add
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (979).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1459).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (978).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1458).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (980).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1460).png" alt=""><figcaption></figcaption></figure>
 
 ### New-Item
 

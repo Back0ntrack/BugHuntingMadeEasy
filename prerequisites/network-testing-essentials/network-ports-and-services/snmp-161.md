@@ -461,7 +461,7 @@ snmpd -v
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (931).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1411).png" alt=""><figcaption></figcaption></figure>
 
 ### Important Packages&#x20;
 
@@ -520,13 +520,13 @@ agentAddress udp:0.0.0.0:161
 
 Now the SNMP agent listens on all network interfaces.
 
-<figure><img src="../../../.gitbook/assets/image (932).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1412).png" alt=""><figcaption></figcaption></figure>
 
 **Add** `rocommunity public` text if not present in the file.&#x20;
 
 This creates a read-only SNMPv2c community named `public`.
 
-<figure><img src="../../../.gitbook/assets/image (933).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1413).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _`default` in the above line means by allow connections from any source IP._&#x20;
@@ -569,7 +569,7 @@ You can either:
 * keep using numeric OIDs (common in pentesting), or
 * enable/install MIBs if you prefer readable names while learning by commenting the mibs.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (941).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1421).png" alt=""><figcaption></figcaption></figure>
 
 #### Install the MIBs
 
@@ -614,4 +614,4 @@ sudo net-snmp-create-v3-user
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (945).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1425).png" alt=""><figcaption></figcaption></figure>

@@ -116,7 +116,7 @@ Response for valid username: `Invalid username or password`
 
 Response for invalid username: `Invalid username or password.`
 
-<figure><img src="../../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (425).png" alt=""><figcaption></figcaption></figure>
 
 ### Via response timing
 
@@ -126,7 +126,7 @@ Response for invalid username: `Invalid username or password.`
 
 > Works only if you have correct set of both username and password in the list.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (426).png" alt=""><figcaption></figcaption></figure>
 
 ### FFUF Returns 403, But Same Request via Burp Gives 200 – Why?
 

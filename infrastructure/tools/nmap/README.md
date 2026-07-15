@@ -48,7 +48,7 @@ nmap <IP/hostname>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (451).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (931).png" alt=""><figcaption></figcaption></figure>
 
 ### Analysis
 
@@ -67,13 +67,13 @@ Nmap performs roughly the following steps:
 
 **Local Network**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (452).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (932).png" alt=""><figcaption></figcaption></figure>
 
 **Different network (8.8.8.8)**
 
-<figure><img src="../../../.gitbook/assets/image (454).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (934).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (455).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (935).png" alt=""><figcaption></figcaption></figure>
 
 > _Since `8.8.8.8` is a remote host, Nmap cannot use ARP. Instead, it sends multiple host discovery probes, including **ICMP Echo Requests (ping), TCP SYN ping (-PS), TCP ACK ping (-PA) and ICMP Timestamp request (-PP)**. The **ICMP Echo Reply** and **TCP SYN/ACK** responses confirm that the host is alive._
 
@@ -82,7 +82,7 @@ Nmap performs roughly the following steps:
 * Scans the default **1,000 most common TCP ports using stealth scan (`-sS`)**
 * Sends packets and analyzes responses to determine port states.
 
-<figure><img src="../../../.gitbook/assets/image (453).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (933).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 &#x20;_This behavior is part of Nmap's default **SYN (stealth) scan**, which is discussed later._
@@ -249,7 +249,7 @@ sudo nmap -sS 192.168.16.131 -oN scan_result.nmap
 
 ### Normal Output&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (544).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1024).png" alt=""><figcaption></figcaption></figure>
 
 ### Grepable Output
 
@@ -259,7 +259,7 @@ sudo nmap <scan config> -oG scan.gnmap
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (545).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1025).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```bash
@@ -270,7 +270,7 @@ grep "Status: Up" scan.gnmap | awk '{print $2}'
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (546).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1026).png" alt=""><figcaption></figcaption></figure>
 
 ### XML Output
 
@@ -280,7 +280,7 @@ sudo nmap <scan config> -oX <filename>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (543).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1023).png" alt=""><figcaption></figcaption></figure>
 
 Always use `-oA` to save in all formats. XML is especially useful — it can be imported into Metasploit (`db_import`), parsed with `xmllint`/`xsltproc`, or processed with tools like `searchsploit --nmap`.
 

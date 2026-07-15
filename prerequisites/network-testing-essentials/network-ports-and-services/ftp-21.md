@@ -16,7 +16,7 @@ sudo apt install vsftpd
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (645).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1125).png" alt=""><figcaption></figcaption></figure>
 
 ### Running Server&#x20;
 
@@ -29,7 +29,7 @@ sudo /usr/sbin/vsftpd /etc/vsftpd.conf
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (647).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1127).png" alt=""><figcaption></figcaption></figure>
 
 ## Default files
 
@@ -236,7 +236,7 @@ _think that vsftpd is running in standalone mode on an IPv6 socket that usually 
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (646).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1126).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```
@@ -277,7 +277,7 @@ Data Channel (any port)   → Used for File transfer / Directory listing
 
 ### Active V/s Passive
 
-<figure><img src="../../../.gitbook/assets/image (655).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1135).png" alt=""><figcaption></figcaption></figure>
 
 ### Passive Mode (Default)
 
@@ -285,7 +285,7 @@ Data Channel (any port)   → Used for File transfer / Directory listing
 _Note that passive mode is now default mode for FTP in modern FTP servers._&#x20;
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (651).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1131).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _• FTP commands such as USER, PASS, PWD, TYPE, and SIZE use only the control channel (TCP/21)._
@@ -293,15 +293,15 @@ _• FTP commands such as USER, PASS, PWD, TYPE, and SIZE use only the control c
 _• When a data-transfer operation such as LIST (ls) or RETR (get) is requested, the FTP client automatically negotiates Extended Passive Mode (EPSV), establishes a separate TCP data connection to the server's random passive port, and transfers the data over that connection._
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (652).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1132).png" alt=""><figcaption></figcaption></figure>
 
 ### Active Mode&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (656).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1136).png" alt=""><figcaption></figcaption></figure>
 
 In the Wireshark capture, we can see that the client sends a request specifying the port that will be used for data communication. The server then initiates a TCP three-way handshake to that port, and the data is transferred from the server's port 20 to the client-specified port.
 
-<figure><img src="../../../.gitbook/assets/image (654).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1134).png" alt=""><figcaption></figcaption></figure>
 
 ## Connecting to FTP&#x20;
 
@@ -344,11 +344,11 @@ ftp <ip>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (648).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1128).png" alt=""><figcaption></figcaption></figure>
 
 #### basic commands sent&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (649).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1129).png" alt=""><figcaption></figcaption></figure>
 
 ### Using Netcat&#x20;
 
@@ -362,7 +362,7 @@ nc <ip> <port>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (650).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1130).png" alt=""><figcaption></figcaption></figure>
 
 ### Using Kali Explorer
 
@@ -374,11 +374,11 @@ ftp://192.168.16.142
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (657).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1137).png" alt=""><figcaption></figcaption></figure>
 
 ### Using FileZilla Client
 
-<figure><img src="../../../.gitbook/assets/image (658).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1138).png" alt=""><figcaption></figcaption></figure>
 
 ## FTP Configuration&#x20;
 
@@ -388,11 +388,11 @@ _Make sure to restart the service after you make changes to the configuration fi
 
 ### Anonymous Login&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (659).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1139).png" alt=""><figcaption></figcaption></figure>
 
 Turning this on will allow anonymous login.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (660).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1140).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 _The `LIST` command failed because no data connection was established to the passive port (`42670`) returned by the server, so vsftpd had nowhere to send the directory listing.  But the agenda is to show that any password can be used against `anonymous` user._&#x20;
@@ -402,9 +402,9 @@ _The `LIST` command failed because no data connection was established to the pas
 
 By default `anonymous` login get access to `/srv/ftp` directory of the system.
 
-<figure><img src="../../../.gitbook/assets/image (687).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1167).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (688).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1168).png" alt=""><figcaption></figcaption></figure>
 
 #### Default user
 
@@ -420,9 +420,9 @@ So the anonymous user is effectively the Linux user `ftp`.
 
 **`chroot_local_user` restricts FTP users to their home directory by creating a chroot (filesystem jail) and restricting them from accessing original `/` directory or any other directory.**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (672).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1152).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (673).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1153).png" alt=""><figcaption></figcaption></figure>
 
 Inside a chroot jail, FTP `/` corresponds to the user's home directory (e.g., `/home/ftpshell`) on the Linux system.
 
@@ -430,7 +430,7 @@ Inside a chroot jail, FTP `/` corresponds to the user's home directory (e.g., `/
 _According to the vsftpd security design, a user confined to a chroot jail should not have write permissions on the jail's top-level directory (`/`, which maps to `/home/<user>` on the actual system). If the jail root is writable by the user, vsftpd refuses login with `500 OOPS: vsftpd: refusing to run with writable root inside chroot()` as a security precaution._
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (674).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1154).png" alt=""><figcaption></figcaption></figure>
 
 > _Since chroot jailing is disabled by default, the `r0b` user can log in and is not restricted to their home directory. Therefore, they can navigate the filesystem and access the original `/` directory and other locations, subject to Linux file permissions._
 
@@ -446,11 +446,11 @@ allow_writeable_chroot=YES
 
 1. Disable anonymous users&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (668).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1148).png" alt=""><figcaption></figcaption></figure>
 
 2. Create a user and its home directory&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (671).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1151).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Note that since we've created directory using root permission the owner is root. This is done to avoid the `chroot_local_user` error.&#x20;
@@ -470,7 +470,7 @@ sudo apt install db5.3-util
 _**Note:** All users defined in the virtual users database are virtual accounts. After successful authentication, they are mapped to the Linux user specified by `guest_username` in main configuration file(e.g., `ftpuser`), and filesystem access is performed using that user's permissions._
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (675).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1155).png" alt=""><figcaption></figcaption></figure>
 
 5. Convert to PAM database. (you can delete `.txt` file after database creation for security)
 
@@ -482,7 +482,7 @@ sudo db_load -T -t hash \
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (676).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1156).png" alt=""><figcaption></figcaption></figure>
 
 6. Change permissions of the PAM database (so that local user can't modify it) and create PAM configuration file at `/etc/pam.d/virtual_users_pam_config` and add the following content
 
@@ -493,11 +493,11 @@ account required pam_userdb.so db=/etc/vsftpd/virtual_users
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (677).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1157).png" alt=""><figcaption></figcaption></figure>
 
 7. Enable guest access at the end of the main configuration file.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (683).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1163).png" alt=""><figcaption></figcaption></figure>
 
 8. Restart the `vsftpd` server.&#x20;
 
@@ -509,7 +509,7 @@ sudo systemctl restart vsftpd
 
 9. Login with that userid and password.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (680).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1160).png" alt=""><figcaption></figcaption></figure>
 
 ### Write Permissions
 
@@ -542,7 +542,7 @@ FTP users can perform write-related commands **if Linux filesystem permissions a
 | Remove directories | `RMD`            | **`rmdir`**            |
 | Modify files       | Upload/overwrite |                        |
 
-<figure><img src="../../../.gitbook/assets/image (681).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1161).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _Since login is allowed only when the chroot directory is not writable, this demonstrates that `harshil_rana` maps to `ftpuser`, but `ftpuser` is not allowed to write to its home directory because it is owned by `root`, which created the directory earlier. Therefore, we need to create a separate writable directory on Ubuntu where files can be uploaded._
@@ -550,15 +550,15 @@ _Since login is allowed only when the chroot directory is not writable, this dem
 
 #### Create writeable directory&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (682).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1162).png" alt=""><figcaption></figcaption></figure>
 
 #### Write into directory&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (684).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1164).png" alt=""><figcaption></figcaption></figure>
 
 #### Delete a file&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (685).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1165).png" alt=""><figcaption></figcaption></figure>
 
 ### The Unmask permission
 
@@ -566,7 +566,7 @@ _Since login is allowed only when the chroot directory is not writable, this dem
 
 #### After uncommenting&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (686).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1166).png" alt=""><figcaption></figcaption></figure>
 
 `local_umask=022` creates uploaded files with permissions 644 and directories with permissions 755 by default as we can see in the above screenshot our script is uploaded with `rw` permission for our user only. These permissions can later be modified using chmod.
 
@@ -585,11 +585,11 @@ anon_mkdir_write_enable=YES
 
 Note that anonymous user always run with permission of `ftp` user. by default it doesn't have write permission on the `/srv/ftp/` folder.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (689).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1169).png" alt=""><figcaption></figcaption></figure>
 
 #### Writing to the directory&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (690).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1170).png" alt=""><figcaption></figcaption></figure>
 
 ### Anon root&#x20;
 
@@ -601,4 +601,4 @@ anon_root=/
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (701).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1181).png" alt=""><figcaption></figcaption></figure>

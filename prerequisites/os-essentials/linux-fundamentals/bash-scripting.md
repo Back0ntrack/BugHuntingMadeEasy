@@ -24,7 +24,7 @@ echo "Semester: $sem"
 
 **Output**
 
-<figure><img src="../../../.gitbook/assets/image (872).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1352).png" alt=""><figcaption></figcaption></figure>
 
 We can export the variable in the `~/.bashrc` file to use it whenever we want:
 
@@ -50,7 +50,7 @@ echo "Today is" `date`
 
 Note that the is used to run another command.
 
-<figure><img src="../../../.gitbook/assets/image (873).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1353).png" alt=""><figcaption></figcaption></figure>
 
 ### Special Variables
 
@@ -64,7 +64,7 @@ Special variables use the [Internal Field Separator](https://bash.cyberciti.biz/
 | `$$`    | The process ID of the currently executing process.                                                                                                                      |
 | `$?`    | The exit status of the script. This variable is useful to determine a command's success. The value 0 represents successful execution, while 1 is a result of a failure. |
 
-<figure><img src="../../../.gitbook/assets/image (874).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1354).png" alt=""><figcaption></figcaption></figure>
 
 ## Arguments
 
@@ -140,7 +140,7 @@ else
 fi
 ```
 
-<figure><img src="../../../.gitbook/assets/image (875).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1355).png" alt=""><figcaption></figcaption></figure>
 
 ### File Operators
 

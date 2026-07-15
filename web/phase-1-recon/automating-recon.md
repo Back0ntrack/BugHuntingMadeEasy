@@ -2,7 +2,7 @@
 
 ## FinalRecon
 
-<figure><img src="../../.gitbook/assets/image (146).png" alt=""><figcaption><p>Add API keys for better result</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (508).png" alt=""><figcaption><p>Add API keys for better result</p></figcaption></figure>
 
 API keys should be added here: `~/.config/finalrecon/keys.json`
 

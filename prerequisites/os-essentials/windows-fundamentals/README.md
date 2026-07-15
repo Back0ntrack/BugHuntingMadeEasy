@@ -33,7 +33,7 @@ Integrity Control Access Control List (icacls)
 
 **`icacls`** is a Windows command-line tool used to **view and manage NTFS file and folder permissions**, just like the **Security** tab in File Explorer.
 
-<figure><img src="../../../.gitbook/assets/image (948).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1428).png" alt=""><figcaption></figcaption></figure>
 
 ### Common Permission Meanings
 
@@ -118,7 +118,7 @@ reg save HKLM\SECURITY C:\temp\security.hive
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (952).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1432).png" alt=""><figcaption></figcaption></figure>
 
 ### Registry Tools&#x20;
 

@@ -6,7 +6,7 @@ Webpages are stored on the web server in a location called the web root.&#x20;
 
 **The Directory or Path Traversal vulnerability allows an attacker to break out of the intended directory structure (web root) and access files or resources outside of it, such as system files, configuration files, or other sensitive data.**
 
-<figure><img src="../../../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (423).png" alt=""><figcaption></figcaption></figure>
 
 ### How to Identify and Exploit Path Traversal Vulnerabilities
 

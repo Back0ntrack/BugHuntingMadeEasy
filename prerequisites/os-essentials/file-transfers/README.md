@@ -14,7 +14,7 @@ python3 -m http.server <port if you want to specify>
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (610).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1090).png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -36,7 +36,7 @@ _Note that this method of file transfer using Base64 is sufficient for small fil
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (606).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1086).png" alt=""><figcaption></figcaption></figure>
 
 2. **Linux**
 
@@ -46,7 +46,7 @@ cat secret.txt | base64
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (607).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1087).png" alt=""><figcaption></figcaption></figure>
 
 #### Receiver Side&#x20;
 
@@ -58,7 +58,7 @@ cat secret.txt | base64
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (608).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1088).png" alt=""><figcaption></figcaption></figure>
 
 2. **Linux**
 
@@ -68,5 +68,5 @@ echo "<encoded string>" | base64 -d
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (609).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1089).png" alt=""><figcaption></figcaption></figure>
 

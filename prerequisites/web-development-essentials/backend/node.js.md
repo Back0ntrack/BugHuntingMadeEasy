@@ -367,7 +367,7 @@ These `uid` can be transferred in three ways.&#x20;
 * response&#x20;
 * headers (If there is any API (e.g., RESTful) then this will be used).
 
-<figure><img src="../../../.gitbook/assets/image (150).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (512).png" alt=""><figcaption></figcaption></figure>
 
 #### Key Differences
 

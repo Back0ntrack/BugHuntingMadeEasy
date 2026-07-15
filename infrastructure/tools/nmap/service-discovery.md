@@ -20,7 +20,7 @@ sudo nmap -sV -Pn -n -p <port> <IP>
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (535).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1015).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
@@ -32,7 +32,7 @@ _Thus, `-sV` performs_&#x20;
 * _exchanges application-layer data to identify the service, version, and other banner information before gracefully closing the connection._
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (536).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1016).png" alt=""><figcaption></figcaption></figure>
 
 ### Other options
 

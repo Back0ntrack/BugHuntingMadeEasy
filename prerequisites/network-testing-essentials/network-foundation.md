@@ -13,11 +13,11 @@ A network enables:
 * Communication between users and applications
 * Centralized management and security (if installed)
 
-<figure><img src="../../../.gitbook/assets/Gemini_Generated_Image_dgmh3ddgmh3ddgmh.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Gemini_Generated_Image_dgmh3ddgmh3ddgmh.png" alt=""><figcaption></figcaption></figure>
 
 ### Types of Network&#x20;
 
-<figure><img src="../../../.gitbook/assets/Gemini_Generated_Image_75b0vl75b0vl75b0.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Gemini_Generated_Image_75b0vl75b0vl75b0.png" alt=""><figcaption></figcaption></figure>
 
 | Feature                    | PAN (Personal Area Network)                                                               | LAN (Local Area Network)                                                               | MAN (Metropolitan Area Network)                                                            | WAN (Wide Area Network)                                                                              |
 | -------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
@@ -33,7 +33,7 @@ A network enables:
 * Network topology is the arrangement of devices (nodes) and connections (links) in a computer network.&#x20;
 * It shows how computers, servers, and other devices are connected and how data flows between them.
 
-<figure><img src="../../../.gitbook/assets/image (623).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1103).png" alt=""><figcaption></figcaption></figure>
 
 ## OSI Model&#x20;
 
@@ -41,7 +41,7 @@ The **OSI (Open Systems Interconnection) model** is a universal conceptual frame
 
 ### Layer 1: The Physical Layer (Bits)
 
-<figure><img src="../../../.gitbook/assets/image (624).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1104).png" alt=""><figcaption></figcaption></figure>
 
 This is the very first and lowest layer. Its job is to handle the physical transmission of data bits over a specific communication medium.&#x20;
 
@@ -82,27 +82,27 @@ This layer sits above the Physical Layer.
 
 **6. Access Control:** When multiple devices share the same communication channel, the MAC sublayer dictates which device has the right to transmit at any given time to avoid collisions.
 
-<figure><img src="../../../.gitbook/assets/image (625).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1105).png" alt=""><figcaption></figcaption></figure>
 
 {% tabs %}
 {% tab title="Framing" %}
-<figure><img src="../../../.gitbook/assets/image (626).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1106).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Error Detection" %}
-<figure><img src="../../../.gitbook/assets/image (627).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1107).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Error Correction" %}
-<figure><img src="../../../.gitbook/assets/image (628).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1108).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Flow Control" %}
-<figure><img src="../../../.gitbook/assets/image (629).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1109).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Addressing" %}
-<figure><img src="../../../.gitbook/assets/image (630).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1110).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -124,37 +124,37 @@ This layer sits above the Physical Layer.
 * **Protocols operating at Network Layer:** IP, ICMP, ARP, RARP, NAT, IPSec.&#x20;
 * **Routing Protocol:** RIP, OSPF, BGP
 
-<figure><img src="../../../.gitbook/assets/image (631).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1111).png" alt=""><figcaption></figcaption></figure>
 
 {% tabs %}
 {% tab title="IP Addressing" %}
-<figure><img src="../../../.gitbook/assets/image (632).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1112).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Packetizing" %}
-<figure><img src="../../../.gitbook/assets/image (633).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1113).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Host-to-Host Delivery" %}
-<figure><img src="../../../.gitbook/assets/image (634).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1114).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Subnetting" %}
-<figure><img src="../../../.gitbook/assets/image (635).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1115).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Network Address Translation" %}
-<figure><img src="../../../.gitbook/assets/image (636).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1116).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Routing" %}
-<figure><img src="../../../.gitbook/assets/image (637).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1117).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
 ### Layer - 4: The Transport Layer (Segments)
 
-<figure><img src="../../../.gitbook/assets/image (638).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1118).png" alt=""><figcaption></figcaption></figure>
 
 The Transport Layer manages the complete, end-to-end delivery of data. Its primary role is to process data from the upper layers and prepare it for transmission over the network, ensuring it gets to the correct process on the destination host in the right format.
 
@@ -171,7 +171,7 @@ The Transport Layer manages the complete, end-to-end delivery of data. Its prima
 
 ### Layer - 5: The Session Layer (Data)
 
-<figure><img src="../../../.gitbook/assets/image (639).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1119).png" alt=""><figcaption></figcaption></figure>
 
 * This layer manages the overall session or dialogue between two communicating applications.&#x20;
 * It establishes, maintains, and coordinates the communication stream (session), deciding things like which application can talk when and how to synchronize the exchange.
@@ -209,7 +209,7 @@ This is the top layer of the OSI model and the one that is closest to you, the u
 
 The **TCP/IP** (Transmission Control Protocol/Internet Protocol) model is the practical, real-world framework that powers the internet. Related to the **OSI** (Open Systems Interconnection) reference model, TCP/IP essentially condenses OSI's 7 abstract layers into 4 functional layers, specifically mapping theoretical concepts to usable protocols.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (640).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1120).png" alt=""><figcaption></figcaption></figure>
 
 <table><thead><tr><th width="141">TCP/IP Model (4 Layers)</th><th width="195.79998779296875">OSI Model Equivalent (7 Layers)</th><th>What It Does</th></tr></thead><tbody><tr><td>1. Application</td><td>Application, Presentation, Session (Layers 7, 6, 5)</td><td>Handles user interfaces, data formatting (encryption/compression), and maintaining communication sessions (e.g., HTTP, DNS).</td></tr><tr><td>2. Transport</td><td>Transport (Layer 4)</td><td>Manages end-to-end communication, ensuring data arrives reliably and in order (e.g., TCP, UDP).</td></tr><tr><td>3. Internet</td><td>Network (Layer 3)</td><td>Handles logical addressing and routes packets across different networks to their destination (e.g., IP).</td></tr><tr><td>4. Network Access</td><td>Data Link, Physical (Layers 2, 1)</td><td>Deals with hardware addressing (MAC addresses), framing data, and the actual physical transmission of bits over cables or radio waves (e.g., Ethernet, Wi-Fi).</td></tr></tbody></table>
 
@@ -234,7 +234,7 @@ The **TCP/IP** (Transmission Control Protocol/Internet Protocol) model is the pr
 
 The TCP Three-Way Handshake is the process used to establish a reliable connection between a client and a server before data transmission begins.
 
-<figure><img src="../../../.gitbook/assets/image (641).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1121).png" alt=""><figcaption></figcaption></figure>
 
 #### Step 1: SYN (Synchronize)
 
@@ -261,7 +261,7 @@ The TCP Three-Way Handshake is the process used to establish a reliable connecti
 
 ## TCP Connection Termination&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (642).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1122).png" alt=""><figcaption></figcaption></figure>
 
 #### Step 1: FIN (Finish)
 
@@ -305,7 +305,7 @@ Without DHCP, network administrators would need to configure IP addresses manual
 
 ### DORA Process
 
-<figure><img src="../../../.gitbook/assets/image (643).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1123).png" alt=""><figcaption></figcaption></figure>
 
 #### Step 1: DHCP Discover
 
@@ -359,7 +359,7 @@ Without DHCP, network administrators would need to configure IP addresses manual
 
 IP stands for Internet Protocol, and IPv4 refers to Internet Protocol Version 4. IPv4 was the first widely deployed version of the Internet Protocol and was introduced for use in the ARPANET in 1983. An IPv4 address is a 32-bit numeric value, which is represented in dotted decimal notation (for example, 192.168.1.1). IPv4 is responsible for logical addressing and routing of packets across networks.
 
-<figure><img src="../../../.gitbook/assets/image (644).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1124).png" alt=""><figcaption></figcaption></figure>
 
 * **VERSION**_**:**_ Version of the IP protocol (4 bits), which is 4 for IPv4&#x20;
 * **HLEN:** IP header length (4 bits), which is the number of 32 bit words in the header. The minimum value for this field is 5 and the maximum is 15.&#x20;

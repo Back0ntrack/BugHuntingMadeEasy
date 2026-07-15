@@ -4,35 +4,35 @@
 
 #### Target
 
-<figure><img src="../../../../.gitbook/assets/image (154).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (516).png" alt=""><figcaption></figcaption></figure>
 
 #### Find parameter of the URL
 
 {% tabs %}
 {% tab title="Using arjun" %}
-<figure><img src="../../../../.gitbook/assets/image (153).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (515).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="Using brute force" %}
-<figure><img src="../../../../.gitbook/assets/image (152).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (514).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
 #### Check reflections
 
-<figure><img src="../../../../.gitbook/assets/image (156).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (518).png" alt=""><figcaption></figcaption></figure>
 
 #### Check HTML Injection
 
-<figure><img src="../../../../.gitbook/assets/image (155).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (517).png" alt=""><figcaption></figcaption></figure>
 
 #### Check for XSS
 
-<figure><img src="../../../../.gitbook/assets/image (157).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (519).png" alt=""><figcaption></figcaption></figure>
 
 **What actually happened in backend:**&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (344).png" alt=""><figcaption></figcaption></figure>
 
 _since we're escaping two times we're getting two popup._&#x20;
 
@@ -40,7 +40,7 @@ _since we're escaping two times we're getting two popup._&#x20;
 
 <summary><strong>Understanding the beyond logic</strong></summary>
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (345).png" alt=""><figcaption></figcaption></figure>
 
 Because `$user` is inserted into the HTML template without escaping, an attacker-controlled value like `?user=<script>alert('XSS')</script>` will be reflected verbatim into the page — e.g. the server would return HTML that looks like `<h2>Welcome, <script>alert('XSS')</script>!</h2>` and `<p><strong>Username:</strong> <script>alert('XSS')</script></p>`, which the browser parses as actual markup and executes, demonstrating a classic reflected XSS.
 
@@ -108,51 +108,51 @@ _<mark style="color:$danger;">While the existing HTML encoding prevents Cross-Si
 _By default path segments are percent-encoded according to RFC 3986. So there are minimal chances of getting XSS here. XSS is possible if the entered string is decoded and reflected in the output._&#x20;
 {% endhint %}
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (337).png" alt=""><figcaption></figcaption></figure>
 
 #### Check if segment is reflected back in the response
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (338).png" alt=""><figcaption></figcaption></figure>
 
 > _We can see that there is no response in the earlier case1 in which the output is not reflected back from segment._&#x20;
 
 #### Check reflections
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (339).png" alt=""><figcaption></figcaption></figure>
 
 #### Check HTML injection
 
-<figure><img src="../../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (340).png" alt=""><figcaption></figcaption></figure>
 
 #### Check for XSS
 
-<figure><img src="../../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (341).png" alt=""><figcaption></figcaption></figure>
 
 **What actually happened in the backend**
 
-<figure><img src="../../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (342).png" alt=""><figcaption></figcaption></figure>
 
 ## Case - 3 HTTP Request Body (POST Data)
 
 #### Target
 
-<figure><img src="../../../../.gitbook/assets/image (158).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (520).png" alt=""><figcaption></figcaption></figure>
 
 #### Check reflections
 
-<figure><img src="../../../../.gitbook/assets/image (159).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (521).png" alt=""><figcaption></figcaption></figure>
 
 #### Check for HTML Injection
 
-<figure><img src="../../../../.gitbook/assets/image (160).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (522).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../../.gitbook/assets/image (161).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (523).png" alt=""><figcaption></figcaption></figure>
 
 #### Check for XSS
 
-<figure><img src="../../../../.gitbook/assets/image (162).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (524).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../../.gitbook/assets/image (163).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (525).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -160,7 +160,7 @@ _By default path segments are percent-encoded according to RFC 3986. So there ar
 
 Since our input is reflected directly into the body we're able to execute XSS here.&#x20;
 
-<div data-full-width="true" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (164).png" alt=""><figcaption></figcaption></figure></div>
+<div data-full-width="true" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (526).png" alt=""><figcaption></figcaption></figure></div>
 
 </details>
 
@@ -168,17 +168,17 @@ Since our input is reflected directly into the body we're able to execute XSS he
 
 #### Target
 
-<figure><img src="../../../../.gitbook/assets/image (165).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (527).png" alt=""><figcaption></figcaption></figure>
 
 #### Check for reflections
 
-<figure><img src="../../../../.gitbook/assets/image (166).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (528).png" alt=""><figcaption></figcaption></figure>
 
 #### Check for XSS
 
-<figure><img src="../../../../.gitbook/assets/image (168).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (530).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../../.gitbook/assets/image (169).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (531).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -186,7 +186,7 @@ Since our input is reflected directly into the body we're able to execute XSS he
 
 We can see that the headers is directly reflected back into the response. So we can manipulate the header by intercepting the request and inject our malicious script.&#x20;
 
-<div data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (171).png" alt=""><figcaption></figcaption></figure></div>
+<div data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (533).png" alt=""><figcaption></figcaption></figure></div>
 
 </details>
 
@@ -194,11 +194,11 @@ We can see that the headers is directly reflected back into the response. So we 
 
 #### Target
 
-<figure><img src="../../../../.gitbook/assets/image (170).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (532).png" alt=""><figcaption></figcaption></figure>
 
 #### Checking for reflection&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (172).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (534).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _In this case, we’re given the chance to edit our cookies, but in real life, sometimes the cookie is reflected back in the response—often in a hidden input field—so it can be sent as data in the request. This allows us to inject malicious payloads by intercepting and modifying the request._
@@ -208,7 +208,7 @@ _In this case, we’re given the chance to edit our cookies, but in real life, s
 
 **Modify cookie directly in the storage section**
 
-<figure><img src="../../../../.gitbook/assets/image (174).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (536).png" alt=""><figcaption></figcaption></figure>
 
 ### Other Possible Cases
 

@@ -19,7 +19,7 @@ _An `open` and `closed` port is required for detecting the type of operating sys
 sudo nmap -O 192.168.16.131
 ```
 
-<figure><img src="../../../.gitbook/assets/image (537).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1017).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _OS detection needs at least **1 open and 1 closed** TCP port for best accuracy. Use `--osscan-limit` to skip hosts that don't meet this._

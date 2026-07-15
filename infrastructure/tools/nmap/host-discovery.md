@@ -47,11 +47,11 @@ sudo nmap -sn -n -PR <IP> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (523).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1003).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (464).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (944).png" alt=""><figcaption></figcaption></figure>
 
 ## -PE (Ping Scan)
 
@@ -65,11 +65,11 @@ sudo nmap -sn -n -PE <ip> --disable-arp-ping --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (524).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1004).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (457).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (937).png" alt=""><figcaption></figcaption></figure>
 
 ## -PP (Timestamp Ping)
 
@@ -83,11 +83,11 @@ nmap -sn -n -PP <ip> --disable-arp-ping --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (525).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1005).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (459).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (939).png" alt=""><figcaption></figcaption></figure>
 
 ## -PM (ICMP Address mask Ping)&#x20;
 
@@ -101,11 +101,11 @@ nmap -sn -n -PM <ip> --disable-arp-ping --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (460).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (940).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (461).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (941).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 _ICMP Address Mask Requests (`-PM`) are largely obsolete and are ignored by most modern operating systems. As a result, this discovery method rarely receives a response, even on local networks without a firewall._
@@ -121,11 +121,11 @@ sudo nmap -sn -n -PS --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (526).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1006).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (485).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (965).png" alt=""><figcaption></figcaption></figure>
 
 ## -PA (TCP ACK Ping)
 
@@ -137,11 +137,11 @@ sudo nmap -sn -n -PA --disable-arp-ping <ip> --reason
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (527).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1007).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (487).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (967).png" alt=""><figcaption></figcaption></figure>
 
 ## -PU (UDP Ping)
 
@@ -155,11 +155,11 @@ sudo nmap -sn -n -PU --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (516).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (996).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (517).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (997).png" alt=""><figcaption></figcaption></figure>
 
 ## -PY (SCTP discovery)
 
@@ -171,11 +171,11 @@ sudo nmap -sn -n -PY --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (514).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (994).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (515).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (995).png" alt=""><figcaption></figcaption></figure>
 
 ## -PO (Protocol Ping)
 
@@ -191,11 +191,11 @@ sudo nmap -sn -n -PO1 --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (529).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1009).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
-<figure><img src="../../../.gitbook/assets/image (470).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (950).png" alt=""><figcaption></figcaption></figure>
 
 ### PO2 Scan (IGMPv1)
 
@@ -205,11 +205,11 @@ sudo nmap -sn -n -PO2 --disable-arp-ping <IP> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (530).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1010).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
-<figure><img src="../../../.gitbook/assets/image (473).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (953).png" alt=""><figcaption></figcaption></figure>
 
 ### PO3 Scan (IPv4)
 
@@ -219,11 +219,11 @@ sudo nmap -sn -n -PO3 --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (531).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1011).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
-<figure><img src="../../../.gitbook/assets/image (475).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (955).png" alt=""><figcaption></figcaption></figure>
 
 ### PO6 Scan (TCP)
 
@@ -233,11 +233,11 @@ sudo nmap -sn -n -PO6 --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (492).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (972).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
-<figure><img src="../../../.gitbook/assets/image (479).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (959).png" alt=""><figcaption></figcaption></figure>
 
 ### PO17 Scan (UDP)
 
@@ -247,11 +247,11 @@ sudo nmap -sn -n -PO17 --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (493).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (973).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
-<figure><img src="../../../.gitbook/assets/image (481).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (961).png" alt=""><figcaption></figcaption></figure>
 
 ### PO132 Scan (SCTP)
 
@@ -261,21 +261,21 @@ sudo nmap -sn -n -PO132 --disable-arp-ping <ip> --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (494).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (974).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
-<figure><img src="../../../.gitbook/assets/image (483).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (963).png" alt=""><figcaption></figcaption></figure>
 
 ### Default PO
 
 When `-PO` is used without specifying a protocol number, Nmap sends probes using multiple common IP protocols and determines whether the target is alive based on any valid response received.
 
-<figure><img src="../../../.gitbook/assets/image (467).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (947).png" alt=""><figcaption></figcaption></figure>
 
 #### **Analysis**
 
-<figure><img src="../../../.gitbook/assets/image (465).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (945).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _`-PO` without a protocol number uses multiple common IP protocols for host discovery, making it more comprehensive but generally slower than using a specific scan._&#x20;
@@ -291,11 +291,11 @@ sudo nmap -sn -n -PE -PP -PO1,2 -PS -PA <ip> --disable-arp-ping --reason
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (495).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (975).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (491).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (971).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _Nmap sent multiple host discovery probes simultaneously (ICMP Echo, ICMP Timestamp, TCP SYN, TCP ACK, and IGMP). The target responded to several of them, but Nmap marked the host as alive based on the first valid response received, which was an ICMP Echo Reply._

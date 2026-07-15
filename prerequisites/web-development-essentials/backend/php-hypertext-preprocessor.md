@@ -553,7 +553,7 @@ could break it and alert a popup.
 * Browser requests `form.html`.&#x20;
 * HTML + CSS load, you see two input fields (first,last) and buttons.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (147).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (509).png" alt=""><figcaption></figcaption></figure>
 
 #### 2. If you click GET button
 
@@ -563,7 +563,7 @@ could break it and alert a popup.
   * Box 1: PHP says “Hello Virat Kohli…”
   * Box 2: JS fills “Hello Virat Kohli…” using injected values.
 
-<figure><img src="../../../.gitbook/assets/image (148).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (510).png" alt=""><figcaption></figcaption></figure>
 
 #### **3. If you click POST button**
 
@@ -571,7 +571,7 @@ could break it and alert a popup.
 * PHP backend (`process.php`) reads from `$_POST`.
 * Response is the same: PHP box filled, JS box filled.
 
-<figure><img src="../../../.gitbook/assets/image (149).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (511).png" alt=""><figcaption></figcaption></figure>
 
 So: **form.html (frontend)** → **request (GET or POST)** → **process.php (backend)** → **HTML back to browser** → **JS runs in browser** → shows second box.
 

@@ -18,7 +18,7 @@ Linux powers a huge percentage of today's infrastructure, including:
 
 The Linux operating system architecture defines how different components of the system interact with each other to manage hardware resources, run applications, and provide a stable and secure computing environment. Linux follows a layered architecture, where each layer has a specific role and responsibility.
 
-<figure><img src="../../../.gitbook/assets/image (803).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1283).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```bash
@@ -27,7 +27,7 @@ arch
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (814).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1294).png" alt=""><figcaption></figcaption></figure>
 
 #### Kernel&#x20;
 
@@ -60,13 +60,13 @@ cat /etc/shells
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (815).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1295).png" alt=""><figcaption></figcaption></figure>
 
 ### Linux Distribution&#x20;
 
 A **Linux distribution (Distro)** is a complete operating system built around the Linux kernel.
 
-<figure><img src="../../../.gitbook/assets/image (804).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1284).png" alt=""><figcaption></figcaption></figure>
 
 ### Components of Linux&#x20;
 
@@ -74,7 +74,7 @@ A **Linux distribution (Distro)** is a complete operating system built around th
 
 ### Linux File System Hierarchy&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (806).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1286).png" alt=""><figcaption></figcaption></figure>
 
 <table data-search="false"><thead><tr><th width="110">Path</th><th>Description</th></tr></thead><tbody><tr><td><strong><code>/</code> (Root)</strong></td><td>The top-level directory of the Linux filesystem. Every file and directory originates from the root (<code>/</code>). All other filesystems are mounted under this directory during boot.</td></tr><tr><td><strong><code>/bin</code></strong></td><td>Contains essential user command binaries required for system operation, such as <code>ls</code>, <code>cp</code>, <code>mv</code>, <code>cat</code>, and <code>bash</code>.</td></tr><tr><td><strong><code>/boot</code></strong></td><td>Stores files required during the boot process, including the Linux kernel, initial RAM filesystem (<code>initramfs</code>), and bootloader files (e.g., GRUB).</td></tr><tr><td><strong><code>/dev</code></strong></td><td>Contains device files that represent hardware and virtual devices, such as disks (<code>/dev/sda</code>), terminals (<code>/dev/tty</code>), and special devices like <code>/dev/null</code> and <code>/dev/random</code>.</td></tr><tr><td><strong><code>/etc</code></strong></td><td>Holds system-wide configuration files for the operating system and installed applications. Important files include <code>/etc/passwd</code>, <code>/etc/shadow</code>, <code>/etc/hosts</code>, and <code>/etc/ssh/</code>.</td></tr><tr><td><strong><code>/home</code></strong></td><td>Contains personal home directories for regular users, where documents, downloads, SSH keys, and user-specific configuration files are stored.</td></tr><tr><td><strong><code>/lib</code></strong></td><td>Stores essential shared libraries and kernel modules required by system binaries and during the boot process. On 64-bit systems, libraries may also be found in <code>/lib64</code>.</td></tr><tr><td><strong><code>/media</code></strong></td><td>Default mount point for removable storage devices such as USB flash drives, CDs, DVDs, and external hard disks.</td></tr><tr><td><strong><code>/mnt</code></strong></td><td>Used as a temporary mount point for manually mounting filesystems, network shares, or disk images.</td></tr><tr><td><strong><code>/opt</code></strong></td><td>Contains optional or third-party software packages that are not part of the default operating system installation.</td></tr><tr><td><strong><code>/root</code></strong></td><td>The home directory of the <strong>root</strong> (superuser) account. This is different from the root directory (<code>/</code>).</td></tr><tr><td><strong><code>/sbin</code></strong></td><td>Contains essential system administration binaries used for tasks such as system initialization, networking, and filesystem management (e.g., <code>fsck</code>, <code>shutdown</code>, <code>iptables</code>).</td></tr><tr><td><strong><code>/tmp</code></strong></td><td>Stores temporary files created by the operating system and applications. This directory is world-writable and is typically cleared during system reboot.</td></tr><tr><td><strong><code>/usr</code></strong></td><td>Contains the majority of user-space applications, libraries, documentation, and shared resources. Common subdirectories include <code>/usr/bin</code>, <code>/usr/lib</code>, and <code>/usr/share</code>.</td></tr><tr><td><strong><code>/var</code></strong></td><td>Stores variable data that changes during normal system operation, including log files (<code>/var/log</code>), web server content (<code>/var/www</code>), mail spools, caches, databases, and cron jobs.</td></tr></tbody></table>
 
@@ -93,7 +93,7 @@ bash --version
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (807).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1287).png" alt=""><figcaption></figcaption></figure>
 
 ### Bash Configuration Files&#x20;
 
@@ -101,7 +101,7 @@ A **Bash configuration file** is a text file that contains commands, variables, 
 
 Instead of typing the same commands every time you open a terminal, you place them in a configuration file. Bash reads the file during startup and applies those settings automatically.
 
-<figure><img src="../../../.gitbook/assets/image (816).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1296).png" alt=""><figcaption></figcaption></figure>
 
 #### \~/.bashrc
 
@@ -149,7 +149,7 @@ instead of
 ls -lah
 ```
 
-<figure><img src="../../../.gitbook/assets/image (817).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1297).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -163,7 +163,7 @@ export USERNAME="abhishek"
 
 Now every terminal automatically has these variables available.
 
-<figure><img src="../../../.gitbook/assets/image (818).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1298).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -187,7 +187,7 @@ every time, add:
 export PATH=$PATH:$HOME/tools
 ```
 
-<figure><img src="../../../.gitbook/assets/image (820).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1300).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -209,7 +209,7 @@ userinfo() {
 }
 ```
 
-<figure><img src="../../../.gitbook/assets/image (821).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1301).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -227,7 +227,7 @@ whoami
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (822).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1302).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -275,7 +275,7 @@ Since `.bashrc` is just a shell startup script executed as the user, it can be c
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (808).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1288).png" alt=""><figcaption></figcaption></figure>
 
 #### Using man&#x20;
 
@@ -285,13 +285,13 @@ man <command>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (809).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1289).png" alt=""><figcaption></figcaption></figure>
 
 #### Using ExplainShell&#x20;
 
 {% embed url="https://www.explainshell.com" %}
 
-<figure><img src="../../../.gitbook/assets/image (810).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1290).png" alt=""><figcaption></figcaption></figure>
 
 #### Using \`whatis\`
 
@@ -301,19 +301,19 @@ whatis <tool>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (813).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1293).png" alt=""><figcaption></figcaption></figure>
 
 ### Basic Navigation&#x20;
 
 <table data-search="false"><thead><tr><th width="255.60003662109375">Command</th><th width="296.4000244140625">Description</th></tr></thead><tbody><tr><td><code>pwd</code></td><td>Print current working directory</td></tr><tr><td><code>ls</code></td><td>List files and directories</td></tr><tr><td><code>ls -l</code></td><td>Long listing format</td></tr><tr><td><code>ls -la</code></td><td>Show hidden files</td></tr><tr><td><code>cd directory</code></td><td>Change directory</td></tr><tr><td><code>cd ..</code></td><td>Move one directory up</td></tr><tr><td><code>cd ~</code></td><td>Go to home directory</td></tr><tr><td><code>cd -</code></td><td>Return to previous directory</td></tr><tr><td><code>tree</code></td><td>Display directory tree</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (811).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1291).png" alt=""><figcaption></figcaption></figure>
 
 ### Viewing Files&#x20;
 
 <table data-search="false"><thead><tr><th width="210.79998779296875">Command</th><th width="495.59991455078125">Description</th></tr></thead><tbody><tr><td><code>cat</code></td><td>Display entire file</td></tr><tr><td><code>less</code></td><td><strong><code>less</code></strong> lets you scroll both up and down.</td></tr><tr><td><code>more</code></td><td><strong><code>more</code></strong> only lets you scroll down.</td></tr><tr><td><code>head</code></td><td>Show first 10 lines by default</td></tr><tr><td><code>tail</code></td><td>Show last 10 lines by default</td></tr><tr><td><code>nl</code></td><td>Show line numbers</td></tr><tr><td><code>file</code></td><td>Identify file type</td></tr><tr><td><code>stat</code></td><td>Show file metadata</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (812).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1292).png" alt=""><figcaption></figcaption></figure>
 
 ## Working with Files and Directories&#x20;
 
@@ -325,11 +325,11 @@ In Linux, storage devices such as hard disks, SSDs, USB drives, and optical medi
 
 1. **Character devices:** Character devices transfer data **one byte at a time**. Data arrives continuously and sequentially (keyboard, mouse, terminal, serial ports). These are **character devices**.
 
-<figure><img src="../../../.gitbook/assets/image (823).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1303).png" alt=""><figcaption></figcaption></figure>
 
 2. **Block devices:** Block devices transfer data in **fixed-size blocks** and are primarily used for storage. Data is stored in addressable locations and benefits from random access and caching (HDDs, SSDs, USB drives). These are **block devices**.
 
-<figure><img src="../../../.gitbook/assets/image (824).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1304).png" alt=""><figcaption></figcaption></figure>
 
 #### Disk Naming Conventions
 
@@ -345,7 +345,7 @@ If another hard disk were attached, Linux would create:
 /dev/sdb
 ```
 
-<figure><img src="../../../.gitbook/assets/image (825).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1305).png" alt=""><figcaption></figcaption></figure>
 
 #### Disk Usage&#x20;
 
@@ -355,13 +355,13 @@ df -Th
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (826).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1306).png" alt=""><figcaption></figcaption></figure>
 
 ### Absolute and relative path&#x20;
 
 A **path** specifies the location of a file or directory within the Linux filesystem. It tells the operating system where a resource is located.
 
-<figure><img src="../../../.gitbook/assets/image (827).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1307).png" alt=""><figcaption></figcaption></figure>
 
 #### Absolute File
 
@@ -401,9 +401,9 @@ cat ./myscript.sh
 
 <table data-search="false"><thead><tr><th width="255.60003662109375">Command</th><th width="432.4000244140625">Description</th></tr></thead><tbody><tr><td><code>touch file</code></td><td>Create an empty file / update timestamp if it exists</td></tr><tr><td><code>mkdir dir</code></td><td>Create a directory</td></tr><tr><td><code>mkdir -p a/b/c</code></td><td>Create nested directories in one go</td></tr><tr><td><code>cp src dest</code></td><td>Copy a file</td></tr><tr><td><code>cp -r src dest</code></td><td>Copy a directory recursively</td></tr><tr><td><code>mv src dest</code></td><td>Move or rename a file/directory</td></tr><tr><td><code>rm file</code></td><td>Remove a file</td></tr><tr><td><code>rm -r dir</code></td><td>Remove a directory recursively</td></tr><tr><td><code>rm -rf dir</code></td><td>Force remove, no confirmation prompts</td></tr><tr><td><code>rmdir dir</code></td><td>Remove an empty directory only</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (828).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1308).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (829).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1309).png" alt=""><figcaption></figcaption></figure>
 
 ### Working with File Paths (Spaces and Expansion)
 
@@ -419,7 +419,7 @@ touch my\ file.txt       # Escape the space
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (830).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1310).png" alt=""><figcaption></figcaption></figure>
 
 #### Brace Expansions&#x20;
 
@@ -431,7 +431,7 @@ touch file{1..2}{b..d}.txt
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (831).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1311).png" alt=""><figcaption></figcaption></figure>
 
 ### Wildcards&#x20;
 
@@ -439,7 +439,7 @@ touch file{1..2}{b..d}.txt
 
 <table><thead><tr><th width="115.39996337890625">Wildcard</th><th width="413.5999755859375">Description</th><th>Example</th></tr></thead><tbody><tr><td><code>*</code></td><td>Matches zero or more characters</td><td><code>ls *.txt</code></td></tr><tr><td><code>?</code></td><td>Matches exactly one character</td><td><code>ls file?.txt</code></td></tr><tr><td><code>[abc]</code></td><td>Matches any one character inside the brackets</td><td><code>ls file[123].txt</code></td></tr><tr><td><code>[a-z]</code></td><td>Matches any one character within a range</td><td><code>ls file[a-z].txt</code></td></tr><tr><td><code>[!abc]</code></td><td>Matches any one character except those inside the brackets</td><td><code>ls file[!0-9].txt</code></td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (832).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1312).png" alt=""><figcaption></figcaption></figure>
 
 ### Hard and Soft Links
 
@@ -467,11 +467,11 @@ ln original.txt hardlink.txt
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (833).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1313).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (834).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1314).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (837).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1317).png" alt=""><figcaption></figcaption></figure>
 
 #### Soft Link
 
@@ -479,7 +479,7 @@ ln original.txt hardlink.txt
 * Unlike a hard link, it has its own inode and simply redirects to the target whenever it is accessed.
 * Becomes a **broken (dangling) link** if the target is deleted or moved.
 
-<figure><img src="../../../.gitbook/assets/image (836).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1316).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 _Notice the `../` because from inside `linked`, you must go **one directory up** to reach `original.txt`._
@@ -505,7 +505,7 @@ tar -cvf archive.tar testdir/
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (838).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1318).png" alt=""><figcaption></figcaption></figure>
 
 #### Extracting an archive&#x20;
 
@@ -518,7 +518,7 @@ tar -xvf archive.tar
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (839).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1319).png" alt=""><figcaption></figcaption></figure>
 
 #### Creating Compressed archive&#x20;
 
@@ -529,7 +529,7 @@ tar -czvf temp_compr_archive.gz ./temp/
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (840).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1320).png" alt=""><figcaption></figcaption></figure>
 
 #### Extracting Compressed archive
 
@@ -539,7 +539,7 @@ tar -xzvf temp_compr_archive.gz
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (842).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1322).png" alt=""><figcaption></figcaption></figure>
 
 #### Compressing Files&#x20;
 
@@ -552,7 +552,7 @@ zip backup.zip -r <folder>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (843).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1323).png" alt=""><figcaption></figcaption></figure>
 
 #### Extracting Compressed files&#x20;
 
@@ -564,7 +564,7 @@ unzip <zip file> -d <folder>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (844).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1324).png" alt=""><figcaption></figcaption></figure>
 
 #### GZIP&#x20;
 
@@ -584,7 +584,7 @@ The **`gzip`** command compresses a **single file** using the GNU Zip compressio
 
 The **`gunzip`** command decompresses files compressed with **`gzip`**. It is equivalent to using `gzip -d`.
 
-<figure><img src="../../../.gitbook/assets/image (845).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1325).png" alt=""><figcaption></figcaption></figure>
 
 ### Searching the Filesystem&#x20;
 
@@ -604,11 +604,11 @@ For builtin tools
 
 <table data-search="false"><thead><tr><th width="270">Command</th><th>Description</th></tr></thead><tbody><tr><td><code>find / -name "file.txt"</code></td><td>Search by exact filename in root directory. </td></tr><tr><td><code>find / -iname "file.txt"</code></td><td>Case-insensitive filename search</td></tr><tr><td><code>find . -name "*.txt"</code></td><td>Search using wildcards</td></tr><tr><td><code>find . -type f</code></td><td>Search for regular files</td></tr><tr><td><code>find . -type d</code></td><td>Search for directories</td></tr><tr><td><code>find . -size +10M</code></td><td>Search for files larger than 10 MB</td></tr><tr><td><code>find . -size -1M</code></td><td>Search for files smaller than 1 MB</td></tr><tr><td><code>find . -perm 644</code></td><td>Search by file permissions</td></tr><tr><td><code>find . -user r0b</code></td><td>Search by file owner</td></tr><tr><td><code>find . -empty</code></td><td>Search for empty files and directories</td></tr><tr><td><code>find . -name "*.log" -delete</code></td><td>Delete matching files</td></tr><tr><td><code>find . -name "*.log" -exec rm {} \;</code></td><td>Execute a command on matching files</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (846).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1326).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (847).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1327).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (848).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1328).png" alt=""><figcaption></figcaption></figure>
 
 #### Locate
 
@@ -617,7 +617,7 @@ The **`locate`** command searches for files using a **pre-built database** inste
 * update the database: `sudo updatedb`
 * search for files: `locate <filename>`
 
-<figure><img src="../../../.gitbook/assets/image (849).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1329).png" alt=""><figcaption></figcaption></figure>
 
 ### File and Directory Security&#x20;
 
@@ -637,7 +637,7 @@ _Linux files do not inherit permissions from their parent directory._&#x20;
 
 When a file or directory is created, Linux doesn't ask what permissions to give it — it starts from a maximum (666 for files, 777 for directories) and subtracts the **umask** value of the shell that created it.
 
-<figure><img src="../../../.gitbook/assets/image (850).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1330).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```
@@ -668,7 +668,7 @@ _Only the root user can change the ownership of a file._&#x20;
 
 Every file and directory in Linux has an **owner (user)** and an associated **group**. Linux provides commands to change the ownership of files and directories.
 
-<figure><img src="../../../.gitbook/assets/image (851).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1331).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```bash
@@ -683,7 +683,7 @@ chgrp <group> <file>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (853).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1333).png" alt=""><figcaption></figcaption></figure>
 
 #### Changing Permissions&#x20;
 
@@ -724,7 +724,7 @@ sudo chmod <numeric value> <file>
 
 <table data-search="false"><thead><tr><th width="143.60003662109375" align="right">Value</th><th width="141.19989013671875">Permission</th></tr></thead><tbody><tr><td align="right"><code>0</code></td><td><code>---</code></td></tr><tr><td align="right"><code>1</code></td><td><code>--x</code></td></tr><tr><td align="right"><code>2</code></td><td><code>-w-</code></td></tr><tr><td align="right"><code>3</code></td><td><code>-wx</code></td></tr><tr><td align="right"><code>4</code></td><td><code>r--</code></td></tr><tr><td align="right"><code>5</code></td><td><code>r-x</code></td></tr><tr><td align="right"><code>6</code></td><td><code>rw-</code></td></tr><tr><td align="right"><code>7</code></td><td><code>rwx</code></td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (854).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1334).png" alt=""><figcaption></figcaption></figure>
 
 ### Special Permission bits (SGID and SUID bit)
 
@@ -746,7 +746,7 @@ sudo chmod u+s file
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (855).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1335).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _The `/usr/bin/passwd` program runs with the effective UID of `root` (due to the SUID bit), allowing it to modify `/etc/shadow`. However, the `passwd` program itself enforces security checks, permitting regular users to change only their own password, while only the `root` user can change the passwords of other users._
@@ -795,7 +795,7 @@ id
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
 ### Passwd file&#x20;
 
@@ -809,7 +809,7 @@ cat /etc/passwd
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _Service accounts usually have `/usr/sbin/nologin` or `/bin/false` as their shell in `/etc/passwd` — this blocks interactive login even if someone obtains the password._
@@ -827,7 +827,7 @@ sudo cat /etc/shadow
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _The hash prefix identifies the algorithm — `$1$` MD5, `$5$` SHA-256, `$6$` SHA-512. Ubuntu defaults to SHA-512 (`$6$`)._
@@ -841,7 +841,7 @@ groups
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (14) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
 ### Creating and Managing Users&#x20;
 
@@ -857,7 +857,7 @@ sudo useradd [OPTIONAL-OPTIONS] <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
 
 2. adduser
 
@@ -867,7 +867,7 @@ adduser
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
 
 #### Setting or changing password&#x20;
 
@@ -877,7 +877,7 @@ sudo passwd <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
 
 #### Locking and Unlocking a user&#x20;
 
@@ -890,7 +890,7 @@ sudo passwd -u john
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
 
 **Way - 2**&#x20;
 
@@ -901,17 +901,17 @@ sudo usermod -U <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
 
 #### Modifying User Information&#x20;
 
 <table data-search="false"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>usermod -l newuser olduser</code></td><td>Rename a user</td></tr><tr><td><code>usermod -u 2001 user</code></td><td>Change the user's UID</td></tr><tr><td><code>usermod -d /home/newdir user</code></td><td>Change the home directory</td></tr><tr><td><code>usermod -d /home/newdir -m user</code></td><td>Move the home directory to a new location</td></tr><tr><td><code>usermod -s /bin/zsh user</code></td><td>Change the login shell</td></tr><tr><td><code>usermod -g group user</code></td><td>Change the primary group</td></tr><tr><td><code>usermod -aG group1,group2 user</code></td><td>Add supplementary groups</td></tr><tr><td><code>usermod -e YYYY-MM-DD user</code></td><td>Set the account expiration date</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
 
 #### Deleting User&#x20;
 
@@ -922,7 +922,7 @@ sudo userdel -r <username>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
 
 ### Types of Groups&#x20;
 
@@ -942,7 +942,7 @@ groups
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
 
 ### Creating and Managing Groups&#x20;
 
@@ -959,7 +959,7 @@ sudo groupadd developers
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (13) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
 
 #### Modifying Groups&#x20;
 
@@ -974,7 +974,7 @@ sudo groupmod -n dev developers
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
 
 #### Delete a group&#x20;
 
@@ -984,7 +984,7 @@ sudo groupdel <groupname>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
 
 #### Managing Group membership&#x20;
 
@@ -993,7 +993,7 @@ sudo groupdel <groupname>
 | `usermod -aG developers john` | Add a user to a supplementary group |
 | `gpasswd -d john developers`  | Remove a user from a group          |
 
-<figure><img src="../../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
 
 ## Installing Software
 
@@ -1005,7 +1005,7 @@ sudo apt udpate
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
 
 ### Upgrading packages&#x20;
 
@@ -1019,7 +1019,7 @@ sudo apt full-upgrade
 * **`sudo apt upgrade`** – Upgrades installed packages **without removing or installing additional packages**.
 * **`sudo apt full-upgrade`** – Upgrades packages **and allows installing or removing packages** to resolve dependencies and complete the upgrade.
 
-<figure><img src="../../../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
 
 ### Installing packages&#x20;
 
@@ -1029,7 +1029,7 @@ sudo apt install <package name/tool name>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
 
 ### Removing Package&#x20;
 
@@ -1042,9 +1042,9 @@ sudo apt remove <package name/tool name>
 * **`sudo apt remove`** – Uninstalls the package **but keeps its system-wide configuration files**.
 * **`sudo apt purge`** – Uninstalls the package **and removes its system-wide configuration files**.
 
-<figure><img src="../../../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
 
 ### Check Installed Packages
 
@@ -1055,9 +1055,9 @@ apt list --installed
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (23) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (24) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
 
 ### Installing Local Packages&#x20;
 
@@ -1098,7 +1098,7 @@ env
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
 
 #### Printing specific variable
 
@@ -1108,7 +1108,7 @@ echo $<variable>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (25) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
 
 #### Add an environment variable&#x20;
 
@@ -1120,7 +1120,7 @@ export COMMENT="comment added by user"
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
 
 ### Startup Files&#x20;
 
@@ -1157,9 +1157,9 @@ Every process starts with three open file descriptors — **stdin (0)**, **stdou
 
 <table data-search="false"><thead><tr><th width="149.99993896484375">Operator</th><th width="562.7999877929688">Meaning</th></tr></thead><tbody><tr><td><code>></code></td><td>Redirect stdout, overwrite file</td></tr><tr><td><code>>></code></td><td>Redirect stdout, append to file</td></tr><tr><td><code>&#x3C;</code></td><td>Redirect stdin from a file</td></tr><tr><td><code>2></code></td><td>Redirect stderr, overwrite file</td></tr><tr><td><code>2>></code></td><td>Redirect stderr, append to file</td></tr><tr><td><code>&#x26;></code></td><td>Redirect both stdout and stderr</td></tr><tr><td><code>2>&#x26;1</code></td><td>Merge stderr into stdout's current destination</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (856).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1336).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (857).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1337).png" alt=""><figcaption></figcaption></figure>
 
 ### Pipes&#x20;
 
@@ -1171,7 +1171,7 @@ ps aux | grep ssh
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (858).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1338).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _Redirection connects a command to a file. A pipe connects a command directly to another command's input — no file is ever written to disk in between._
@@ -1183,19 +1183,19 @@ Bash keeps a record of executed commands, stored in `~/.bash_history` and loaded
 
 <table data-search="false"><thead><tr><th width="255.60003662109375">Command</th><th width="296.4000244140625">Description</th></tr></thead><tbody><tr><td><code>history</code></td><td>List command history</td></tr><tr><td><code>history | grep ssh</code></td><td>Search history for a keyword</td></tr><tr><td><code>!!</code></td><td>Re-run the last command</td></tr><tr><td><code>!45</code></td><td>Re-run history entry number 45</td></tr><tr><td><code>!ssh</code></td><td>Re-run the last command starting with <code>ssh</code></td></tr><tr><td><code>Ctrl + R</code></td><td>Reverse-search history interactively</td></tr><tr><td><code>history -c</code></td><td><p></p><p>Clear history for the current session</p></td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (859).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1339).png" alt=""><figcaption></figcaption></figure>
 
 ## Text Editors&#x20;
 
 ### Nano
 
-<figure><img src="../../../.gitbook/assets/image (860).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1340).png" alt=""><figcaption></figcaption></figure>
 
 ### Vim&#x20;
 
 <table data-search="false"><thead><tr><th>Command / Key</th><th>Description</th></tr></thead><tbody><tr><td><code>vim file.txt</code></td><td>Open or create a file</td></tr><tr><td><code>i</code></td><td>Enter Insert mode before the cursor</td></tr><tr><td><code>a</code></td><td>Enter Insert mode after the cursor</td></tr><tr><td><code>o</code></td><td>Insert a new line below</td></tr><tr><td><code>Esc</code></td><td>Return to Normal mode</td></tr><tr><td><code>h</code> <code>j</code> <code>k</code> <code>l</code></td><td>Move left, down, up, right</td></tr><tr><td><code>gg</code></td><td>Go to the first line</td></tr><tr><td><code>G</code></td><td>Go to the last line</td></tr><tr><td><code>:10</code></td><td>Go to line 10</td></tr><tr><td><code>dd</code></td><td>Delete the current line</td></tr><tr><td><code>p</code></td><td>Paste copied/deleted text</td></tr><tr><td><code>u</code></td><td>Undo last change</td></tr><tr><td><code>Ctrl + r</code></td><td>Redo last undone change</td></tr><tr><td><code>/text</code></td><td>Search for text</td></tr><tr><td><code>n</code></td><td>Next search result</td></tr><tr><td><code>N</code></td><td>Previous search result</td></tr><tr><td><code>:w</code></td><td>Save the file</td></tr><tr><td><code>:q</code></td><td>Quit Vim</td></tr><tr><td><code>:wq</code></td><td>Save and quit</td></tr><tr><td><code>:q!</code></td><td>Quit without saving</td></tr><tr><td><code>:set number</code></td><td>Show line numbers</td></tr><tr><td><code>:set nonumber</code></td><td>Hide line numbers</td></tr><tr><td><code>:!&#x3C;command></code></td><td>Execute a shell command without leaving Vim</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (861).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1341).png" alt=""><figcaption></figcaption></figure>
 
 ## Process Management
 
@@ -1203,7 +1203,7 @@ Bash keeps a record of executed commands, stored in `~/.bash_history` and loaded
 
 <table data-search="false"><thead><tr><th>Command</th><th>Description</th><th>Expected Output</th></tr></thead><tbody><tr><td><code>ps</code></td><td>Display processes running in the current terminal</td><td>PID, TTY, TIME, CMD</td></tr><tr><td><code>ps -e</code></td><td>Display all running processes</td><td>List of all system processes</td></tr><tr><td><code>ps -ef</code></td><td>Display all processes in full format</td><td>UID, PID, PPID, STIME, CMD</td></tr><tr><td><code>ps aux</code></td><td>Display detailed process information (BSD format)</td><td>USER, PID, %CPU, %MEM, COMMAND</td></tr><tr><td><code>top</code></td><td>Display real-time running processes</td><td>Interactive process monitor</td></tr><tr><td><code>htop</code></td><td>Interactive process viewer (if installed)</td><td>Color-coded process list</td></tr><tr><td><code>pstree</code></td><td>Display processes in a tree hierarchy</td><td>Parent-child process tree</td></tr><tr><td><code>pstree -p</code></td><td>Display process tree with PIDs</td><td>Process hierarchy with PIDs</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (862).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1342).png" alt=""><figcaption></figcaption></figure>
 
 ### Find a process by port&#x20;
 
@@ -1215,7 +1215,7 @@ sudo lsof -i :<port>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (863).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1343).png" alt=""><figcaption></figcaption></figure>
 
 #### Using ss (Socket investigation Utility)
 
@@ -1225,7 +1225,7 @@ sudo ss -tulpn | grep <port>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (864).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1344).png" alt=""><figcaption></figcaption></figure>
 
 #### Using ps&#x20;
 
@@ -1235,7 +1235,7 @@ ps -aux | grep <port>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (865).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1345).png" alt=""><figcaption></figcaption></figure>
 
 #### Using pgrep
 
@@ -1245,7 +1245,7 @@ pgrep -l ssh
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (866).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1346).png" alt=""><figcaption></figcaption></figure>
 
 ### Identify Process id with process name&#x20;
 
@@ -1255,7 +1255,7 @@ pidof <process name>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (867).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1347).png" alt=""><figcaption></figcaption></figure>
 
 ### Killing Process&#x20;
 
@@ -1267,9 +1267,9 @@ kill <pid>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (868).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1348).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (869).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1349).png" alt=""><figcaption></figcaption></figure>
 
 ## Text Processing&#x20;
 
@@ -1298,7 +1298,7 @@ A **regex** is a pattern-matching language for text.
 * `|` — alternation / OR (needs `-E`)
 * `\d`, `\w`, `\s` — digit/word/whitespace shorthand — only with `grep -P` (PCRE), not standard BRE/ERE
 
-<figure><img src="../../../.gitbook/assets/image (870).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1350).png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -1349,15 +1349,15 @@ Key flags:
 * `-c` — select by character position/range
 * `--complement` — invert the selected fields
 
-<figure><img src="../../../.gitbook/assets/image (876).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1356).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (877).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1357).png" alt=""><figcaption></figcaption></figure>
 
 ### awk - Field processing
 
 Where `cut` only extracts, `awk` extracts, filters by condition, and computes — in one line. Structure: `awk 'pattern {action}' file`. `$1`, `$2`... are fields, `$0` is the whole line, `NR` is the current record number, `NF` is the number of fields, `-F` sets the delimiter.
 
-<figure><img src="../../../.gitbook/assets/image (878).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1358).png" alt=""><figcaption></figcaption></figure>
 
 ### sed - Stream Editing&#x20;
 
@@ -1437,25 +1437,25 @@ cat /etc/pam.d/sshd
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (879).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1359).png" alt=""><figcaption></figcaption></figure>
 
 #### common-auth&#x20;
 
 Shared `auth` stack included by most service files. Defines how a user actually proves identity system-wide (usually `pam_unix.so` checking `/etc/shadow`).
 
-<figure><img src="../../../.gitbook/assets/image (880).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1360).png" alt=""><figcaption></figcaption></figure>
 
 #### common-account&#x20;
 
 Shared `account` stack — checks things like account expiry (`/etc/shadow` expiry fields), whether the account is locked, or time-based access restrictions (`pam_time.so`).
 
-<figure><img src="../../../.gitbook/assets/image (881).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1361).png" alt=""><figcaption></figcaption></figure>
 
 #### common-password&#x20;
 
 Shared `password` stack — enforces password complexity/history when a user runs `passwd`. This is where `pam_pwquality.so` / `pam_cracklib.so` rules live (min length, complexity classes, reuse history).
 
-<figure><img src="../../../.gitbook/assets/image (882).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1362).png" alt=""><figcaption></figcaption></figure>
 
 ## Sudo&#x20;
 
@@ -1471,7 +1471,7 @@ sudo -l
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (883).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1363).png" alt=""><figcaption></figcaption></figure>
 
 ### Sudoers file (/etc/sudoers)
 
@@ -1483,7 +1483,7 @@ cat /etc/sudoers
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (884).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1364).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```
@@ -1508,13 +1508,13 @@ This is the default configuration on Ubuntu.
 
 ### Modifying sudoers file&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (885).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1365).png" alt=""><figcaption></figcaption></figure>
 
 #### With NOPASSWD
 
 Allows the command to run without re-prompting for a password. High-value from an offensive standpoint — if a `NOPASSWD` binary can be abused (GTFOBins), it's an instant root path with no credential needed.
 
-<figure><img src="../../../.gitbook/assets/image (886).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1366).png" alt=""><figcaption></figcaption></figure>
 
 #### visudo&#x20;
 
@@ -1524,7 +1524,7 @@ The **only safe way** to edit `/etc/sudoers` — it locks the file, validates sy
 
 A sudoers `Defaults` setting that overrides `$PATH` when a command is run via sudo, preventing PATH-hijacking attacks (planting a malicious binary earlier in a user-controlled PATH).
 
-<figure><img src="../../../.gitbook/assets/image (887).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1367).png" alt=""><figcaption></figcaption></figure>
 
 If `secure_path` is **not set**, and a sudoers entry allows running a command without an absolute path, PATH hijacking becomes possible.
 
@@ -1849,7 +1849,7 @@ Standard Linux permissions (owner/group/other, rwx) only allow **one** owning us
 
 A file with an ACL shows a `+` after its permission bits:
 
-<figure><img src="../../../.gitbook/assets/image (888).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1368).png" alt=""><figcaption></figcaption></figure>
 
 ### getfacl&#x20;
 
@@ -1859,7 +1859,7 @@ getfacl <file>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (889).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1369).png" alt=""><figcaption></figcaption></figure>
 
 ### setfacl
 
@@ -1902,7 +1902,7 @@ getcap <file>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (890).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1370).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```
@@ -1924,7 +1924,7 @@ sudo setcap <capability> <file>
 
 **cap\_setuid** — allows a process to change its UID, including to `0` (root). If set on an interpreter (python, perl), it's an instant privesc.
 
-<figure><img src="../../../.gitbook/assets/image (891).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1371).png" alt=""><figcaption></figcaption></figure>
 
 ## Linux Networking&#x20;
 
@@ -1932,27 +1932,27 @@ sudo setcap <capability> <file>
 
 The system's network identity/name.
 
-<figure><img src="../../../.gitbook/assets/image (892).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1372).png" alt=""><figcaption></figcaption></figure>
 
 ### hostnamectl&#x20;
 
 Modern systemd tool to view/set hostname and related metadata (also shows OS, kernel, architecture — useful recon).
 
-<figure><img src="../../../.gitbook/assets/image (893).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1373).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (894).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1374).png" alt=""><figcaption></figcaption></figure>
 
 ### hosts file
 
 Static, manual hostname → IP mappings, checked **before** DNS resolution.
 
-<figure><img src="../../../.gitbook/assets/image (895).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1375).png" alt=""><figcaption></figcaption></figure>
 
 ### resolve.conf&#x20;
 
 Defines which DNS servers the system queries for name resolution.
 
-<figure><img src="../../../.gitbook/assets/image (896).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1376).png" alt=""><figcaption></figcaption></figure>
 
 ### Network Interfaces&#x20;
 
@@ -1965,7 +1965,7 @@ ip link show
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (897).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1377).png" alt=""><figcaption></figcaption></figure>
 
 ### ip command&#x20;
 
@@ -1980,7 +1980,7 @@ ip route               # show routing table
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (898).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1378).png" alt=""><figcaption></figcaption></figure>
 
 ### ss
 
@@ -1993,7 +1993,7 @@ ss -antp      # all tcp connections with process info
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (899).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1379).png" alt=""><figcaption></figcaption></figure>
 
 ## Scheduled Tasks&#x20;
 
@@ -2021,7 +2021,7 @@ crontab -l
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (900).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1380).png" alt=""><figcaption></figcaption></figure>
 
 ### Cron file locations&#x20;
 
@@ -2042,15 +2042,15 @@ crontab -l
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (901).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1381).png" alt=""><figcaption></figcaption></figure>
 
 Wait for one minute and check `/tmp/cron_test.log`.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (902).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1382).png" alt=""><figcaption></figcaption></figure>
 
 It is written over here&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (903).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1383).png" alt=""><figcaption></figcaption></figure>
 
 #### Using system-wide crontab&#x20;
 
@@ -2058,6 +2058,6 @@ it is system-wide job scheduler.&#x20;
 
 Since it's shared by the whole system, it can schedule jobs for **any user**.
 
-<figure><img src="../../../.gitbook/assets/image (904).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1384).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (905).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1385).png" alt=""><figcaption></figcaption></figure>

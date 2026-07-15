@@ -16,15 +16,15 @@ sudo nmap <scan config> -D RND:2 <target>
 
 #### Scan - 1
 
-<figure><img src="../../../.gitbook/assets/image (547).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1027).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (548).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1028).png" alt=""><figcaption></figcaption></figure>
 
 #### Scan - 2
 
-<figure><img src="../../../.gitbook/assets/image (549).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1029).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (550).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1030).png" alt=""><figcaption></figcaption></figure>
 
 ## Source Port Manipulation&#x20;
 
@@ -42,11 +42,11 @@ sudo nmap -ss -Pn -n -iL host_list.txt -p 445 -g 80
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (552).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1032).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (551).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1031).png" alt=""><figcaption></figcaption></figure>
 
 ## Fragment packets&#x20;
 
@@ -58,11 +58,11 @@ sudo nmap -sS -Pn -n -iL host_list.txt -p 445 -f
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (553).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1033).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (554).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1034).png" alt=""><figcaption></figcaption></figure>
 
 ## Custom data&#x20;
 
@@ -86,11 +86,11 @@ sudo nmap --data <hex string> <scan_config>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (557).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1037).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (556).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1036).png" alt=""><figcaption></figcaption></figure>
 
 ### Normal String&#x20;
 
@@ -102,11 +102,11 @@ sudo nmap --data-string <normal-string> <scan config>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (559).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1039).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (558).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1038).png" alt=""><figcaption></figcaption></figure>
 
 ## Change Packet Size
 
@@ -117,11 +117,11 @@ _Randomized payload → harder signature matching_
 
 #### Scan
 
-<figure><img src="../../../.gitbook/assets/image (560).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1040).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (561).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1041).png" alt=""><figcaption></figcaption></figure>
 
 ## Spoof MAC&#x20;
 
@@ -133,11 +133,11 @@ sudo nmap --spoof-mac 00:11:22:33:44:55 <target>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (562).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1042).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (563).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1043).png" alt=""><figcaption></figcaption></figure>
 
 ### Device Specific
 
@@ -149,11 +149,11 @@ sudo nmap 192.168.16.135 -sS -Pn -n -p 445 --reason --spoof-mac Dell
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (564).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1044).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (565).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1045).png" alt=""><figcaption></figcaption></figure>
 
 ### Random MAC&#x20;
 
@@ -165,11 +165,11 @@ sudo nmap 192.168.16.135 -sS -Pn -n -p 445 --reason --spoof-mac 0
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (567).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1047).png" alt=""><figcaption></figcaption></figure>
 
 #### Analysis
 
-<figure><img src="../../../.gitbook/assets/image (566).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1046).png" alt=""><figcaption></figcaption></figure>
 
 ## Other Options
 
@@ -181,7 +181,7 @@ sudo nmap <scan_config> --badsum
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (555).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1035).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _`--badsum` sends intentionally corrupted packets. Legitimate hosts should ignore them. Any response likely comes from a firewall, IDS/IPS, or other network middlebox rather than the target host itself._

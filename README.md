@@ -28,7 +28,7 @@ layout:
 
 ### Domain Name Structure
 
-<figure><img src="../.gitbook/assets/image (130).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (492).png" alt=""><figcaption></figcaption></figure>
 
 #### TLD (Top Level Domain)
 
@@ -44,7 +44,7 @@ A **Subdomain** is a prefix added to a domain name to organize or navigate diffe
 
 ### How DNS Works
 
-<figure><img src="../.gitbook/assets/image (131).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (493).png" alt=""><figcaption></figcaption></figure>
 
 **1. Your Computer Asks for Directions (DNS Query):** When you type a domain name, your computer first checks its local cache for the matching IP address. If it's not found, it contacts a DNS resolver—typically provided by your Internet Service Provider.
 
@@ -96,7 +96,7 @@ Our browsers usually first look up records in the local '`/etc/hosts`' file, and
 
 ### HTTP Requests
 
-<figure><img src="../.gitbook/assets/image (134).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (496).png" alt=""><figcaption></figcaption></figure>
 
 The first line of every HTTP request consist of three items separated by spaces:
 
@@ -125,7 +125,7 @@ The first line of every HTTP request consist of three items separated by spaces:
 
 ### HTTP Responses
 
-<figure><img src="../.gitbook/assets/image (135).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (497).png" alt=""><figcaption></figcaption></figure>
 
 The first line of every HTTP response consist of three items, separated by spaces:
 
@@ -211,7 +211,7 @@ The first line of every HTTP response consist of three items, separated by space
 
 ### Making Web Requests with cURL
 
-<figure><img src="../.gitbook/assets/image (136).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (498).png" alt=""><figcaption></figcaption></figure>
 
 ## Web Servers
 
@@ -634,7 +634,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDU2Nzg5LCJuYW1lIjoiSm9zZXBoIn0
 3. If authorized, provider sends an **access token**.
 4. Application uses the token to authenticate API requests.
 
-<figure><img src="../.gitbook/assets/image (137).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (499).png" alt=""><figcaption></figcaption></figure>
 
 **Common Attack Vectors:**
 

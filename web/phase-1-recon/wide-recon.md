@@ -54,11 +54,11 @@ What are we after ?&#x20;
 
 ### Shodan search using ASN number
 
-<figure><img src="../../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (442).png" alt=""><figcaption></figcaption></figure>
 
 ### Shodan search using CIDR
 
-<figure><img src="../../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (443).png" alt=""><figcaption></figcaption></figure>
 
 ### Shodan Cheatsheet
 
@@ -69,7 +69,7 @@ What are we after ?&#x20;
 * Karma v2 (Requires Shodan Premium) \[Most Effective]
 *   [Shosubgo](../tools/shoshubgo.md)<br>
 
-    <figure><img src="../../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (437).png" alt=""><figcaption></figcaption></figure>
 
 ## Finding Company Acquisitions
 
@@ -317,4 +317,4 @@ cat bbot_subs.txt | anew combined.txt
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (422).png" alt=""><figcaption></figcaption></figure>

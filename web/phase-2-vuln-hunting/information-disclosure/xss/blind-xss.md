@@ -12,39 +12,39 @@ _Even though it seems that the payload is percent encoded in the source code it 
 
 ## Target - 1&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (224).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (586).png" alt=""><figcaption></figcaption></figure>
 
 We can see that no users is created yet. let's create a user.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (225).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (587).png" alt=""><figcaption></figcaption></figure>
 
 We can see that user in the user list and we're directly logged in as that user. Let's check the profile section.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (226).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (588).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../../.gitbook/assets/image (227).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (589).png" alt=""><figcaption></figcaption></figure>
 
 We can see that we're given the option to edit our information in the profile tab. let's try to enter some payload if we can find stored XSS therein.&#x20;
 
 ### Checking for reflections
 
-<figure><img src="../../../../.gitbook/assets/image (228).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (590).png" alt=""><figcaption></figcaption></figure>
 
 We can see that when we try to update the profile it is reflecting back in the same textarea field. Also we know that there is no way to execute any other tag inside textarea. So for executing XSS we need to break out of the textarea.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (229).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (591).png" alt=""><figcaption></figcaption></figure>
 
 But still there is no any change. Let's see the source code for what hapenned.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (230).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (592).png" alt=""><figcaption></figcaption></figure>
 
 We can see that the payload is URL encoded. Let's now see that user from the admin panel with the admin credentials provided to us. We can see that user list there too.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (231).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (593).png" alt=""><figcaption></figcaption></figure>
 
 And boom on clicking on that user we strike an XSS therein.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (232).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (594).png" alt=""><figcaption></figcaption></figure>
 
 Thus we can't determine where the internal reflection may be possible. So we continuously need to check the payloads and if it is reflecting somewhere else that we couldn't determine. Same case of `aree` industries where I have found a stored XSS in which payload was entered while registration but later it reflected when someone else tried to view our profile.&#x20;
 
@@ -54,21 +54,21 @@ _Note the `"/>` used in the payload context. Make sure to use this before starti
 
 ## Target - 2
 
-<figure><img src="../../../../.gitbook/assets/image (234).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (596).png" alt=""><figcaption></figcaption></figure>
 
 On clicking on placing order it is simply replying with a message that your order has been placed and not a single input of that is being reflected back. So can we find XSS herein. let's check in the admin panel what new things we did get.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (235).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (597).png" alt=""><figcaption></figcaption></figure>
 
 Thus we can see that the admin is able to see various orders placed by the customers and the address of the customer. As well as it seems that the website is trying to fingerprint the customer for some tracking details. Let's try to use burp suite match and replace to modify all these and let's check if we can execute XSS therein.&#x20;
 
 But note that the developer here corrected the mistake that he did in the target-1 thus we're unable to execute XSS from the `Customer Address` field. But he forgot to encode/sanitize the Request headers that is stored and reflected in the admin panel that they had done for the fingerprinting. let's take advantage of it.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (236).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (598).png" alt=""><figcaption></figcaption></figure>
 
 Place the order again so that the malicious header will go in the admin panel. And boom. :bomb:
 
-<figure><img src="../../../../.gitbook/assets/image (237).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (599).png" alt=""><figcaption></figcaption></figure>
 
 But let's say we're unable to access the admin panel then how to determine/find this vulnerability. So the answer is simple. instead of attaching an XSS payload attach this and log requests on your server:&#x20;
 
@@ -285,11 +285,11 @@ If the victim's paste action **stores** the payload (e.g., in a comment or ticke
 
 3\. Open copy.html, click Copy Coupon.
 
-<figure><img src="../../../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (294).png" alt=""><figcaption></figcaption></figure>
 
 4. Open victim.html, click inside the box and press Ctrl+V.
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (295).png" alt=""><figcaption></figcaption></figure>
 
 5\. The alert will fire showing the XSS worked.
 
@@ -813,11 +813,11 @@ _❌ It won't work in simple  \<input> or  \<textarea> fields, because those onl
 
 **attacker.html page. Copy payload from here.**&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (296).png" alt=""><figcaption></figcaption></figure>
 
 **vulnerable.html. paste the payload in the chatbot and see the boom.**&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (297).png" alt=""><figcaption></figcaption></figure>
 
 #### Why This Pastejacking Attack Worked
 

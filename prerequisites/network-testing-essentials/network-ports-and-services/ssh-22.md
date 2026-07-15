@@ -2,7 +2,7 @@
 
 ## Introduction&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (885).png" alt=""><figcaption></figcaption></figure>
 
 **SSH (Secure Shell)** is an **Application Layer protocol** that provides secure remote access, command execution, and file transfer capabilities over an encrypted network connection.
 
@@ -17,7 +17,7 @@ sudo apt install openssh-server -y
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (705).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1185).png" alt=""><figcaption></figcaption></figure>
 
 ### **Start the SSH Service**
 
@@ -28,7 +28,7 @@ sudo systemctl status ssh
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (706).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1186).png" alt=""><figcaption></figcaption></figure>
 
 ### Connecting to SSH&#x20;
 
@@ -38,19 +38,19 @@ ssh <user>@<IP>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (707).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1187).png" alt=""><figcaption></figcaption></figure>
 
 ## Default Files&#x20;
 
 **All files related to the SSH service are stored in `/etc/ssh`.**
 
-<figure><img src="../../../.gitbook/assets/image (708).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1188).png" alt=""><figcaption></figcaption></figure>
 
 ### sshd\_config file
 
 This is the **default Ubuntu OpenSSH server configuration file**.
 
-<figure><img src="../../../.gitbook/assets/image (710).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1190).png" alt=""><figcaption></figcaption></figure>
 
 To view the final configuration used by the SSH daemon:&#x20;
 
@@ -60,7 +60,7 @@ sudo sshd -T
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (709).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1189).png" alt=""><figcaption></figcaption></figure>
 
 ### SSH Host Keys&#x20;
 
@@ -81,7 +81,7 @@ That fingerprint is derived from the server's host key.
 * On subsequent connections, the stored key is compared against the server's presented key to verify the server's identity.&#x20;
 * Host keys are stored in `/etc/ssh/` and are distinct from user authentication keys.
 
-<figure><img src="../../../.gitbook/assets/image (724).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1204).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _The most modern key is preferably used._&#x20;
@@ -120,11 +120,11 @@ sshd -T | grep -E 'authentication|permitrootlogin'
 _Even though the authentication directives are commented out in `sshd_config`, `sshd -T` shows that OpenSSH enables both public key and password authentication by default. Root login is allowed, but password-based root login is disabled; the root user can authenticate only using public keys (`PermitRootLogin prohibit-password`)._
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (711).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1191).png" alt=""><figcaption></figcaption></figure>
 
 ### Password Authentication&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (712).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1192).png" alt=""><figcaption></figcaption></figure>
 
 | State in config               | Actual behavior     |
 | ----------------------------- | ------------------- |
@@ -134,17 +134,17 @@ _Even though the authentication directives are commented out in `sshd_config`, `
 
 Note that even if this field is commented `PasswordAuthentication` is enabled by default.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (714).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1194).png" alt=""><figcaption></figcaption></figure>
 
 #### Getting Blocked
 
-<figure><img src="../../../.gitbook/assets/image (715).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1195).png" alt=""><figcaption></figcaption></figure>
 
 ### Public Key Authentication&#x20;
 
 It is the most secure way to login to an SSH server as it is brute-force resistance and no need to remember password.
 
-<figure><img src="../../../.gitbook/assets/image (716).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1196).png" alt=""><figcaption></figcaption></figure>
 
 | State in config file        | Actual behavior     |
 | --------------------------- | ------------------- |
@@ -158,37 +158,37 @@ It is the most secure way to login to an SSH server as it is brute-force resista
 * **Public key (of client stored in server)** → verifies identity
 * **authorized\_keys (server)** → access control list
 
-<figure><img src="../../../.gitbook/assets/image (410).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (890).png" alt=""><figcaption></figcaption></figure>
 
 ### Host-based authentication
 
 1. Enable host based authentication on the SSH server (ubuntu).&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (725).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1205).png" alt=""><figcaption></figcaption></figure>
 
 2. Enable host based authentication on the SSH client (kali).&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (726).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1206).png" alt=""><figcaption></figcaption></figure>
 
 3. Verify client host keys on the SSH client (kali)
 
-<figure><img src="../../../.gitbook/assets/image (727).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1207).png" alt=""><figcaption></figcaption></figure>
 
 4. Add hostname of client and server in each other's host files.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (728).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1208).png" alt=""><figcaption></figcaption></figure>
 
 5. Copy the value of public key of SSH client to SSH server.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (729).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1209).png" alt=""><figcaption></figcaption></figure>
 
 6. Configure trusted users on the SSH server. Since we've copied the public key of `root@kali` we've to add root user of `kali` host.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (730).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1210).png" alt=""><figcaption></figcaption></figure>
 
 7. Login with `HostbasedAuthentication=yes` method.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (731).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1211).png" alt=""><figcaption></figcaption></figure>
 
 ## Public Key Authentication Setup&#x20;
 
@@ -210,7 +210,7 @@ ssh-keygen -t ed25519
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (718).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1198).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 **Danger**
@@ -226,7 +226,7 @@ _The password you entered is to protect the private key file. So even if private
 **Way - 1:**\
 Thus we can either copy paste the keys manually if we don't have password:
 
-<figure><img src="../../../.gitbook/assets/image (719).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1199).png" alt=""><figcaption></figcaption></figure>
 
 **Way - 2:**
 
@@ -240,11 +240,11 @@ ssh-copy-id username@kali_ip
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (721).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1201).png" alt=""><figcaption></figcaption></figure>
 
 ### Login
 
-<figure><img src="../../../.gitbook/assets/image (722).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1202).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Recommended .ssh permission**
@@ -257,7 +257,7 @@ _chmod 600 \~/.ssh/authorized\_keys_
 
 ## Agent Forwarding&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (741).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1221).png" alt=""><figcaption></figcaption></figure>
 
 ### Start ssh-agent on Kali&#x20;
 
@@ -267,7 +267,7 @@ eval "$(ssh-agent -s)"
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (732).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1212).png" alt=""><figcaption></figcaption></figure>
 
 ### Load SSH key
 
@@ -277,7 +277,7 @@ ssh-add ~/.ssh/<your ssh private key>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (737).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1217).png" alt=""><figcaption></figcaption></figure>
 
 #### Verify if the key is loaded successfully
 
@@ -287,7 +287,7 @@ ssh-add -l
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (738).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1218).png" alt=""><figcaption></figcaption></figure>
 
 ### Connect to Ubuntu with agent forwarding&#x20;
 
@@ -297,7 +297,7 @@ ssh -A r0b@192.168.16.142
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (735).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1215).png" alt=""><figcaption></figcaption></figure>
 
 ### Verify Forwarding on Ubuntu
 
@@ -308,11 +308,11 @@ ssh-add -l
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (739).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1219).png" alt=""><figcaption></figcaption></figure>
 
 ### Login to OWASPBWA without password&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (740).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1220).png" alt=""><figcaption></figcaption></figure>
 
 ## SSH Port Forwarding&#x20;
 
@@ -323,7 +323,7 @@ ssh-add -l
 
 SSH Local Port Forwarding creates a port on the attacker's machine and tunnels traffic through an SSH server to reach a remote service that may not be directly accessible.
 
-<figure><img src="../../../.gitbook/assets/image (742).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1222).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```
@@ -331,11 +331,11 @@ ssh -L <local host port>:<remote host>:<remote host port> r0b@<ip>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (743).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1223).png" alt=""><figcaption></figcaption></figure>
 
 ### Remote Port Forwarding&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (744).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1224).png" alt=""><figcaption></figcaption></figure>
 
 #### Start listening on local port 9999&#x20;
 
@@ -345,7 +345,7 @@ nc -lvnp 9999
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (745).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1225).png" alt=""><figcaption></figcaption></figure>
 
 #### Start and keep the session open with remote forwarding
 
@@ -355,7 +355,7 @@ ssh -R 7777:127.0.0.1:9999 r0b@192.168.16.142
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (746).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1226).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _This will forward any traffic sent to Ubuntu's port 7777 to kali's port 9999._&#x20;
@@ -363,21 +363,21 @@ _This will forward any traffic sent to Ubuntu's port 7777 to kali's port 9999._&
 
 #### Make sure ubuntu has settings on
 
-<figure><img src="../../../.gitbook/assets/image (747).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1227).png" alt=""><figcaption></figcaption></figure>
 
 #### Connect from OWASP BWA&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (748).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1228).png" alt=""><figcaption></figcaption></figure>
 
 **We see that we've received the connection.**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (749).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1229).png" alt=""><figcaption></figcaption></figure>
 
 #### Send message to kali&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (750).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1230).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (751).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1231).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _See the remote port forwarding is generally used for reverse shell connection. We can start a reverse shell listener on kali and use remote port forwarding._
@@ -387,7 +387,7 @@ _See the remote port forwarding is generally used for reverse shell connection. 
 
 SSH Dynamic Port Forwarding creates a local SOCKS proxy that tunnels arbitrary TCP connections through an SSH server, allowing access to any host and port reachable from that server.
 
-<figure><img src="../../../.gitbook/assets/image (752).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1232).png" alt=""><figcaption></figcaption></figure>
 
 #### Start Dynamic Port Forwarding&#x20;
 
@@ -397,16 +397,16 @@ ssh -D <port> r0b@192.168.16.142
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (753).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1233).png" alt=""><figcaption></figcaption></figure>
 
 #### Configure Proxychains&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (754).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1234).png" alt=""><figcaption></figcaption></figure>
 
 #### Connect to any services using proxychains&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (755).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1235).png" alt=""><figcaption></figcaption></figure>
 
 #### Proof&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (756).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1236).png" alt=""><figcaption></figcaption></figure>

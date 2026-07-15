@@ -16,13 +16,13 @@ TLSx is a quick and configurable tool that acts as a Swiss army knife for findin
 
 ### SAN and CNs Detection (Subject alternative name/Common Name)
 
-<figure><img src="../../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (438).png" alt=""><figcaption></figcaption></figure>
 
 ### Enumerate TLS Versions
 
 > The creator forgot the `.` between the version. In below image version is tls 1.2
 
-<figure><img src="../../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (440).png" alt=""><figcaption></figcaption></figure>
 
 **Note:** These results are shown for **all** IPs associated with the apex domain.\
 The `tlsx` tool queries **all resolved IPs** for a domain, whereas `nmap` (with `--script ssl-enum-ciphers`) typically tests **only one IP address** from the resolution.

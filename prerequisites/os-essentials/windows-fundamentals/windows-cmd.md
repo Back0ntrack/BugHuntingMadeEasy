@@ -23,11 +23,11 @@ Environment variables store system and user configuration. Access them with `%VA
 
 #### View all Environment variable&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (953).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1433).png" alt=""><figcaption></figcaption></figure>
 
 #### View single environment variable&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (954).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1434).png" alt=""><figcaption></figcaption></figure>
 
 ### Command Chaining&#x20;
 
@@ -37,32 +37,32 @@ Environment variables store system and user configuration. Access them with `%VA
 
 <table data-search="false"><thead><tr><th>Operator</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code>></code></td><td>Redirect stdout, <strong>overwrite</strong></td><td><code>dir > listing.txt</code></td></tr><tr><td><code>>></code></td><td>Redirect stdout, <strong>append</strong></td><td><code>echo new line >> log.txt</code></td></tr><tr><td><code>&#x3C;</code></td><td>Redirect stdin (input from file)</td><td><code>sort &#x3C; unsorted.txt</code></td></tr><tr><td><code>2></code></td><td>Redirect stderr</td><td><code>dir Z:\ 2> errors.txt</code></td></tr><tr><td><code>2>&#x26;1</code></td><td>Redirect stderr to stdout</td><td><code>dir Z:\ > all.txt 2>&#x26;1</code></td></tr><tr><td><code>>nul</code></td><td>Discard stdout</td><td><code>ping 192.168.1.1 >nul</code></td></tr><tr><td><code>2>nul</code></td><td>Discard stderr</td><td><code>dir Z:\ 2>nul</code></td></tr><tr><td><code>>nul 2>&#x26;1</code></td><td>Discard everything</td><td><code>ping 10.0.0.1 >nul 2>&#x26;1</code></td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (955).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1435).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (956).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1436).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (957).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1437).png" alt=""><figcaption></figcaption></figure>
 
 ### Pipes&#x20;
 
 The `|` operator passes the **text output** of one command as **text input** to the next.
 
-<figure><img src="../../../.gitbook/assets/image (958).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1438).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (959).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1439).png" alt=""><figcaption></figcaption></figure>
 
 ### Wildcards&#x20;
 
 <table><thead><tr><th width="116.20001220703125">Wildcard</th><th width="241.4000244140625">Matches</th><th width="275.99993896484375">Example</th></tr></thead><tbody><tr><td><code>*</code></td><td>Any number of characters</td><td><code>*.txt</code> matches all .txt files</td></tr><tr><td><code>?</code></td><td>Exactly one character</td><td><code>file?.txt</code> matches <code>file1.txt</code>, <code>fileA.txt</code></td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (960).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1440).png" alt=""><figcaption></figcaption></figure>
 
 ### Command History and Alias&#x20;
 
 * `F7` ⇒ Show command history popup&#x20;
 * `doskey /history` ⇒ List command history
 
-<figure><img src="../../../.gitbook/assets/image (961).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1441).png" alt=""><figcaption></figcaption></figure>
 
 #### Create macros&#x20;
 
@@ -72,7 +72,7 @@ doskey ls=dir $*
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (962).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1442).png" alt=""><figcaption></figcaption></figure>
 
 {% code overflow="wrap" %}
 ```
@@ -102,7 +102,7 @@ The most-used CMD command is `dir`
 
 <table data-search="false"><thead><tr><th width="122.800048828125">Switch</th><th width="577.9998779296875">Description</th></tr></thead><tbody><tr><td><code>/a</code></td><td>Show all attributes. <code>/a:h</code> hidden, <code>/a:d</code> directories, <code>/a:s</code> system, <code>/a:r</code> read-only, <code>/a:-d</code> files only</td></tr><tr><td><code>/s</code></td><td>Recursive (subdirectories)</td></tr><tr><td><code>/q</code></td><td>Show file owner</td></tr><tr><td><code>/r</code></td><td>Show Alternate Data Streams (ADS)</td></tr><tr><td><code>/b</code></td><td>Bare format (names only, no headers/footers)</td></tr><tr><td><code>/t</code></td><td>Time field. <code>/t:c</code> creation, <code>/t:a</code> access, <code>/t:w</code> write</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 
 ### Copy and Move&#x20;
 
@@ -113,7 +113,7 @@ move <source> <destination>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 ### Rename a file&#x20;
 
@@ -124,13 +124,13 @@ ren <file> <rename file>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
 ### Delete a file
 
 <table><thead><tr><th width="178.79998779296875">Switch</th><th width="405.20001220703125">Description</th></tr></thead><tbody><tr><td><code>/f</code></td><td>Force delete read-only files</td></tr><tr><td><code>/s</code></td><td>Delete from subdirectories too</td></tr><tr><td><code>/q</code></td><td>Quiet mode</td></tr><tr><td><code>/a</code></td><td>Delete by attribute. <code>/a:h</code> hidden, <code>/a:r</code> read-only</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 ### Searching&#x20;
 
@@ -164,9 +164,9 @@ where /q python.exe && echo Python found || echo Python not found
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
 #### find&#x20;
 
@@ -179,7 +179,7 @@ Searches for text strings in files. Simple but limited.
 | `/n`   | Display line numbers                        |
 | `/v`   | Display lines that DON'T contain the string |
 
-<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
 #### findstr&#x20;
 
@@ -222,7 +222,7 @@ findstr /si <text> <possible location>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 **using dir and findstr**&#x20;
 
@@ -232,11 +232,11 @@ dir /s /b | findstr /i <text file>
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
 ## Users and Group&#x20;
 
@@ -246,7 +246,7 @@ Displays the current user context. Works identically in CMD and PowerShell.
 
 <table data-search="false"><thead><tr><th>Switch</th><th>Description</th></tr></thead><tbody><tr><td>(none)</td><td>Just username (DOMAIN\user)</td></tr><tr><td><code>/all</code></td><td>Everything — user, SID, groups, privileges</td></tr><tr><td><code>/user</code></td><td>Username and SID</td></tr><tr><td><code>/groups</code></td><td>All group memberships</td></tr><tr><td><code>/priv</code></td><td>All privileges and their status</td></tr><tr><td><code>/logonid</code></td><td>Logon ID</td></tr><tr><td><code>/fqdn</code></td><td>Fully qualified domain name</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
 ### Net User&#x20;
 
@@ -281,9 +281,9 @@ net user Administrator /domain
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
 
 ### net localgroup&#x20;
 
@@ -306,13 +306,13 @@ net localgroup Administrators hacker /add
 net localgroup Administrators hacker /delete
 ```
 
-<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 
 ### Net Accounts (Password and lockout policy)&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
 
 ### quser (query user)&#x20;
 
@@ -326,7 +326,7 @@ query user
 quser /server:COMPUTER01
 ```
 
-<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 
 ## System Enumeration&#x20;
 
@@ -339,7 +339,7 @@ echo %COMPUTERNAME%
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
 
 ### systeminfo&#x20;
 
@@ -355,13 +355,13 @@ systeminfo | findstr /i "os name version architecture domain hotfix"
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
 
 ### identify windows version&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
 
 ## Process Management&#x20;
 
@@ -369,7 +369,7 @@ systeminfo | findstr /i "os name version architecture domain hotfix"
 
 <table data-search="false"><thead><tr><th width="149.20001220703125">Switch</th><th width="403.60003662109375">Description</th></tr></thead><tbody><tr><td><code>/v</code></td><td>Verbose (includes status, username, CPU time)</td></tr><tr><td><code>/fo</code></td><td>Format: <code>TABLE</code>, <code>LIST</code>, <code>CSV</code></td></tr><tr><td><code>/fi</code></td><td>Filter by criteria</td></tr><tr><td><code>/svc</code></td><td>Show services hosted by each process</td></tr><tr><td><code>/m</code></td><td>Show loaded modules (DLLs)</td></tr><tr><td><code>/nh</code></td><td>No header</td></tr><tr><td><code>/s</code></td><td>Remote computer</td></tr><tr><td><code>/u</code></td><td>Username for remote</td></tr><tr><td><code>/p</code></td><td>Password for remote</td></tr></tbody></table>
 
-<figure><img src="../../../.gitbook/assets/image (963).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1443).png" alt=""><figcaption></figcaption></figure>
 
 ### Taskkill
 
@@ -392,7 +392,7 @@ taskkill /fi "username eq SYSTEM" /f    :: Kill all SYSTEM processes (dangerous!
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (964).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1444).png" alt=""><figcaption></figcaption></figure>
 
 ## Service Enumeration&#x20;
 
@@ -421,11 +421,11 @@ sc query type= service         :: Win32 services
 sc query type= driver          :: Drivers
 ```
 
-<figure><img src="../../../.gitbook/assets/image (965).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1445).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (966).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1446).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (967).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1447).png" alt=""><figcaption></figcaption></figure>
 
 ### sc qc&#x20;
 
@@ -439,7 +439,7 @@ sc qc wuauserv
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (968).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1448).png" alt=""><figcaption></figcaption></figure>
 
 ### Start and stop a service (sc)
 
@@ -452,11 +452,11 @@ sc continue SomeService
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (969).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1449).png" alt=""><figcaption></figcaption></figure>
 
 ### Create new service and modify
 
-<figure><img src="../../../.gitbook/assets/image (970).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1450).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _:: Note: You'll get an error "service did not respond" when you start the service.— that's normal_&#x20;
@@ -464,7 +464,7 @@ _:: Note: You'll get an error "service did not respond" when you start the servi
 _:: because cmd.exe isn't a proper service binary, but the command DOES execute_
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (971).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1451).png" alt=""><figcaption></figcaption></figure>
 
 ### Start and stop a service (net)
 
@@ -480,15 +480,15 @@ net start Spooler
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (972).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1452).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (973).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1453).png" alt=""><figcaption></figcaption></figure>
 
 ## Scheduled Tasks&#x20;
 
 ### schtasks /query&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (974).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1454).png" alt=""><figcaption></figcaption></figure>
 
 ### schtasks /create&#x20;
 
@@ -508,7 +508,7 @@ schtasks /create /tn "FreqTask" /tr "cmd /c whoami > C:\Temp\who.txt" /sc minute
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (975).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1455).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 _Note that we need a readymade executable so that we can use it._&#x20;

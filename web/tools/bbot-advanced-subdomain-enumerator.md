@@ -2,7 +2,7 @@
 
 ## Installation
 
-<div data-full-width="true"><figure><img src="../../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure> <figure><img src="../../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure></div>
+<div data-full-width="true"><figure><img src="../../.gitbook/assets/image (434).png" alt=""><figcaption></figcaption></figure> <figure><img src="../../.gitbook/assets/image (428).png" alt=""><figcaption></figcaption></figure></div>
 
 ### Adding API keys
 
@@ -19,7 +19,7 @@ modules:
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (427).png" alt=""><figcaption></figcaption></figure>
 
 > **Note: YAML** is space sensitive. Indentation must be consistent (use 2 spaces per level).&#x20;
 
@@ -38,7 +38,7 @@ List Presets: `bbot -lp`
 
 Some good presets: `subdomain-enum`, `cloud-enum`, `code-enum`
 
-<figure><img src="../../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (435).png" alt=""><figcaption></figcaption></figure>
 
 The only difference between the setting up flags and presets is when we set preset then all the modules is being used but when we use flags then only required modules to that flag is used.
 

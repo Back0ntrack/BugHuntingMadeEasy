@@ -4,11 +4,11 @@
 
 ### Command Executing Functions
 
-<figure><img src="../../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (189).png" alt=""><figcaption></figcaption></figure>
 
 ### Command Injection Operators&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (190).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note:** _Command injection is possible when untrusted user input is passed—directly or_\
@@ -18,11 +18,11 @@ _without proper validation, sanitization, or safe parameterization._
 
 ### PHP Example
 
-<figure><img src="../../../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (191).png" alt=""><figcaption></figcaption></figure>
 
 ### Node JS Example
 
-<figure><img src="../../../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (192).png" alt=""><figcaption></figcaption></figure>
 
 ## What is Command Injection ?&#x20;
 
