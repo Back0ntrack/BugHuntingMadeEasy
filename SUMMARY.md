@@ -145,3 +145,4 @@
     * [Execute Commands](infrastructure/enumeration-and-exploitation/pentesting-mssql/execute-commands.md)
   * [Pentesting NFS](infrastructure/enumeration-and-exploitation/pentesting-nfs.md)
   * [Pentesting RDP](infrastructure/enumeration-and-exploitation/pentesting-rdp.md)
+  * [Pentesting WinRM](infrastructure/enumeration-and-exploitation/pentesting-winrm.md)
