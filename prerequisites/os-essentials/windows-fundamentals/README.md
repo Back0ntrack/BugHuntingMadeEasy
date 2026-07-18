@@ -175,9 +175,18 @@ NTLM is a challenge-response protocol — the password (or its hash) never cross
 
 ### LSASS
 
+<figure><img src="../../../.gitbook/assets/image (1639).png" alt=""><figcaption></figcaption></figure>
+
 LSASS ⇒ (Local Security Authority Subsystem Service)
 
-`lsass.exe` enforces the local security policy — handles logon, password changes, and **holds credential material in memory** for the current session (plaintext in some configs, NTLM hashes, Kerberos tickets).
+`lsass.exe` located at `%SYSTEMROOT%\System32\Lsass.exe` enforces the local security policy — handles logon, password changes, and **holds credential material in memory** for the current session (plaintext in some configs, NTLM hashes, Kerberos tickets).
+
+Instead, while users are logged in, LSASS may keep in memory:
+
+* NTLM hashes
+* Kerberos tickets (TGTs/TGSs)
+* Cached credentials
+* Sometimes plaintext passwords (depending on authentication providers like WDigest and system configuration)
 
 {% hint style="info" %}
 _`lsass.exe` enforces the local security policy — handles logon, password changes, and **holds credential material in memory** for the current session (plaintext in some configs, NTLM hashes, Kerberos tickets)._
@@ -203,3 +212,12 @@ Impersonation levels (weakest to strongest): `Anonymous` → `Identification` �
 
 _`whoami /priv` should be one of the very first commands run on any shell. Any of the above privileges present (even if disabled by default state) is worth immediately checking against known local privesc chains — winPEAS flags all of these automatically._
 {% endhint %}
+
+### NTDS.dit&#x20;
+
+`NTDS.dit` is a database file that stores Active Directory data, including but not limited to:
+
+* User accounts (username & password hash)
+* Group accounts
+* Computer accounts
+* Group policy objects
