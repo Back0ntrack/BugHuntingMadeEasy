@@ -138,7 +138,7 @@ reg save HKLM\SECURITY C:\temp\security.hive
 
 ### The core players
 
-<table><thead><tr><th width="178.60003662109375">Component</th><th>Role</th><th>Pentester Relevance</th></tr></thead><tbody><tr><td><strong>LSASS (<code>lsass.exe</code>)</strong></td><td>Local Security Authority Subsystem Service. The core authentication process responsible for validating logons, creating access tokens, enforcing local security policy, and storing credential material in memory.</td><td>Primary target for credential dumping (e.g., extracting NTLM hashes, Kerberos tickets, or plaintext credentials depending on configuration).</td></tr><tr><td><strong>SAM (Security Account Manager)</strong></td><td>Database containing local user accounts, group memberships, and password hashes. Stored on disk in the <strong>SAM</strong> registry hive.</td><td>Source of local NTLM password hashes used for offline cracking or Pass-the-Hash attacks.</td></tr><tr><td><strong>LSA (Local Security Authority)</strong></td><td>Windows security policy engine that works through LSASS. Manages local security policy, audit policy, user rights, and <strong>LSA Secrets</strong>.</td><td>LSA Secrets may contain service account passwords, scheduled task credentials, cached secrets, and other sensitive information.</td></tr><tr><td><strong>Winlogon (<code>winlogon.exe</code>)</strong></td><td>Handles the interactive logon process (e.g., Ctrl+Alt+Del, credential prompt, lock screen) and passes user credentials to LSASS for authentication.</td><td>Understanding the logon flow helps explain how Windows authenticates users and where credentials are processed.</td></tr><tr><td><strong>Authentication Packages</strong></td><td>DLLs loaded by LSASS to perform authentication using different protocols. Examples include <code>msv1_0.dll</code> (NTLM), <code>wdigest.dll</code>, <code>tspkg.dll</code>, <code>livessp.dll</code>, <code>negotiate.dll</code> (selects NTLM or Kerberos), and <code>kerberos.dll</code> (Active Directory environments).</td><td>Determines which authentication mechanisms are available and what credential material may be present in LSASS memory. <code>WDigest</code> is especially relevant when plaintext credentials are retained.</td></tr></tbody></table>
+<table><thead><tr><th width="178.60003662109375">Component</th><th>Role</th><th>Pentester Relevance</th></tr></thead><tbody><tr><td><strong>LSASS (<code>lsass.exe</code>)</strong></td><td>Local Security Authority Subsystem Service. The core authentication process responsible for validating logons, creating access tokens, enforcing local security policy, and storing credential material in memory.</td><td><p>Primary target for credential dumping (e.g., extracting NTLM hashes, Kerberos tickets, or plaintext credentials depending on configuration). </p><ul><li>Stores credentials of remote machine in memory. See SMB Session persistence. </li></ul></td></tr><tr><td><strong>SAM (Security Account Manager)</strong></td><td>Database containing local user accounts, group memberships, and password hashes. Stored on disk in the <strong>SAM</strong> registry hive.</td><td>Source of local NTLM password hashes used for offline cracking or Pass-the-Hash attacks.</td></tr><tr><td><strong>LSA (Local Security Authority)</strong></td><td>Windows security policy engine that works through LSASS. Manages local security policy, audit policy, user rights, and <strong>LSA Secrets</strong>.</td><td>LSA Secrets may contain service account passwords, scheduled task credentials, cached secrets, and other sensitive information.<br><br><strong>Saved chrome passwords.</strong> </td></tr><tr><td><strong>Winlogon (<code>winlogon.exe</code>)</strong></td><td>Handles the interactive logon process (e.g., Ctrl+Alt+Del, credential prompt, lock screen) and passes user credentials to LSASS for authentication.</td><td>Understanding the logon flow helps explain how Windows authenticates users and where credentials are processed.</td></tr><tr><td><strong>Authentication Packages</strong></td><td>DLLs loaded by LSASS to perform authentication using different protocols. Examples include <code>msv1_0.dll</code> (NTLM), <code>wdigest.dll</code>, <code>tspkg.dll</code>, <code>livessp.dll</code>, <code>negotiate.dll</code> (selects NTLM or Kerberos), and <code>kerberos.dll</code> (Active Directory environments).</td><td>Determines which authentication mechanisms are available and what credential material may be present in LSASS memory. <code>WDigest</code> is especially relevant when plaintext credentials are retained.</td></tr></tbody></table>
 
 {% hint style="info" %}
 **Offensive relevance**
@@ -221,3 +221,45 @@ _`whoami /priv` should be one of the very first commands run on any shell. Any o
 * Group accounts
 * Computer accounts
 * Group policy objects
+
+## Windows Vault and Credential Manager&#x20;
+
+Credential Manager is a feature built into Windows since `Server 2008 R2` and `Windows 7`.
+
+Credentials are stored in special encrypted folders on the computer under the user and system profiles
+
+* `%UserProfile%\AppData\Local\Microsoft\Vault\`
+* `%UserProfile%\AppData\Local\Microsoft\Credentials\`
+* `%UserProfile%\AppData\Roaming\Microsoft\Vault\`
+* `%ProgramData%\Microsoft\Vault\`
+* `%SystemRoot%\System32\config\systemprofile\AppData\Roaming\Microsoft\Vault\`
+
+Each vault folder contains a `Policy.vpol` file with AES keys (AES-128 or AES-256) that is protected by DPAPI. These AES keys are used to encrypt the credentials. Newer versions of Windows make use of `Credential Guard` to further protect the DPAPI master keys by storing them in secured memory enclaves.&#x20;
+
+<table><thead><tr><th width="185.20001220703125">Name</th><th>Description</th></tr></thead><tbody><tr><td>Web Credentials</td><td>Credentials associated with websites and online accounts. This locker is used by Internet Explorer and legacy versions of Microsoft Edge.</td></tr><tr><td>Windows Credentials</td><td>Used to store login tokens for various services such as OneDrive, and credentials related to domain users, local network resources, services, and shared directories.</td></tr></tbody></table>
+
+<figure><img src="../../../.gitbook/assets/image (1669).png" alt=""><figcaption></figcaption></figure>
+
+### Export Windows Vault&#x20;
+
+{% code overflow="wrap" %}
+```
+C:\Users\arjun> rundll32 keymgr.dll,KRShowKeyMgr
+```
+{% endcode %}
+
+It will provide some pop up and then provide things to it and it will save a `.crd` file.&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (1670).png" alt=""><figcaption></figcaption></figure>
+
+Backups created this way are encrypted with a password supplied by the user, and can be imported on other Windows systems.
+
+### Storing interactive credentials of a user&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+cmdkey /add:"Domain:interactive=bakasura\backup" /user:bakasura\backup /pass:B@$$w0rd
+```
+{% endcode %}
+
+<figure><img src="../../../.gitbook/assets/image (1675).png" alt=""><figcaption></figcaption></figure>
