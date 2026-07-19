@@ -322,7 +322,7 @@ _This thing can also be viewed from the credentials manager in the GUI. and we c
 {% code overflow="wrap" %}
 ```
 cmdkey /list
-runas /savecred /user:SRV01\mcharles cmd
+runas /savecred /user:bakasura\backup cmd
 ```
 {% endcode %}
 
