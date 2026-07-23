@@ -148,5 +148,6 @@
   * [Pentesting RDP](infrastructure/enumeration-and-exploitation/pentesting-rdp.md)
   * [Pentesting WinRM](infrastructure/enumeration-and-exploitation/pentesting-winrm.md)
 * [Password Attacks](infrastructure/password-attacks.md)
+* [Credential Hunting](infrastructure/credential-hunting.md)
 * [Privilege Escalation](infrastructure/privilege-escalation/README.md)
   * [Privesc Cases](infrastructure/privilege-escalation/privesc-cases.md)

@@ -843,6 +843,10 @@ groups
 
 <figure><img src="../../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
+### Opasswd file&#x20;
+
+The PAM library (`pam_unix.so`) can prevent users from reusing old passwords. These previous passwords are stored in the `/etc/security/opasswd` file. Administrator (root) privileges are required to read this file, assuming its permissions have not been modified manually.
+
 ### Creating and Managing Users&#x20;
 
 #### Creating a user&#x20;
