@@ -131,6 +131,8 @@
     * [Nmap Scripting Engine (NSE)](infrastructure/tools/nmap/nmap-scripting-engine-nse.md)
     * [Firewall/IDS Evasion & Spoofing](infrastructure/tools/nmap/firewall-ids-evasion-and-spoofing.md)
   * [Metasploit Framework](infrastructure/tools/metasploit-framework.md)
+  * [Hashcat (HC)](infrastructure/tools/hashcat-hc.md)
+  * [John (JtR)](infrastructure/tools/john-jtr.md)
 * [Enumeration and Exploitation](infrastructure/enumeration-and-exploitation/README.md)
   * [Pentesting FTP](infrastructure/enumeration-and-exploitation/pentesting-ftp.md)
   * [Pentesting SSH](infrastructure/enumeration-and-exploitation/pentesting-ssh.md)
