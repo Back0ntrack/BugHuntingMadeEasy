@@ -157,3 +157,22 @@ docker run --rm -v ./manspider:/root/.manspider blacklanternsecurity/manspider 1
 nxc smb 10.129.234.121 -u mendres -p 'Inlanefreight2025!' --spider IT --content --pattern "passw"
 ```
 {% endcode %}
+
+## Windows&#x20;
+
+### Using LaZagne
+
+{% code overflow="wrap" %}
+```cmd
+start LaZagne.exe all
+```
+{% endcode %}
+
+### Using findstr&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+C:\> findstr /SIM /C:"password" *.txt *.ini *.cfg *.config *.xml *.git *.ps1 *.yml
+```
+{% endcode %}
+
