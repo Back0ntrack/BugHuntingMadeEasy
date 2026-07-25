@@ -61,3 +61,17 @@ cat /media/bitlockermount/flag.txt
 {% endcode %}
 
 <figure><img src="../../.gitbook/assets/image (1638).png" alt=""><figcaption></figcaption></figure>
+
+## Password Cracking&#x20;
+
+### Single Crack Mode&#x20;
+
+`Single crack mode` is a rule-based cracking technique that is most useful when targeting Linux credentials. It generates password candidates based on the victim's username, home directory name, and GECOS values (full name, room number, phone number, etc.). These strings are run against a large set of rules that apply common string modifications seen in passwords (e.g. a user whose real name is `Bob Smith` might use `Smith1` as their password).
+
+{% code overflow="wrap" %}
+```bash
+john --single passwd.txt 
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1753).png" alt=""><figcaption></figcaption></figure>
