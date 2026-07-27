@@ -153,3 +153,4 @@
 * [Credential Hunting](infrastructure/credential-hunting.md)
 * [Privilege Escalation](infrastructure/privilege-escalation/README.md)
   * [Privesc Cases](infrastructure/privilege-escalation/privesc-cases.md)
+* [Pivoting, Tunnelling and Port Forwarding](infrastructure/pivoting-tunnelling-and-port-forwarding.md)
