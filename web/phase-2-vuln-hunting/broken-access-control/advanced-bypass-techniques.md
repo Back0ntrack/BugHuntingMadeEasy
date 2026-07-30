@@ -1,6 +1,6 @@
 # Advanced Bypass Techniques
 
-## **Advanced Techniques to Bypass No Rate Limiting, 403 Restrictions**�&#xDEAB;**, and Captcha Validation**🤖
+## **Advanced Techniques to Bypass No Rate Limiting, 403 Restrictions**&#x1F6AB;**, and Captcha Validation**🤖
 
 _**When testing web applications, encountering rate limits, 403 restrictions, or CAPTCHA challenges is common. However, improper implementation of these security measures can often be bypassed using various techniques. Below are 14 advanced methods to bypass these restrictions effectively.**_
 

