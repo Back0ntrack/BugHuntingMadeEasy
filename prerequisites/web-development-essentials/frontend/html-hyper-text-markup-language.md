@@ -299,7 +299,7 @@ An HTML iframe is used to display a web page within a web page.
 The HTML `<head>` element is a container for the following elements: `<title>`, `<style>`, `<meta>`, `<link>`, `<script>`, and `<base>`. HTML metadata is data about the HTML document. Metadata is not displayed on the page.
 
 \
-&#xNAN;**`<link>` element:** used to link to external style sheets.&#x20;
+**`<link>` element:** used to link to external style sheets.&#x20;
 
 ```html
 <link rel="stylesheet" href="mystyle.css">
