@@ -247,3 +247,6 @@ robocopy /B C:\Secret .\ imp.txt
 {% endcode %}
 
 <figure><img src="../../.gitbook/assets/image (1900).png" alt=""><figcaption></figcaption></figure>
+
+## Abusing Print Operators Group&#x20;
+
