@@ -250,6 +250,10 @@ robocopy /B C:\Secret .\ imp.txt
 
 ## Abusing UAC&#x20;
 
+{% hint style="info" %}
+_Need to update this. Don't know exactly how this happens. Just reproduced the exact steps from HTB. Contact creator if this content is not updated._&#x20;
+{% endhint %}
+
 ### Confirming UAC is enabled&#x20;
 
 {% code overflow="wrap" %}
@@ -324,4 +328,238 @@ C:\Windows\SysWOW64\SystemPropertiesAdvanced.exe
 {% endcode %}
 
 <figure><img src="../../.gitbook/assets/image (1904).png" alt=""><figcaption></figcaption></figure>
+
+## Weak Permissions
+
+### Abusing Modifiable Service Binaries
+
+<details>
+
+<summary><strong>Create the vulnerable Environment</strong></summary>
+
+## Create a service
+
+Note that we've made this service with Administrator privileges.&#x20;
+
+1. `New-Item -ItemType Directory -Path "C:\Program Files\VulnService" -Force`
+
+<figure><img src="../../.gitbook/assets/image (1905).png" alt=""><figcaption></figcaption></figure>
+
+2. Create legitimate-looking service.
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+$code = @'
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string dir = @"C:\ProgramData\VulnService";
+        Directory.CreateDirectory(dir);
+
+        string log = Path.Combine(dir, "maintenance.log");
+
+        using (StreamWriter w = new StreamWriter(log, false))
+        {
+            w.WriteLine("========================================");
+            w.WriteLine("      Windows System Maintenance");
+            w.WriteLine("========================================");
+            w.WriteLine("Computer Name    : " + Environment.MachineName);
+            w.WriteLine("User Context     : " + Environment.UserName);
+            w.WriteLine("User Domain      : " + Environment.UserDomainName);
+            w.WriteLine("OS Version       : " + Environment.OSVersion);
+            w.WriteLine("64-bit OS        : " + Environment.Is64BitOperatingSystem);
+            w.WriteLine("Processor Count  : " + Environment.ProcessorCount);
+            w.WriteLine("Windows Directory: " + Environment.GetEnvironmentVariable("WINDIR"));
+            w.WriteLine("Program Files    : " + Environment.GetEnvironmentVariable("ProgramFiles"));
+            w.WriteLine("Report Generated : " + DateTime.Now);
+            w.WriteLine("========================================");
+        }
+    }
+}
+'@
+
+Add-Type -TypeDefinition $code -OutputAssembly "C:\Program Files\VulnService\Service.exe"
+```
+{% endcode %}
+
+3. Test the service&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```ps1
+& "C:\Program Files\VulnService\Service.exe"
+type C:\programData\VulnService\maintenance.log
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1906).png" alt=""><figcaption></figcaption></figure>
+
+## Turn it into a Windows Service&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```ps
+sc create VulnService binPath= "C:\Program Files\VulnService\Service.exe" start= auto obj= LocalSystem
+```
+{% endcode %}
+
+* **`create VulnService`** → Creates a service named `VulnService`.
+* **`binPath=`** → Specifies the executable the service will run.
+* **`start= demand`** → Service starts **manually**, not automatically at boot.
+* **`obj= LocalSystem`** → Service runs as the **LocalSystem account**, which has very high privileges.
+
+<figure><img src="../../.gitbook/assets/image (1915).png" alt=""><figcaption></figcaption></figure>
+
+## Give `esc_priv_user` full control over the binary
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+icacls "C:\Program Files\VulnService\Service.exe" /grant esc_priv_user:F
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1908).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+#### Manual Weak Service Binary ACL Discovery
+
+1. **Enumerate all services**&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+wmic service get name,displayname,pathname,startname
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1910).png" alt=""><figcaption></figcaption></figure>
+
+2. **Query individual service and identify its binary and Start type** &#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+sc.exe qc VulnService
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1913).png" alt=""><figcaption></figcaption></figure>
+
+3. **Check the Executable ACL**&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+icacls <binary location>
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1912).png" alt=""><figcaption></figcaption></figure>
+
+#### Using Custom PowerShell Script to identify Weak Service ACL
+
+{% code overflow="wrap" expandable="true" %}
+```ps1
+$currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+
+# Current user + groups
+$identities = @(
+    $currentUser.Name
+    $currentUser.Groups | ForEach-Object {
+        try {
+            $_.Translate([System.Security.Principal.NTAccount]).Value
+        }
+        catch {}
+    }
+)
+
+Write-Host ""
+Write-Host "Current User: $($currentUser.Name)"
+Write-Host "Checking service executable ACLs..."
+Write-Host ""
+
+$services = Get-CimInstance Win32_Service
+
+foreach ($service in $services) {
+
+    $path = $service.PathName
+
+    if ([string]::IsNullOrWhiteSpace($path)) {
+        continue
+    }
+
+    # Extract executable path from quoted/unquoted service command line
+    if ($path -match '^"([^"]+\.exe)"') {
+        $exe = $matches[1]
+    }
+    elseif ($path -match '^(.+?\.exe)(?:\s|$)') {
+        $exe = $matches[1]
+    }
+    else {
+        continue
+    }
+
+    if (-not (Test-Path -LiteralPath $exe -PathType Leaf)) {
+        continue
+    }
+
+    try {
+        $acl = Get-Acl -LiteralPath $exe -ErrorAction Stop
+    }
+    catch {
+        continue
+    }
+
+    $interesting = @()
+
+    foreach ($rule in $acl.Access) {
+
+        $identity = $rule.IdentityReference.Value
+
+        # Only consider identities belonging to current user/groups
+        if ($identities -contains $identity) {
+
+            $rights = $rule.FileSystemRights.ToString()
+
+            if ($rights -match 'FullControl|Modify|Write') {
+
+                $interesting += [PSCustomObject]@{
+                    Identity   = $identity
+                    Rights     = $rights
+                    AccessType = $rule.AccessControlType
+                }
+            }
+        }
+    }
+
+    if ($interesting.Count -gt 0) {
+
+        Write-Host "========================================"
+        Write-Host "SERVICE : $($service.Name)"
+        Write-Host "DISPLAY : $($service.DisplayName)"
+        Write-Host "BINARY  : $exe"
+        Write-Host "RUN AS  : $($service.StartName)"
+        Write-Host ""
+
+        $interesting | Format-Table -AutoSize
+
+        Write-Host ""
+    }
+}
+```
+{% endcode %}
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+.\Find-WeakServiceBinaries.ps1
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1909).png" alt=""><figcaption></figcaption></figure>
+
+#### Escalating the privileges
+
+<figure><img src="../../.gitbook/assets/image (1914).png" alt=""><figcaption></figcaption></figure>
+
+### Abusing Modifiable Services&#x20;
 
