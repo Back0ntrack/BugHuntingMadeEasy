@@ -1585,3 +1585,9 @@ python3 wes.py systeminfo.txt
 
 <figure><img src="../../.gitbook/assets/image (1956).png" alt=""><figcaption></figcaption></figure>
 
+## Automated Tools&#x20;
+
+These tools are listed in descending order based on their frequency of use and the quality of results observed in our local lab.
+
+<table><thead><tr><th width="101.20001220703125">No.</th><th width="337.20001220703125">Tool</th></tr></thead><tbody><tr><td><ol><li></li></ol></td><td><a href="https://github.com/peass-ng/PEASS-ng/tree/master/winPEAS">WinPEAS</a></td></tr><tr><td><ol start="2"><li></li></ol></td><td><a href="https://github.com/harmj0y/powerup">PowerUp</a> / <a href="https://github.com/ghostpack/sharpup">SharpUp.exe</a></td></tr><tr><td><ol start="3"><li></li></ol></td><td><a href="https://github.com/itm4n/PrivescCheck">PrivescCheck</a></td></tr><tr><td><ol start="4"><li></li></ol></td><td><a href="https://github.com/rasta-mouse/Watson.git">Watson.exe</a></td></tr><tr><td><ol start="5"><li></li></ol></td><td><a href="https://github.com/411Hall/JAWS">JAWS</a></td></tr><tr><td><ol start="6"><li></li></ol></td><td><a href="https://github.com/bitsadmin/wesng">Windows Exploit Suggester</a></td></tr></tbody></table>
+

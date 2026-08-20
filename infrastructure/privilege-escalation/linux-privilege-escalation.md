@@ -793,5 +793,7 @@ On a vulnerable system with a rule such as `(ALL, !root)`, the `-1` UID is inter
 
 ## Using Automated tools
 
-### Using <kbd>Linux-Exploit-Suggester.sh</kbd>
+These tools are listed in descending order based on their frequency of use and the quality of results observed in our local lab.
+
+<table><thead><tr><th width="91.60003662109375">No.</th><th width="331.60003662109375">Tool</th></tr></thead><tbody><tr><td><ol><li></li></ol></td><td><a href="https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS">LinPEAS</a></td></tr><tr><td><ol start="2"><li></li></ol></td><td><a href="https://github.com/rebootuser/linenum">LinEnum</a></td></tr><tr><td><ol start="3"><li></li></ol></td><td><a href="https://github.com/diego-treitos/linux-smart-enumeration">Linux Smart Enumeration</a></td></tr><tr><td><ol start="4"><li></li></ol></td><td>Linux Exploit Suggester (BuiltIn Tool)</td></tr></tbody></table>
 
