@@ -18,6 +18,8 @@ layout:
     visible: true
   actions:
     visible: true
+  anchors:
+    visible: true
 ---
 
 # Windows Fundamentals
@@ -221,6 +223,69 @@ _`whoami /priv` should be one of the very first commands run on any shell. Any o
 * Group accounts
 * Computer accounts
 * Group policy objects
+
+## Windows Account Security&#x20;
+
+{% hint style="info" %}
+_Windows does not authorize activities based on a username alone. It uses security identities, groups, privileges, permissions and access tokens._
+{% endhint %}
+
+### Windows Identities&#x20;
+
+<table data-search="false"><thead><tr><th width="138">Term</th><th>Meaning</th></tr></thead><tbody><tr><td>User account</td><td>An identity representing a user or workload</td></tr><tr><td>Group</td><td>A collection of security identities</td></tr><tr><td>SID</td><td>Security Identifier; the unique identifier Windows uses for an identity</td></tr><tr><td>Security principal</td><td>An identity that can receive permissions or rights</td></tr><tr><td>Privilege</td><td>Authorization to perform a system-level operation</td></tr><tr><td>Permission</td><td>Access to a specific resource, such as a file or folder</td></tr><tr><td>Access token</td><td>Security information attached to a process or session</td></tr></tbody></table>
+
+### Categories of Windows accounts&#x20;
+
+<table data-search="false"><thead><tr><th width="119">Category</th><th width="141">Example</th><th>Purpose</th></tr></thead><tbody><tr><td>Local user</td><td><code>.\jerry</code></td><td>Account stored on the computer</td></tr><tr><td>Microsoft account</td><td>Personal Microsoft login</td><td>Human sign-in linked to Microsoft</td></tr><tr><td>Domain user</td><td><code>CORP\jerry</code></td><td>Account managed through Active Directory</td></tr><tr><td>Built-in account</td><td>Administrator</td><td>Created by Windows</td></tr><tr><td>Service account</td><td><code>.\svc_app</code></td><td>Runs background applications/services</td></tr><tr><td>Virtual account</td><td><code>NT SERVICE\MyService</code></td><td>Windows-managed service identity</td></tr><tr><td>Managed service account</td><td><code>CORP\WebSvc$</code></td><td>Domain-managed service identity</td></tr></tbody></table>
+
+### Built-in Windows Accounts&#x20;
+
+{% hint style="info" %}
+_Note: All the below user accounts are available only in fresh Windows installation and generally disabled by default._&#x20;
+{% endhint %}
+
+1. **Administrator**
+
+* SID ends in `-500`.
+* Intended for system administration.
+* Can create users, change permissions and administer services.
+
+1. **Guest**
+
+* SID ends in `-501`.
+* Intended for temporary guest access.
+* Limited permissions.
+
+1. **DefaultAccount**
+
+* SID ends in `-503`.
+* Also called Default System Managed Account.
+* System-managed identity.
+* Not intended for normal human login.
+
+1. **WDAGUtilityAccount**
+
+* SID ends in `-504`.
+* Used by Windows Defender Application Guard.
+* Usually not used for ordinary interactive login.
+* Presence depends on Windows features.
+
+### Understanding Service Account&#x20;
+
+A service account is the security identity under which a Windows service runs. It determines what the service can access, what operations it can perform, and what happens when it communicates with local or network resources.
+
+#### The main categories of Windows service accounts
+
+There are several types. The most important ones to understand on a Windows 10 machine are:
+
+* _**LocalSystem (NT AUTHORITY/SYSTEM)**_ — a highly privileged built-in local identity. It has Unlimited Local Privileges.&#x20;
+* _**LocalService (NT AUTHORITY/LOCAL SERVICE)**_ — a built-in identity intended for services needing limited local access. presents `null` credentials while accessing the network.&#x20;
+* _**NetworkService**_ — a built-in identity with limited local access and a machine identity for network authentication managed by `Service Control Manager`. While accessing remote services it can present the computer's credential.&#x20;
+* _**Virtual service accounts**_ — identities such as `NT SERVICE\W32Time`, associated with individual services.
+* _**Ordinary user accounts**_ — local or domain users explicitly configured to run services.
+* _**Managed service accounts**_ — domain-managed identities, including group Managed Service Accounts (gMSAs).
+
+**Service account usage:** _The Service Control Manager logs on to the configured account ⇒ Windows creates an access token ⇒ and that token is attached to the service process._
 
 ## UAC (User Account Control)
 
