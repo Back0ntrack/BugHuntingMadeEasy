@@ -482,3 +482,9 @@ _IIS automatically adds the `IIS_IUSRS` security identifier (SID) to the worker 
 {% hint style="danger" %}
 Thus whenever anyone will get a web shell through `aspx` he'll be able to escalate privileges using `SeImpersonate Privileges`.&#x20;
 {% endhint %}
+
+## XAMPP&#x20;
+
+1. Generally XAMPP runs under the security context of the user who executes it.
+2. But when we install Apache2.4 as a Windows service using Apache service installation functionality then by default it executes with the permission of NT Authority\SYSTEM.
+3. When we change the Log On property of that service to use normal account and restarted the service, since it is a service managed by SCM, Windows assign `NT Authority\SERVICE SID` to that process while executing under normal user's account and thus normal user will get the SeImpersonatePrivilege in the web shell.
