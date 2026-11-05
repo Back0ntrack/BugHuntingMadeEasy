@@ -358,3 +358,127 @@ cmdkey /add:"Domain:interactive=bakasura\backup" /user:bakasura\backup /pass:B@$
 {% endcode %}
 
 <figure><img src="../../../.gitbook/assets/image (1675).png" alt=""><figcaption></figcaption></figure>
+
+## Internet Information Services (IIS)
+
+### What is IIS ?&#x20;
+
+**Internet Information Services (IIS)** is Microsoft's web server software for Windows.
+
+It allows Windows systems to host websites, web applications, APIs and web services over HTTP/HTTPS.
+
+IIS can serve:
+
+* Static content (HTML, CSS, JavaScript, images).
+* Dynamic applications (ASP.NET).
+* Web APIs and backend services.
+* Internal enterprise applications.
+* Application-to-application services.
+
+### Important IIS Concepts&#x20;
+
+<table><thead><tr><th width="130.20001220703125">Component</th><th>Responsibility</th></tr></thead><tbody><tr><td>HTTP.sys</td><td>Kernel-mode HTTP listener. Receives HTTP requests and manages request queues.</td></tr><tr><td>W3SVC</td><td>World Wide Web Publishing Service. Handles HTTP-specific IIS configuration and listener management.</td></tr><tr><td>WAS</td><td>Windows Process Activation Service. Manages application pools and worker processes.</td></tr><tr><td>w3wp.exe</td><td>IIS worker process. Executes web applications and processes requests.</td></tr><tr><td>IIS Manager</td><td>GUI used to configure websites, applications and application pools.</td></tr></tbody></table>
+
+#### Request Processing&#x20;
+
+```
+HTTP Request
+     |
+     v
+ HTTP.sys
+     |
+     v
+    WAS
+     |
+     v
+Application Pool
+     |
+     v
+   w3wp.exe
+     |
+     v
+Web Application
+     |
+     v
+HTTP Response
+```
+
+### IIS Sites and Application pool&#x20;
+
+#### Sites
+
+A **Site** is a container in IIS that hosts web applications and makes them accessible through configured network endpoints.
+
+IIS Manager provides a `Sites` section where websites can be created and managed.
+
+When IIS is installed, it normally creates a website named:
+
+`Default Web Site`
+
+Its default physical directory is:
+
+```
+C:\inetpub\wwwroot
+```
+
+Its default HTTP binding normally uses port 80.
+
+#### Application Pool
+
+An **Application Pool** provides an isolated execution environment for IIS applications.
+
+Its main purpose is to separate applications and manage their execution.
+
+**E.g.,**&#x20;
+
+```
+IIS
+ |
+ |-- Application Pool A
+ |      |
+ |      |-- w3wp.exe
+ |      |
+ |      |-- Application A
+ |
+ |-- Application Pool B
+        |
+        |-- w3wp.exe
+        |
+        |-- Application B
+```
+
+#### Application pool Identity&#x20;
+
+IIS worker processes execute under an identity configured in their application pool.
+
+#### A. ApplicationPoolIdentity
+
+By default, IIS application pools generally use:
+
+`ApplicationPoolIdentity`
+
+This is a virtual identity managed by IIS and Windows.
+
+Example:
+
+```
+IIS AppPool\DefaultAppPool
+```
+
+It is not a normal local user account.
+
+Windows creates a unique security identifier (SID) for each application pool, which can be used to assign NTFS permissions.
+
+### IIS\_IUSRS Group&#x20;
+
+`IIS_IUSRS` is a built-in local Windows group created as part of IIS installation.
+
+It acts as a security group for IIS application pool identities. IIS\_IUSRS by default has the `SeImpersonate Privileges` available with it.&#x20;
+
+{% hint style="info" %}
+_IIS automatically adds the `IIS_IUSRS` security identifier (SID) to the worker process token at runtime by default to all the application pool running._&#x20;
+{% endhint %}
+
+{% hint style="danger" %}
+Thus whenever anyone will get a web shell through `aspx` he'll be able to escalate privileges using `SeImpersonate Privileges`.&#x20;
+{% endhint %}
